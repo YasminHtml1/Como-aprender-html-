@@ -1,0 +1,1236 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplos Interativos de HTML e CSS - Parte 2 (Capítulos 20 a 40)</title>
+    <link rel="icon" type="image/x-icon" href="Imagens_html/Icone_html.png">
+
+    <!-- FONTE DO GOOGLE (Ex: Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" 
+        rel="stylesheet">
+
+    <!-- ESTILOS CSS (mantendo o mesmo padrão da Parte 1) -->
+    <style>
+        /* RESET BÁSICO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CORPO GERAL */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(to top right, #ece9e6, #ffffff);
+            color: #333;
+            padding: 20px;
+        }
+
+        /* CABEÇALHO */
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        header h1 {
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #2b2b2b;
+        }
+        header p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* SUMÁRIO */
+        #sumario {
+            background-color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #sumario h2 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: #2b2b2b;
+        }
+        #sumario ul {
+            list-style: none;
+        }
+        #sumario ul li {
+            margin-bottom: 0.5rem;
+        }
+        #sumario ul li a {
+            color: #5c7cfa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        #sumario ul li a:hover {
+            color: #1c5ed6;
+        }
+
+        /* NAVEGAÇÃO SUPERIOR */
+        .topo-navegacao {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .topo-navegacao a,
+        .topo-navegacao button {
+            padding: 0.7rem 1rem;
+            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            background-color: #5c7cfa;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .topo-navegacao a:hover,
+        .topo-navegacao button:hover {
+            background-color: #3b5bdb;
+            transform: translateY(-2px);
+        }
+
+        /* CONTAINER DOS CAPÍTULOS */
+        .capitulo {
+            display: none; /* Todos iniciam escondidos; só o “ativo” aparece */
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .capitulo.ativo {
+            display: block;
+        }
+        .capitulo h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #2b2b2b;
+        }
+        .capitulo p {
+            margin-bottom: 1rem;
+            color: #444;
+        }
+
+        /* EXEMPLO DE CÓDIGO (mostra/esconde) */
+        .tag-exemplo {
+            background-color: #f0f4ff;
+            padding: 1rem 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #5c7cfa;
+            border-radius: 5px;
+            position: relative;
+        }
+        .tag-exemplo h3 {
+            margin-bottom: 0.5rem;
+            color: #1e1e1e;
+        }
+        .tag-exemplo p {
+            margin-bottom: 0.5rem;
+        }
+        pre {
+            background-color: #fff;
+            padding: 0.8rem;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* BOTÃO DE MOSTRAR/ESCONDER CÓDIGO */
+        .mostrar-codigo-btn {
+            margin: 0.5rem 0;
+            padding: 0.5rem 0.8rem;
+            background-color: #3b5bdb;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .mostrar-codigo-btn:hover {
+            background-color: #274c9e;
+            transform: translateY(-1px);
+        }
+        .codigo-exemplo {
+            display: none; /* Inicia oculto */
+            margin-top: 1rem;
+        }
+
+        /* EXEMPLO INTERATIVO */
+        .exemplo-interativo {
+            background-color: #e7ffe6;
+            padding: 1rem 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #51cf66;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .exemplo-interativo h3 {
+            margin-bottom: 0.5rem;
+            color: #1e1e1e;
+        }
+        .exemplo-interativo label {
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+        .exemplo-interativo input[type="text"],
+        .exemplo-interativo input[type="color"],
+        .exemplo-interativo input[type="number"],
+        .exemplo-interativo select,
+        .exemplo-interativo textarea {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+        }
+        .exemplo-interativo button {
+            margin-top: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            background-color: #2f9e44;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .exemplo-interativo button:hover {
+            background-color: #1b6d2f;
+            transform: translateY(-1px);
+        }
+        .exemplo-interativo-output {
+            margin-top: 1rem;
+            background-color: #fff;
+            border: 1px solid #c8f5cf;
+            padding: 0.5rem;
+            border-radius: 5px;
+            min-height: 40px;
+        }
+
+        /* AJUSTE PARA TAGS LADO A LADO */
+        .tags-lado {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .tags-lado code {
+            background-color: #ddd;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        /* RODAPÉ */
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        #parte1:hover{
+           background-color: rgba(255, 228, 225, 0.753);
+           color:  #000;
+           
+        }
+        #parte1{
+            background-color: mistyrose;
+            color: #000;
+        }
+        #parte2:hover{
+           background-color: rgba(255, 228, 225, 0.753);
+           color:  #000;
+           
+        }
+        #parte2{
+            background-color: mistyrose;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <h1>Exemplos Interativos de HTML e CSS - Parte 2</h1>
+        <p>Capítulos 20 a 40</p>
+    </header>
+     <!-- NAVEGAÇÃO SUPERIOR -->
+     <div class="topo-navegacao">
+        
+        <!-- Se quiser voltar para a Parte 1: -->
+        <a href="../html1.html" id="parte1">Ir para a Parte 1 (1..19/20)</a>
+        <a href="html3.html" id="parte2">Ir para a parte 3 (40..59/60)</a>
+        <button onclick="mudarCapitulo(-1)">← Capítulo Anterior</button>
+        <button onclick="mudarCapitulo(1)">Próximo Capítulo →</button>
+    </div>
+
+
+
+   
+
+    <!-- AQUI VÃO APENAS OS CAPÍTULOS DE 20 A 40 -->
+
+    <!-- CAPÍTULO 20 (pode ou não repetir o conteúdo do capítulo 20 da parte1) -->
+    <div id="capitulo20" class="capitulo ativo">
+        <h2>Capítulo 20: Como o CSS Funciona?</h2>
+        <p>O CSS funciona em <em>cascata</em>. Regras gerais (ex: no <code>body</code>) se aplicam a todos os elementos, a menos que haja uma regra mais específica.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Cascata</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>body {
+    color: blue;   /* Tudo azul */
+}
+h1 {
+    color: red;    /* h1 fica vermelho, sobrescreve azul */
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Cor do Body e do H1</h3>
+            <label for="bodyColor20">Cor global (body):</label>
+            <input type="color" id="bodyColor20" value="#0000ff">
+            <label for="h1Color20">Cor do h1:</label>
+            <input type="color" id="h1Color20" value="#ff0000">
+            <button onclick="exemplo20()">Aplicar</button>
+            <div id="output20" class="exemplo-interativo-output">
+                <h1 id="ex20h1">Título de Exemplo</h1>
+                <p>Texto de parágrafo. Observe a herança de cor.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 21 -->
+    <div id="capitulo21" class="capitulo">
+        <h2>Capítulo 21: Como Usar o CSS?</h2>
+        <p>O CSS pode ser adicionado a documentos HTML de 3 maneiras: Inline, Interno, ou Externo. 
+           Manter o CSS em arquivos separados costuma ser a forma mais organizada.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de CSS Inline</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;h1 style="color:blue;"&gt;Título Azul&lt;/h1&gt;
+&lt;p style="color:red;"&gt;Texto Vermelho&lt;/p&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Escolha como aplicar CSS</h3>
+            <p>(Demonstração simples de inline vs. interno)</p>
+            <label for="cssModo21">Modo:</label>
+            <select id="cssModo21">
+                <option value="inline">Inline</option>
+                <option value="interno">Interno</option>
+            </select>
+            <button onclick="exemplo21()">Gerar Exemplo</button>
+            <div id="output21" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 22 -->
+    <div id="capitulo22" class="capitulo">
+        <h2>Capítulo 22: CSS Interno</h2>
+        <p>CSS interno é definido dentro da tag <code>&lt;style&gt;</code> na seção <code>&lt;head&gt;</code> de uma página, afetando apenas aquele HTML.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de CSS Interno</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;style&gt;
+body {background-color: powderblue;}
+h1   {color: blue;}
+p    {color: red;}
+&lt;/style&gt;
+</pre>
+            </div>
+            <p><strong>Status:</strong> CSS Interno no &lt;head&gt;</p>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Defina cores usando CSS Interno</h3>
+            <label for="colorBody22">Cor Fundo (body):</label>
+            <input type="color" id="colorBody22" value="#b0e0e6">
+            <label for="colorH122">Cor H1:</label>
+            <input type="color" id="colorH122" value="#0000ff">
+            <label for="colorP22">Cor Parágrafo:</label>
+            <input type="color" id="colorP22" value="#ff0000">
+            <button onclick="exemplo22()">Aplicar</button>
+            <div id="output22" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 23 -->
+    <div id="capitulo23" class="capitulo">
+        <h2>Capítulo 23: Links HTML - Sintaxe</h2>
+        <p>A tag <code>&lt;a&gt;</code> define um hyperlink. Sintaxe:</p>
+        <pre>&lt;a href="url"&gt;texto do link&lt;/a&gt;</pre>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Link</h3>
+            <a href="https://www.w3schools.com/">Visite W3Schools.com!</a>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;a href="https://www.w3schools.com/"&gt;Visite W3Schools.com!&lt;/a&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie seu link básico</h3>
+            <label for="linkHref23">URL:</label>
+            <input type="text" id="linkHref23" value="https://www.google.com/">
+            <label for="linkText23">Texto do Link:</label>
+            <input type="text" id="linkText23" value="Pesquisar no Google">
+            <button onclick="exemplo23()">Gerar Link</button>
+            <div id="output23" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 24 -->
+    <div id="capitulo24" class="capitulo">
+        <h2>Capítulo 24: O Atributo <code>target</code></h2>
+        <p>O <code>target</code> define onde abrir a página vinculada: 
+           <code>_self</code>, <code>_blank</code>, <code>_parent</code>, <code>_top</code>.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de link abrindo em nova aba</h3>
+            <a href="https://www.w3schools.com/" target="_blank">Abrir em nova aba</a>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;a href="https://www.w3schools.com/" target="_blank"&gt;Abrir em nova aba&lt;/a&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Selecione o target</h3>
+            <label for="linkTarget24">URL:</label>
+            <input type="text" id="linkTarget24" value="https://www.youtube.com">
+            <select id="targetOpt24">
+                <option value="_self">_self (mesma aba)</option>
+                <option value="_blank">_blank (nova aba)</option>
+                <option value="_parent">_parent</option>
+                <option value="_top">_top</option>
+            </select>
+            <button onclick="exemplo24()">Gerar Link</button>
+            <div id="output24" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 25 -->
+    <div id="capitulo25" class="capitulo">
+        <h2>Capítulo 25: URLs Absolutas vs. URLs Relativas</h2>
+        <p>URLs absolutas contêm o endereço completo (ex: <code>https://www...</code>).  
+           URLs relativas usam caminhos locais (ex: <code>/pasta/arquivo.html</code>).</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de URLs Absolutas</h3>
+<pre>&lt;a href="https://www.w3.org/"&gt;W3C&lt;/a&gt;
+&lt;a href="https://www.google.com/"&gt;Google&lt;/a&gt;
+</pre>
+            <h3>Exemplo de URLs Relativas</h3>
+<pre>&lt;a href="html_images.asp"&gt;HTML Images&lt;/a&gt;
+&lt;a href="/css/default.asp"&gt;CSS Tutorial&lt;/a&gt;
+</pre>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Escolha qual tipo de URL gerar</h3>
+            <select id="urlTipo25">
+                <option value="absoluta">Absoluta</option>
+                <option value="relativa">Relativa</option>
+            </select>
+            <label for="urlTexto25">Texto do Link:</label>
+            <input type="text" id="urlTexto25" value="Meu Link">
+            <button onclick="exemplo25()">Gerar</button>
+            <div id="output25" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 26 -->
+    <div id="capitulo26" class="capitulo">
+        <h2>Capítulo 26: Usando uma Imagem como Link</h2>
+        <p>Coloque <code>&lt;img&gt;</code> dentro de <code>&lt;a&gt;</code> para criar um link com imagem clicável.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Imagem Linkada</h3>
+            <a href="default.asp">
+                <img src="Imagens_html/CssAnime.jpg" alt="HTML tutorial" style="width:190px;height:190px;">
+            </a>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;a href="default.asp"&gt;
+    &lt;img src="Imagens_html/CssAnime.jpg" alt="HTML tutorial" style="width:190px;height:190px;"&gt;
+&lt;/a&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie imagem-link</h3>
+            <label for="imgLink26">URL do Link:</label>
+            <input type="text" id="imgLink26" value="https://www.google.com">
+            <label for="imgSrc26">URL da Imagem:</label>
+            <input type="text" id="imgSrc26" value="Imagens_html/CssAnime.jpg">
+            <button onclick="exemplo26()">Gerar</button>
+            <div id="output26" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 27 -->
+    <div id="capitulo27" class="capitulo">
+        <h2>Capítulo 27: Link para um Endereço de E-mail</h2>
+        <p>Use <code>mailto:</code> dentro de <code>href</code> para abrir o programa de e-mail do usuário:</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Link Email</h3>
+            <a href="mailto:someone@example.com">Enviar e-mail</a>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;a href="mailto:someone@example.com"&gt;Enviar e-mail&lt;/a&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie seu link de e-mail</h3>
+            <label for="mail27">E-mail:</label>
+            <input type="text" id="mail27" value="contato@exemplo.com">
+            <button onclick="exemplo27()">Gerar Link</button>
+            <div id="output27" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 28 -->
+    <div id="capitulo28" class="capitulo">
+        <h2>Capítulo 28: Botão como um Link</h2>
+        <p>Para usar um botão como link, podemos usar JavaScript no evento <code>onclick</code>:</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Botão-Link</h3>
+            <button onclick="document.location='default.asp'">HTML Tutorial</button>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;button onclick="document.location='default.asp'"&gt;HTML Tutorial&lt;/button&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie um botão que redireciona</h3>
+            <label for="btnLink28">URL:</label>
+            <input type="text" id="btnLink28" value="https://www.youtube.com">
+            <label for="btnText28">Texto do Botão:</label>
+            <input type="text" id="btnText28" value="Ir para YouTube">
+            <button onclick="exemplo28()">Gerar</button>
+            <div id="output28" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 29 -->
+    <div id="capitulo29" class="capitulo">
+        <h2>Capítulo 29: Títulos de Links</h2>
+        <p>O atributo <code>title</code> mostra informações extras ao passar o mouse sobre o link.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de atributo title</h3>
+            <a href="https://www.w3schools.com/html/" title="Ir para tutorial de HTML">Visite nosso Tutorial de HTML</a>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;a href="..." title="Go to... "&gt;Texto&lt;/a&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Adicione title a um link</h3>
+            <label for="linkUrl29">URL:</label>
+            <input type="text" id="linkUrl29" value="https://www.exemplo.com">
+            <label for="linkText29">Texto:</label>
+            <input type="text" id="linkText29" value="Clique Aqui">
+            <label for="linkTitle29">Title:</label>
+            <input type="text" id="linkTitle29" value="Informação extra">
+            <button onclick="exemplo29()">Gerar Link</button>
+            <div id="output29" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 30 -->
+    <div id="capitulo30" class="capitulo">
+        <h2>Capítulo 30: Mais sobre URLs Absolutas e Relativas</h2>
+        <p>Exemplos de uso de URL absoluta e relativa.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplos</h3>
+<pre>&lt;a href="https://www.w3schools.com/html/default.asp"&gt;HTML tutorial&lt;/a&gt;
+&lt;a href="/html/default.asp"&gt;HTML tutorial&lt;/a&gt;
+&lt;a href="default.asp"&gt;HTML tutorial&lt;/a&gt;
+</pre>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie links com paths diferentes</h3>
+            <label for="urlAbs30">URL Absoluto:</label>
+            <input type="text" id="urlAbs30" value="https://www.seusite.com/pagina">
+            <br>
+            <label for="urlRel30">URL Relativo:</label>
+            <input type="text" id="urlRel30" value="minhapasta/pagina.html">
+            <button onclick="exemplo30()">Gerar Links</button>
+            <div id="output30" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 31 -->
+    <div id="capitulo31" class="capitulo">
+        <h2>Capítulo 31: Cores de Link HTML</h2>
+        <p>Por padrão, links não visitados são azuis, visitados são roxos, e ativos são vermelhos. Podemos mudar isso com CSS nos seletores <code>a:link</code>, <code>a:visited</code>, <code>a:hover</code> e <code>a:active</code>.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de CSS para Links</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>a:link {
+  color: green;
+}
+a:visited {
+  color: pink;
+}
+a:hover {
+  color: red;
+  text-decoration: underline;
+}
+a:active {
+  color: yellow;
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Personalize as cores de link</h3>
+            <label for="linkColor31">a:link</label>
+            <input type="color" id="linkColor31" value="#008000">
+            <label for="visitedColor31">a:visited</label>
+            <input type="color" id="visitedColor31" value="#ffc0cb">
+            <button onclick="exemplo31()">Aplicar</button>
+            <div id="output31" class="exemplo-interativo-output">
+                <p>
+                    <a href="https://www.google.com" target="_blank">Google Link</a><br>
+                    <a href="https://www.w3schools.com" target="_blank">W3Schools Link</a>
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 32 -->
+    <div id="capitulo32" class="capitulo">
+        <h2>Capítulo 32: Botões de Link</h2>
+        <p>Podemos estilizar um <code>&lt;a&gt;</code> para parecer um botão usando CSS (background, padding, etc.).</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Botão Link</h3>
+            <a href="#">Este é um link estilo botão</a>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>a {
+  background-color: #f44336;
+  color: white;
+  padding: 15px 25px;
+  text-decoration: none;
+  display: inline-block;
+}
+a:hover {
+  background-color: red;
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie seu link-botão</h3>
+            <label for="btnLink32">URL:</label>
+            <input type="text" id="btnLink32" value="https://www.facebook.com">
+            <label for="btnText32">Texto:</label>
+            <input type="text" id="btnText32" value="Facebook">
+            <button onclick="exemplo32()">Gerar Link-Botão</button>
+            <div id="output32" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 33 -->
+    <div id="capitulo33" class="capitulo">
+        <h2>Capítulo 33: Atributo <code>target</code> (Detalhes)</h2>
+        <p>Reforço: <code>_self</code>, <code>_blank</code>, <code>_parent</code>, <code>_top</code>.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo</h3>
+            <a href="https://www.w3schools.com/" target="_blank">Visite W3Schools!</a>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;a href="https://www.w3schools.com/" target="_blank"&gt;Visite W3Schools!&lt;/a&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Selecione target novamente</h3>
+            <label for="linkTarget33">URL:</label>
+            <input type="text" id="linkTarget33" value="https://www.github.com">
+            <select id="targetOpt33">
+                <option value="_blank">_blank</option>
+                <option value="_self">_self</option>
+                <option value="_parent">_parent</option>
+                <option value="_top">_top</option>
+            </select>
+            <button onclick="exemplo33()">Gerar Link</button>
+            <div id="output33" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 34 -->
+    <div id="capitulo34" class="capitulo">
+        <h2>Capítulo 34: Marcadores em HTML</h2>
+        <p>Crie marcadores com <code>id</code> e links com <code>href="#id"</code> para navegação interna na mesma página.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Marcador</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;h2 id="C4"&gt;Capítulo 4&lt;/h2&gt;
+&lt;a href="#C4"&gt;Ir para o Capítulo 4&lt;/a&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Gerar um link com marcador</h3>
+            <label for="anchorId34">ID do Marcador:</label>
+            <input type="text" id="anchorId34" value="SecaoEspecial">
+            <label for="anchorText34">Texto do Link:</label>
+            <input type="text" id="anchorText34" value="Ir para Seção Especial">
+            <button onclick="exemplo34()">Gerar</button>
+            <div id="output34" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 35 -->
+    <div id="capitulo35" class="capitulo">
+        <h2>Capítulo 35: Uso da tag <code>&lt;img&gt;</code> (Inserção de Imagem)</h2>
+        <p>A tag <code>&lt;img&gt;</code> exibe uma imagem. É vazia (não tem fechamento) e utiliza atributos como <code>src</code> e <code>alt</code>.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Várias Imagens</h3>
+            <div class="tags-lado">
+                <img src="Imagens_html/italia.jpeg" alt="Italian Trulli" width="120">
+                <code>&lt;img src="italia.jpeg" alt="Italian Trulli"&gt;</code>
+            </div>
+            <div class="tags-lado">
+                <img src="Imagens_html/GarotaCasaco.jpeg" alt="Garota de casaco" width="120">
+                <code>&lt;img src="GarotaCasaco.jpeg" alt="Garota casaco"&gt;</code>
+            </div>
+        </div>
+        
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Exiba uma imagem</h3>
+            <label for="src35">URL da Imagem:</label>
+            <input type="text" id="src35" value="Imagens_html/florrosa.jpeg">
+            <label for="alt35">alt:</label>
+            <input type="text" id="alt35" value="Flor bonita">
+            <button onclick="exemplo35()">Mostrar Imagem</button>
+            <div id="output35" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 36 -->
+    <div id="capitulo36" class="capitulo">
+        <h2>Capítulo 36: Imagens de Fundo em Elementos HTML</h2>
+        <p>Use <code>background-image</code> no CSS para definir uma imagem de fundo em <code>body</code> ou em outro elemento.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de background-image</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>body {
+  background-image: url('img_girl.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Aplique uma imagem de fundo no container</h3>
+            <label for="bgImg36">URL da Imagem:</label>
+            <input type="text" id="bgImg36" value="Imagens_html/GarotaCasaco.jpeg">
+            <button onclick="exemplo36()">Aplicar</button>
+            <div id="output36" class="exemplo-interativo-output" style="min-height:150px;">
+                <p>Conteúdo com fundo...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 37 -->
+    <div id="capitulo37" class="capitulo">
+        <h2>Capítulo 37: Resumo do Atributo <code>id</code> no HTML</h2>
+        <p><code>id</code> define um identificador exclusivo para um elemento. Pode ser usado para CSS, JS e marcadores.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de #myHeader e .city</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>#myHeader {
+  background-color: lightblue;
+  ...
+}
+.city {
+  background-color: tomato;
+  ...
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie um elemento com id</h3>
+            <label for="id37">ID do Elemento:</label>
+            <input type="text" id="id37" value="meuTitulo">
+            <label for="txt37">Texto:</label>
+            <input type="text" id="txt37" value="Título com ID único">
+            <button onclick="exemplo37()">Gerar</button>
+            <div id="output37" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 38 -->
+    <div id="capitulo38" class="capitulo">
+        <h2>Capítulo 38: Atributo <code>iframe</code></h2>
+        <p><code>&lt;iframe&gt;</code> permite incorporar outra página dentro da sua página.  
+           Use <code>src</code> para a URL, <code>height</code>, <code>width</code>, e <code>title</code> por acessibilidade.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Iframe</h3>
+            <iframe src="https://mythicalstress.com/" title="Exemplo de Iframe" style="border:none; width:300px; height:200px;"></iframe>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;iframe src="https://mythicalstress.com/" title="Exemplo" 
+        style="border:none; width:300px; height:200px;"&gt;&lt;/iframe&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Gere um iframe</h3>
+            <label for="url38">URL do Iframe:</label>
+            <input type="text" id="url38" value="https://www.w3schools.com">
+            <label for="w38">Largura (px):</label>
+            <input type="number" id="w38" value="300" style="width:60px;">
+            <label for="h38">Altura (px):</label>
+            <input type="number" id="h38" value="200" style="width:60px;">
+            <button onclick="exemplo38()">Inserir</button>
+            <div id="output38" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 39 -->
+    <div id="capitulo39" class="capitulo">
+        <h2>Capítulo 39: Tag <code>&lt;script&gt;</code></h2>
+        <p><code>&lt;script&gt;</code> define scripts JavaScript. Pode ser interno (<code>&lt;script&gt; ... &lt;/script&gt;</code>) ou externo (<code>&lt;script src="arquivo.js"&gt;</code>).</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Script Básico</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;script&gt;
+document.getElementById("demo").innerHTML = "Olá JavaScript!";
+&lt;/script&gt;
+&lt;noscript&gt;Seu navegador não suporta JavaScript&lt;/noscript&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Alterar conteúdo via JS</h3>
+            <label for="txt39">Texto:</label>
+            <input type="text" id="txt39" value="Mensagem via JavaScript">
+            <button onclick="exemplo39()">Aplicar</button>
+            <div id="output39" class="exemplo-interativo-output">
+                <p id="demo39">Conteúdo inicial</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 40 -->
+    <div id="capitulo40" class="capitulo">
+        <h2>Capítulo 40: Seu Próximo Passo!</h2>
+        <p>Você concluiu 40 capítulos de HTML e CSS básicos e intermediários!  
+           Aprofunde-se em JavaScript, frameworks, bibliotecas, etc.</p>
+
+        <div class="tag-exemplo">
+            <h3>Parabéns pela Conclusão!</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;!-- Nada como continuar aprendendo! --&gt;
+&lt;!-- Fim do Capítulo 40 --&gt;
+</pre>
+            </div>
+        </div>
+            <!-- SUMÁRIO (apenas 20..40) -->
+   
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Deixe uma mensagem final!</h3>
+            <label for="txt40">Mensagem:</label>
+            <input type="text" id="txt40" value="Obrigado pelo curso!">
+            <button onclick="exemplo40()">Mostrar</button>
+            <div id="output40" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+    <div id="sumario">
+        <h2>Sumário (Parte 2)</h2>
+        <ul>
+            <li><a href="#capitulo20" onclick="irParaCapitulo(20)">Capítulo 20: Como o CSS Funciona?</a></li>
+            <li><a href="#capitulo21" onclick="irParaCapitulo(21)">Capítulo 21: Como Usar o CSS?</a></li>
+            <li><a href="#capitulo22" onclick="irParaCapitulo(22)">Capítulo 22: CSS Interno</a></li>
+            <li><a href="#capitulo23" onclick="irParaCapitulo(23)">Capítulo 23: Links HTML - Sintaxe</a></li>
+            <li><a href="#capitulo24" onclick="irParaCapitulo(24)">Capítulo 24: O Atributo target</a></li>
+            <li><a href="#capitulo25" onclick="irParaCapitulo(25)">Capítulo 25: URLs Absolutas vs. Relativas</a></li>
+            <li><a href="#capitulo26" onclick="irParaCapitulo(26)">Capítulo 26: Usando uma Imagem como Link</a></li>
+            <li><a href="#capitulo27" onclick="irParaCapitulo(27)">Capítulo 27: Link para E-mail</a></li>
+            <li><a href="#capitulo28" onclick="irParaCapitulo(28)">Capítulo 28: Botão como Link</a></li>
+            <li><a href="#capitulo29" onclick="irParaCapitulo(29)">Capítulo 29: Títulos de Links</a></li>
+            <li><a href="#capitulo30" onclick="irParaCapitulo(30)">Capítulo 30: Mais sobre URLs</a></li>
+            <li><a href="#capitulo31" onclick="irParaCapitulo(31)">Capítulo 31: Cores de Link HTML</a></li>
+            <li><a href="#capitulo32" onclick="irParaCapitulo(32)">Capítulo 32: Botões de Link</a></li>
+            <li><a href="#capitulo33" onclick="irParaCapitulo(33)">Capítulo 33: Atributo target (Detalhes)</a></li>
+            <li><a href="#capitulo34" onclick="irParaCapitulo(34)">Capítulo 34: Marcadores em HTML</a></li>
+            <li><a href="#capitulo35" onclick="irParaCapitulo(35)">Capítulo 35: Uso da tag &lt;img&gt;</a></li>
+            <li><a href="#capitulo36" onclick="irParaCapitulo(36)">Capítulo 36: Imagens de Fundo</a></li>
+            <li><a href="#capitulo37" onclick="irParaCapitulo(37)">Capítulo 37: Resumo do Atributo id</a></li>
+            <li><a href="#capitulo38" onclick="irParaCapitulo(38)">Capítulo 38: Atributo iframe</a></li>
+            <li><a href="#capitulo39" onclick="irParaCapitulo(39)">Capítulo 39: Tag &lt;script&gt;</a></li>
+            <li><a href="#capitulo40" onclick="irParaCapitulo(40)">Capítulo 40: Seu Próximo Passo!</a></li>
+        </ul>
+    </div>
+    <!-- SCRIPTS JS (Navegação e Exemplo Interativo) -->
+    <script>
+        // Iniciar no Capítulo 20 por padrão:
+        let capituloAtual = 20; 
+        // O maior capítulo é 40 (de 20..40)
+        const maxCapitulos = 40;
+
+        function mudarCapitulo(direcao) {
+            // Esconde o capítulo atual
+            document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+
+            capituloAtual += direcao;
+
+            if (capituloAtual > 40) capituloAtual = 20; 
+            if (capituloAtual < 20) capituloAtual = 40;
+
+            // Mostra o capítulo novo
+            document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function irParaCapitulo(numero) {
+            document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+            capituloAtual = numero;
+            document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function mostrarCodigo(btn) {
+            const codigoDiv = btn.nextElementSibling;
+            if (codigoDiv.style.display === "block") {
+                codigoDiv.style.display = "none";
+                btn.textContent = "Mostrar Código";
+            } else {
+                codigoDiv.style.display = "block";
+                btn.textContent = "Esconder Código";
+            }
+        }
+
+        // ========================================
+        // EXEMPLOS INTERATIVOS (Capítulos 20..40)
+        // ========================================
+
+        // Capítulo 20
+        function exemplo20() {
+            const bodyC = document.getElementById('bodyColor20').value;
+            const h1C = document.getElementById('h1Color20').value;
+            const out = document.getElementById('output20');
+            out.style.color = bodyC; // cor global
+            document.getElementById('ex20h1').style.color = h1C; // sobrescreve
+        }
+
+        // Capítulo 21
+        function exemplo21() {
+            const modo = document.getElementById('cssModo21').value;
+            let html = '';
+            if (modo === 'inline') {
+                html = `
+                    <h1 style="color:green;">Título em verde (inline)</h1>
+                    <p style="color:orange;">Parágrafo em laranja (inline)</p>
+                `;
+            } else {
+                html = `
+                    <style>
+                        body {background-color: #ffffcc;}
+                        h1 {color: green;}
+                        p {color: orange;}
+                    </style>
+                    <h1>Título em verde (interno)</h1>
+                    <p>Parágrafo em laranja (interno)</p>
+                `;
+            }
+            document.getElementById('output21').innerHTML = html;
+        }
+
+        // Capítulo 22
+        function exemplo22() {
+            const bodyColor = document.getElementById('colorBody22').value;
+            const h1Color = document.getElementById('colorH122').value;
+            const pColor = document.getElementById('colorP22').value;
+            const html = `
+                <style>
+                    body { background-color: ${bodyColor}; }
+                    h1   { color: ${h1Color}; }
+                    p    { color: ${pColor}; }
+                </style>
+                <h1>Exemplo de H1</h1>
+                <p>Exemplo de parágrafo</p>
+            `;
+            document.getElementById('output22').innerHTML = html;
+        }
+
+        // Capítulo 23
+        function exemplo23() {
+            const href = document.getElementById('linkHref23').value;
+            const text = document.getElementById('linkText23').value;
+            document.getElementById('output23').innerHTML = `<a href="${href}" target="_blank">${text}</a>`;
+        }
+
+        // Capítulo 24
+        function exemplo24() {
+            const url = document.getElementById('linkTarget24').value;
+            const alvo = document.getElementById('targetOpt24').value;
+            document.getElementById('output24').innerHTML = `<a href="${url}" target="${alvo}">Abrir Link</a>`;
+        }
+
+        // Capítulo 25
+        function exemplo25() {
+            const tipo = document.getElementById('urlTipo25').value;
+            const txt = document.getElementById('urlTexto25').value;
+            let html = '';
+            if (tipo === 'absoluta') {
+                html = `<a href="https://www.seudominio.com/">${txt} (URL Absoluta)</a>`;
+            } else {
+                html = `<a href="/meupath/pagina.html">${txt} (URL Relativa)</a>`;
+            }
+            document.getElementById('output25').innerHTML = html;
+        }
+
+        // Capítulo 26
+        function exemplo26() {
+            const link = document.getElementById('imgLink26').value;
+            const img = document.getElementById('imgSrc26').value;
+            const html = `
+                <a href="${link}" target="_blank">
+                    <img src="${img}" alt="Imagem Link" style="width:100px;height:auto;">
+                </a>
+            `;
+            document.getElementById('output26').innerHTML = html;
+        }
+
+        // Capítulo 27
+        function exemplo27() {
+            const mail = document.getElementById('mail27').value;
+            document.getElementById('output27').innerHTML = `<a href="mailto:${mail}">Enviar Email para ${mail}</a>`;
+        }
+
+        // Capítulo 28
+        function exemplo28() {
+            const url = document.getElementById('btnLink28').value;
+            const btnTxt = document.getElementById('btnText28').value;
+            const html = `<button onclick="document.location='${url}'">${btnTxt}</button>`;
+            document.getElementById('output28').innerHTML = html;
+        }
+
+        // Capítulo 29
+        function exemplo29() {
+            const url = document.getElementById('linkUrl29').value;
+            const texto = document.getElementById('linkText29').value;
+            const tit = document.getElementById('linkTitle29').value;
+            const html = `<a href="${url}" title="${tit}" target="_blank">${texto}</a>`;
+            document.getElementById('output29').innerHTML = html;
+        }
+
+        // Capítulo 30
+        function exemplo30() {
+            const abs = document.getElementById('urlAbs30').value;
+            const rel = document.getElementById('urlRel30').value;
+            const html = `
+                <p><a href="${abs}" target="_blank">Link Absoluto</a></p>
+                <p><a href="${rel}">Link Relativo</a></p>
+            `;
+            document.getElementById('output30').innerHTML = html;
+        }
+
+        // Capítulo 31
+        function exemplo31() {
+            const aLink = document.getElementById('linkColor31').value;
+            const aVisited = document.getElementById('visitedColor31').value;
+            // Injetar estilo no container
+            const css = `
+                <style>
+                a:link {
+                    color: ${aLink};
+                }
+                a:visited {
+                    color: ${aVisited};
+                }
+                a:hover {
+                    color: red;
+                    text-decoration: underline;
+                }
+                a:active {
+                    color: yellow;
+                }
+                </style>
+            `;
+            const html = `
+                ${css}
+                <a href="https://www.google.com" target="_blank">Google Link</a><br>
+                <a href="https://www.w3schools.com" target="_blank">W3Schools Link</a>
+            `;
+            document.getElementById('output31').innerHTML = html;
+        }
+
+        // Capítulo 32
+        function exemplo32() {
+            const url = document.getElementById('btnLink32').value;
+            const txt = document.getElementById('btnText32').value;
+            // Um estilo de botão
+            const css = `
+                <style>
+                .link-botao {
+                    background-color: #f44336;
+                    color: white;
+                    padding: 10px 20px;
+                    text-decoration: none;
+                    display: inline-block;
+                    border-radius: 5px;
+                }
+                .link-botao:hover {
+                    background-color: red;
+                }
+                </style>
+            `;
+            const html = `
+                ${css}
+                <a href="${url}" class="link-botao" target="_blank">${txt}</a>
+            `;
+            document.getElementById('output32').innerHTML = html;
+        }
+
+        // Capítulo 33
+        function exemplo33() {
+            const url = document.getElementById('linkTarget33').value;
+            const t = document.getElementById('targetOpt33').value;
+            const html = `<a href="${url}" target="${t}">Abrir com target ${t}</a>`;
+            document.getElementById('output33').innerHTML = html;
+        }
+
+        // Capítulo 34
+        function exemplo34() {
+            const anchor = document.getElementById('anchorId34').value;
+            const texto = document.getElementById('anchorText34').value;
+            const html = `
+                <h2 id="${anchor}">Esta é a seção com id="${anchor}"</h2>
+                <a href="#${anchor}">${texto}</a>
+            `;
+            document.getElementById('output34').innerHTML = html;
+        }
+
+        // Capítulo 35
+        function exemplo35() {
+            const src = document.getElementById('src35').value;
+            const alt = document.getElementById('alt35').value;
+            const html = `<img src="${src}" alt="${alt}" width="200">`;
+            document.getElementById('output35').innerHTML = html;
+        }
+
+        // Capítulo 36
+        function exemplo36() {
+            const url = document.getElementById('bgImg36').value;
+            const out = document.getElementById('output36');
+            out.style.backgroundImage = `url('${url}')`;
+            out.style.backgroundRepeat = 'no-repeat';
+            out.style.backgroundSize = 'cover';
+        }
+
+        // Capítulo 37
+        function exemplo37() {
+            const id = document.getElementById('id37').value;
+            const texto = document.getElementById('txt37').value;
+            const html = `<h2 id="${id}">${texto}</h2>`;
+            document.getElementById('output37').innerHTML = html;
+        }
+
+        // Capítulo 38
+        function exemplo38() {
+            const url = document.getElementById('url38').value;
+            const w = document.getElementById('w38').value;
+            const h = document.getElementById('h38').value;
+            const html = `
+                <iframe src="${url}" style="border:1px solid #ddd; width:${w}px; height:${h}px;" title="Iframe Gerado"></iframe>
+            `;
+            document.getElementById('output38').innerHTML = html;
+        }
+
+        // Capítulo 39
+        function exemplo39() {
+            const texto = document.getElementById('txt39').value;
+            document.getElementById('demo39').innerHTML = texto;
+        }
+
+        // Capítulo 40
+        function exemplo40() {
+            const msg = document.getElementById('txt40').value;
+            document.getElementById('output40').innerHTML = `<h3>${msg}</h3>`;
+        }
+    </script>
+
+    <!-- RODAPÉ -->
+    <footer>
+        <p>HTML &amp; CSS - Parte 2 (Cap. 20..40) © Yasmin.  
+        Continue explorando e aprendendo cada vez mais!</p>
+    </footer>
+
+</body>
+</html>

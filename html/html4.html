@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplos Interativos de HTML e CSS - Parte 3 (Capítulos 61 a 82)</title>
+  <link rel="icon" type="image/x-icon" href="https://via.placeholder.com/16">
+  
+  <!-- FONTE DO GOOGLE -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  
+  <!-- ESTILOS CSS -->
+  <style>
+    /* RESET BÁSICO */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* CORPO GERAL */
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(to top right, #ece9e6, #ffffff);
+      color: #333;
+      padding: 20px;
+    }
+    /* CABEÇALHO */
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    header h1 {
+      font-weight: 600;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #2b2b2b;
+    }
+    header p {
+      font-size: 1rem;
+      color: #555;
+    }
+    /* SUMÁRIO */
+    #sumario {
+      background-color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    #sumario h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: #2b2b2b;
+    }
+    #sumario ul {
+      list-style: none;
+    }
+    #sumario ul li {
+      margin-bottom: 0.5rem;
+    }
+    #sumario ul li a {
+      color: #5c7cfa;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    #sumario ul li a:hover {
+      color: #1c5ed6;
+    }
+    /* NAVEGAÇÃO SUPERIOR */
+    .topo-navegacao {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .topo-navegacao a,
+    .topo-navegacao button {
+      padding: 0.7rem 1rem;
+      text-decoration: none;
+      border: none;
+      border-radius: 25px;
+      background-color: #5c7cfa;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .topo-navegacao a:hover,
+    .topo-navegacao button:hover {
+      background-color: #3b5bdb;
+      transform: translateY(-2px);
+    }
+    /* CONTAINER DOS CAPÍTULOS */
+    .capitulo {
+      display: none;
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .capitulo.ativo {
+      display: block;
+    }
+    .capitulo h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #2b2b2b;
+    }
+    .capitulo p {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    /* BOTÕES DE MOSTRAR CÓDIGO */
+    .mostrar-codigo-btn {
+      margin: 0.5rem 0;
+      padding: 0.4rem 0.8rem;
+      background-color: #3b5bdb;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .mostrar-codigo-btn:hover {
+      background-color: #274c9e;
+      transform: translateY(-1px);
+    }
+    .codigo-exemplo {
+      display: none;
+      margin-top: 0.5rem;
+    }
+    pre {
+      background-color: #fff;
+      padding: 0.8rem;
+      overflow-x: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    /* EXEMPLO INTERATIVO */
+    .exemplo-interativo {
+      background-color: #e7ffe6;
+      border-left: 4px solid #51cf66;
+      padding: 1rem;
+      margin-top: 1rem;
+      border-radius: 5px;
+    }
+    .exemplo-interativo label {
+      margin-right: 0.5rem;
+      font-weight: 500;
+    }
+    .exemplo-interativo input,
+    .exemplo-interativo select,
+    .exemplo-interativo textarea {
+      margin: 0.5rem 0;
+      padding: 0.4rem;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .exemplo-interativo button {
+      margin-top: 0.5rem;
+      padding: 0.5rem 1rem;
+      background-color: #2f9e44;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .exemplo-interativo button:hover {
+      background-color: #1b6d2f;
+      transform: translateY(-1px);
+    }
+    .exemplo-interativo-output {
+      margin-top: 0.5rem;
+      padding: 0.8rem;
+      background-color: #fff;
+      border: 1px solid #c8f5cf;
+      border-radius: 5px;
+      min-height: 40px;
+    }
+    /* RODAPÉ */
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    @media (max-width: 600px) {
+      .topo-navegacao {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- CABEÇALHO -->
+  <header>
+    <h1>Exemplos Interativos de HTML e CSS - Parte 4</h1>
+    <p>Capítulos 61 a 82</p>
+  </header>
+
+  <!-- NAVEGAÇÃO SUPERIOR -->
+  <div class="topo-navegacao">
+    <a href="html3.html">Ir para a Parte 3 (40..60)</a>
+    <a href="html5.html">Ir para a Parte 5 (80..100)</a>
+    <button onclick="mudarCapitulo(-1)">← Capítulo Anterior</button>
+    <button onclick="mudarCapitulo(1)">Próximo Capítulo →</button>
+  </div>
+
+  <!-- ==================== CAPÍTULO 61 ==================== -->
+  <div id="capitulo61" class="capitulo ativo">
+    <h2>Capítulo 61: Restrições de Data com Atributos Min e Max</h2>
+    <p>Você pode usar os atributos <code>min</code> e <code>max</code> para limitar as datas inseridas em um campo de entrada <code>date</code>.</p>
+    <h3>Exemplos de Código</h3>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="datemax"&gt;Data (antes de 1980-01-01):&lt;/label&gt;
+  &lt;input type="date" id="datemax" name="datemax" max="1979-12-31"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="datemin"&gt;Data (depois de 2000-01-01):&lt;/label&gt;
+  &lt;input type="date" id="datemin" name="datemin" min="2000-01-02"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Verificando Datas</h3>
+    <div class="exemplo-interativo">
+      <label for="testDate61">Data:</label>
+      <input type="date" id="testDate61"><br>
+      <button onclick="exemplo61()">Verificar Data</button>
+      <div id="output61" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Os atributos <code>min</code> e <code>max</code> limitam o intervalo de datas permitido.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 61 -->
+
+  <!-- ==================== CAPÍTULO 62 ==================== -->
+  <div id="capitulo62" class="capitulo">
+    <h2>Capítulo 62: Tipo de Entrada Data/Hora Local</h2>
+    <p>O <code>datetime-local</code> permite que o usuário selecione uma data e hora local, sem fuso horário.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="birthdaytime"&gt;Aniversário (data e hora):&lt;/label&gt;
+  &lt;input type="datetime-local" id="birthdaytime" name="birthdaytime"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Seletor Data/Hora Local</h3>
+    <div class="exemplo-interativo">
+      <label for="datetime62">Data e Hora:</label>
+      <input type="datetime-local" id="datetime62"><br>
+      <button onclick="exemplo62()">Aplicar</button>
+      <div id="output62" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>datetime-local</code> coleta data e hora local.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 62 -->
+
+  <!-- ==================== CAPÍTULO 63 ==================== -->
+  <div id="capitulo63" class="capitulo">
+    <h2>Capítulo 63: Tipo de Entrada E-mail e Imagem</h2>
+    <p>O <code>email</code> valida endereços de e-mail e o <code>image</code> permite usar uma imagem como botão de envio.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="email63"&gt;Digite seu e-mail:&lt;/label&gt;
+  &lt;input type="email" id="email63" name="email"&gt;
+&lt;/form&gt;
+
+&lt;form&gt;
+  &lt;input type="image" src="https://via.placeholder.com/48x48?text=Enviar" alt="Enviar" width="48" height="48"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Validação de E-mail</h3>
+    <div class="exemplo-interativo">
+      <label for="emailInput63">E-mail:</label>
+      <input type="email" id="emailInput63" placeholder="usuario@exemplo.com"><br>
+      <button onclick="exemplo63()">Aplicar</button>
+      <div id="output63" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>input type="email"</code> valida o formato de e-mail.</li>
+      <li>O <code>input type="image"</code> utiliza uma imagem como botão de envio.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 63 -->
+
+  <!-- ==================== CAPÍTULO 64 ==================== -->
+  <div id="capitulo64" class="capitulo">
+    <h2>Capítulo 64: Tipo de Entrada Arquivo e Oculto</h2>
+    <p>O <code>file</code> permite selecionar arquivos para upload e o <code>hidden</code> armazena valores sem exibição visual.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="myfile"&gt;Selecione um arquivo:&lt;/label&gt;
+  &lt;input type="file" id="myfile" name="myfile" multiple&gt;
+&lt;/form&gt;
+
+&lt;form&gt;
+  &lt;input type="hidden" id="custId" name="custId" value="3487"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Upload Simulado e Valor Oculto</h3>
+    <div class="exemplo-interativo">
+      <label for="file64">Arquivo:</label>
+      <input type="file" id="file64" multiple><br>
+      <label for="hidden64">Valor Oculto:</label>
+      <input type="text" id="hidden64" value="3487" readonly><br>
+      <button onclick="exemplo64()">Aplicar</button>
+      <div id="output64" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>file</code> possibilita o upload de arquivos.</li>
+      <li><code>hidden</code> guarda valores que não são exibidos na interface.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 64 -->
+
+  <!-- ==================== CAPÍTULO 65 ==================== -->
+  <div id="capitulo65" class="capitulo">
+    <h2>Capítulo 65: Tipo de Entrada Mês e Número</h2>
+    <p>O <code>month</code> permite selecionar um mês e ano, enquanto o <code>number</code> coleta valores numéricos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="bdaymonth"&gt;Aniversário (mês e ano):&lt;/label&gt;
+  &lt;input type="month" id="bdaymonth" name="bdaymonth"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="num65"&gt;Número:&lt;/label&gt;
+  &lt;input type="number" id="num65" name="num65" value="10"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Mês e Número</h3>
+    <div class="exemplo-interativo">
+      <label for="month65">Mês:</label>
+      <input type="month" id="month65"><br>
+      <label for="number65">Número:</label>
+      <input type="number" id="number65" value="10"><br>
+      <button onclick="exemplo65()">Aplicar</button>
+      <div id="output65" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>month</code> coleta mês e ano.</li>
+      <li><code>number</code> permite entrada numérica e pode ter restrições.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 65 -->
+
+  <!-- ==================== CAPÍTULO 66 ==================== -->
+  <div id="capitulo66" class="capitulo">
+    <h2>Capítulo 66: Restrições de Entrada</h2>
+    <p>Utilize atributos como <code>min</code>, <code>max</code>, <code>step</code>, <code>pattern</code> e <code>placeholder</code> para controlar e validar os dados inseridos pelo usuário.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="quantity"&gt;Quantidade (0 a 100, passo 10):&lt;/label&gt;
+  &lt;input type="number" id="quantity" name="quantity" min="0" max="100" step="10" value="30"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Validação Numérica</h3>
+    <div class="exemplo-interativo">
+      <label for="quantity66">Quantidade (0 a 100, passo 10):</label>
+      <input type="number" id="quantity66" min="0" max="100" step="10" value="30"><br>
+      <button onclick="exemplo66()">Aplicar</button>
+      <div id="output66" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Atributos como <code>min</code>, <code>max</code> e <code>step</code> definem intervalos e limites.</li>
+      <li><code>pattern</code> e <code>placeholder</code> auxiliam na validação e orientação do usuário.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 66 -->
+
+  <!-- ==================== CAPÍTULO 67 ==================== -->
+  <div id="capitulo67" class="capitulo">
+    <h2>Capítulo 67: Faixa e Pesquisa de Tipo de Entrada</h2>
+    <p>O <code>range</code> cria um controle deslizante para selecionar valores e o <code>search</code> é destinado a campos de pesquisa.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="vol"&gt;Volume:&lt;/label&gt;
+  &lt;input type="range" id="vol" name="vol" min="0" max="100"&gt;
+&lt;/form&gt;
+
+&lt;form&gt;
+  &lt;label for="gsearch"&gt;Pesquisar:&lt;/label&gt;
+  &lt;input type="search" id="gsearch" name="gsearch"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Controle de Faixa e Pesquisa</h3>
+    <div class="exemplo-interativo">
+      <label for="range67">Volume (0-100):</label>
+      <input type="range" id="range67" min="0" max="100" value="50" oninput="document.getElementById('rangeValue67').textContent = this.value"><br>
+      <span id="rangeValue67">50</span><br>
+      <label for="search67">Pesquisar:</label>
+      <input type="search" id="search67" placeholder="Digite sua pesquisa"><br>
+      <button onclick="exemplo67()">Aplicar</button>
+      <div id="output67" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>range</code> cria controles deslizantes para valores numéricos.</li>
+      <li>O <code>search</code> é destinado à pesquisa de texto.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 67 -->
+
+  <!-- ==================== CAPÍTULO 68 ==================== -->
+  <div id="capitulo68" class="capitulo">
+    <h2>Capítulo 68: Tipos de Entrada Tel, Tempo e URL</h2>
+    <p>Esses tipos garantem que o usuário insira dados no formato correto: telefone, tempo e URL.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="phone68"&gt;Telefone:&lt;/label&gt;
+  &lt;input type="tel" id="phone68" name="phone" placeholder="123-45-678"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="time68"&gt;Tempo:&lt;/label&gt;
+  &lt;input type="time" id="time68" name="time"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;label for="url68"&gt;URL:&lt;/label&gt;
+  &lt;input type="url" id="url68" name="url" placeholder="https://exemplo.com"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Telefone, Tempo e URL</h3>
+    <div class="exemplo-interativo">
+      <label for="phoneInput68">Telefone:</label>
+      <input type="tel" id="phoneInput68" placeholder="123-45-678"><br>
+      <label for="timeInput68">Tempo:</label>
+      <input type="time" id="timeInput68"><br>
+      <label for="urlInput68">URL:</label>
+      <input type="url" id="urlInput68" placeholder="https://exemplo.com"><br>
+      <button onclick="exemplo68()">Aplicar</button>
+      <div id="output68" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>tel</code> para números de telefone;</li>
+      <li><code>time</code> para seleção de hora;</li>
+      <li><code>url</code> para endereços web.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 68 -->
+
+  <!-- ==================== CAPÍTULO 69 ==================== -->
+  <div id="capitulo69" class="capitulo">
+    <h2>Capítulo 69: Tipo de Entrada Semana</h2>
+    <p>O <code>week</code> permite que o usuário selecione uma semana e um ano.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="week69"&gt;Selecione uma semana:&lt;/label&gt;
+  &lt;input type="week" id="week69" name="week"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Seleção de Semana</h3>
+    <div class="exemplo-interativo">
+      <label for="weekInput69">Semana:</label>
+      <input type="week" id="weekInput69"><br>
+      <button onclick="exemplo69()">Aplicar</button>
+      <div id="output69" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>week</code> coleta a semana e o ano.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 69 -->
+
+  <!-- ==================== CAPÍTULO 70 ==================== -->
+  <div id="capitulo70" class="capitulo">
+    <h2>Capítulo 70: Atributos do Elemento <code>&lt;input&gt;</code></h2>
+    <p>Atributos como <code>value</code>, <code>readonly</code>, <code>disabled</code>, <code>size</code> e <code>maxlength</code> controlam os campos de entrada.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="fname70"&gt;First name:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname70" name="fname" value="John" size="50" maxlength="50"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Campo com Valor Padrão</h3>
+    <div class="exemplo-interativo">
+      <label for="input70">Digite algo:</label>
+      <input type="text" id="input70" value="Valor padrão"><br>
+      <button onclick="exemplo70()">Aplicar</button>
+      <div id="output70" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Esses atributos determinam o comportamento e a aparência dos campos de entrada.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 70 -->
+
+  <!-- ==================== CAPÍTULO 71 ==================== -->
+  <div id="capitulo71" class="capitulo">
+    <h2>Capítulo 71: Atributos <code>min</code>, <code>max</code>, <code>multiple</code>, <code>pattern</code> e <code>placeholder</code></h2>
+    <p>Esses atributos validam e orientam a entrada do usuário.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="country_code"&gt;Código do país (3 letras):&lt;/label&gt;
+  &lt;input type="text" id="country_code" name="country_code"
+         pattern="[A-Za-z]{3}" title="Três letras" placeholder="Ex: BRA"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Validação com Pattern</h3>
+    <div class="exemplo-interativo">
+      <label for="code71">Código (3 letras):</label>
+      <input type="text" id="code71" placeholder="Ex: USA"><br>
+      <button onclick="exemplo71()">Aplicar</button>
+      <div id="output71" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Os atributos <code>min</code> e <code>max</code> definem intervalos.</li>
+      <li><code>multiple</code> permite múltiplas seleções (em e-mail e arquivo).</li>
+      <li><code>pattern</code> valida com expressões regulares.</li>
+      <li><code>placeholder</code> exibe uma dica no campo.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 71 -->
+
+  <!-- ==================== CAPÍTULO 72 ==================== -->
+  <div id="capitulo72" class="capitulo">
+    <h2>Capítulo 72: Atributos <code>required</code>, <code>step</code>, <code>autofocus</code> e <code>height</code>/<code>width</code></h2>
+    <p>Esses atributos melhoram a experiência do usuário, tornando campos obrigatórios, definindo intervalos e configurando foco e dimensões (para inputs de imagem).</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="fname72"&gt;First name:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname72" name="fname" autofocus&gt;&lt;br&gt;
+  &lt;label for="pin72"&gt;PIN (4 dígitos):&lt;/label&gt;&lt;br&gt;
+  &lt;input type="number" id="pin72" name="pin" min="0" max="9999" step="1" size="4"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Campo Numérico</h3>
+    <div class="exemplo-interativo">
+      <label for="input72">PIN (4 dígitos):</label>
+      <input type="number" id="input72" min="0" max="9999" step="1" placeholder="ex: 1234"><br>
+      <button onclick="exemplo72()">Aplicar</button>
+      <div id="output72" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>required</code> obriga o preenchimento do campo.</li>
+      <li><code>step</code> define intervalos.</li>
+      <li><code>autofocus</code> posiciona o foco automaticamente.</li>
+      <li><code>height</code> e <code>width</code> são usados para inputs do tipo imagem.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 72 -->
+
+  <!-- ==================== CAPÍTULO 73 ==================== -->
+  <div id="capitulo73" class="capitulo">
+    <h2>Capítulo 73: Atributos <code>list</code> e <code>autocomplete</code></h2>
+    <p>O atributo <code>list</code> vincula um campo a um conjunto de opções do &lt;datalist&gt;; <code>autocomplete</code> ativa ou desativa sugestões automáticas.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;input list="browsers73" id="browser73" placeholder="Digite ou escolha"&gt;
+  &lt;datalist id="browsers73"&gt;
+    &lt;option value="Edge"&gt;
+    &lt;option value="Firefox"&gt;
+    &lt;option value="Chrome"&gt;
+    &lt;option value="Opera"&gt;
+    &lt;option value="Safari"&gt;
+  &lt;/datalist&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Datalist e Autocomplete</h3>
+    <div class="exemplo-interativo">
+      <label for="input73">Navegador:</label>
+      <input list="browsers73_inter" id="input73" placeholder="Escolha um navegador">
+      <datalist id="browsers73_inter">
+        <option value="Edge">
+        <option value="Firefox">
+        <option value="Chrome">
+        <option value="Opera">
+        <option value="Safari">
+      </datalist><br>
+      <button onclick="exemplo73()">Aplicar</button>
+      <div id="output73" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>list</code> associa um &lt;input&gt; a um &lt;datalist&gt; de opções.</li>
+      <li>O <code>autocomplete</code> ativa ou desativa sugestões automáticas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 73 -->
+
+  <!-- ==================== CAPÍTULO 74 ==================== -->
+  <div id="capitulo74" class="capitulo">
+    <h2>Capítulo 74: O Elemento HTML <code>&lt;canvas&gt;</code></h2>
+    <p>O <code>&lt;canvas&gt;</code> permite desenhar gráficos dinamicamente com JavaScript.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;canvas id="canvas74" width="300" height="150" style="border:1px solid #000;"&gt;&lt;/canvas&gt;
+&lt;script&gt;
+  var c = document.getElementById("canvas74");
+  var ctx = c.getContext("2d");
+  ctx.fillStyle = "#FF0000";
+  ctx.fillRect(20, 20, 150, 100);
+&lt;/script&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Desenhar Retângulo</h3>
+    <div class="exemplo-interativo">
+      <label for="color74">Cor do Retângulo:</label>
+      <input type="color" id="color74" value="#FF0000"><br>
+      <button onclick="exemplo74()">Desenhar</button>
+      <div id="outputCanvas74" class="exemplo-interativo-output">
+        &lt;canvas id="canvas74_inter" width="300" height="150" style="border:1px solid #000;"&gt;&lt;/canvas&gt;
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O &lt;canvas&gt; cria uma área para desenhos via JavaScript.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 74 -->
+
+  <!-- ==================== CAPÍTULO 75 ==================== -->
+  <div id="capitulo75" class="capitulo">
+    <h2>Capítulo 75: Exemplos Avançados de Desenho com <code>&lt;canvas&gt;</code></h2>
+    <p>Veja exemplos avançados como gradientes e efeitos no canvas.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+// Exemplo de gradiente linear:
+var c = document.getElementById("canvas75");
+var ctx = c.getContext("2d");
+var grd = ctx.createLinearGradient(0, 0, c.width, 0);
+grd.addColorStop(0, "red");
+grd.addColorStop(1, "white");
+ctx.fillStyle = grd;
+ctx.fillRect(10, 10, c.width - 20, c.height - 20);
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Gradiente no Canvas</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo75()">Desenhar Gradiente</button>
+      <div id="outputCanvas75" class="exemplo-interativo-output">
+        &lt;canvas id="canvas75" width="300" height="150" style="border:1px solid #000;"&gt;&lt;/canvas&gt;
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O canvas pode desenhar gradientes e gráficos avançados com JavaScript.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 75 -->
+
+  <!-- ==================== CAPÍTULO 76 ==================== -->
+  <div id="capitulo76" class="capitulo">
+    <h2>Capítulo 76: Trabalhando com SVG (Scalable Vector Graphics)</h2>
+    <p>O SVG permite criar gráficos vetoriais escaláveis sem perda de qualidade.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;svg width="400" height="120"&gt;
+  &lt;rect x="10" y="10" width="200" height="100" stroke="red" stroke-width="6" fill="blue" /&gt;
+&lt;/svg&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Alterar Cor do Retângulo SVG</h3>
+    <div class="exemplo-interativo">
+      <label for="colorSVG76">Cor de Preenchimento:</label>
+      <input type="color" id="colorSVG76" value="#0000FF"><br>
+      <button onclick="exemplo76()">Aplicar</button>
+      <div id="outputSVG76" class="exemplo-interativo-output">
+        &lt;svg id="svg76" width="400" height="120"&gt;
+          &lt;rect id="rect76" x="10" y="10" width="200" height="100" stroke="red" stroke-width="6" fill="blue" /&gt;
+        &lt;/svg&gt;
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O SVG é ideal para gráficos vetoriais escaláveis e interativos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 76 -->
+
+  <!-- ==================== CAPÍTULO 77 ==================== -->
+  <div id="capitulo77" class="capitulo">
+    <h2>Capítulo 77: Trabalhando com o Elemento <code>&lt;video&gt;</code></h2>
+    <p>O elemento <code>&lt;video&gt;</code> permite incorporar vídeos na página com controles.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;video id="video77" width="320" height="240" controls&gt;
+  &lt;source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4"&gt;
+  &lt;source src="https://www.w3schools.com/html/mov_bbb.ogg" type="video/ogg"&gt;
+  Seu navegador não suporta o vídeo.
+&lt;/video&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Play/Pause do Vídeo</h3>
+    <div class="exemplo-interativo">
+      <video id="video77_inter" width="320" height="240" controls>
+        <source src="https://www.w3schools.com/html/mov_bbb.mp4" type="video/mp4">
+        Seu navegador não suporta o vídeo.
+      </video><br>
+      <button onclick="exemplo77()">Play/Pause</button>
+      <div id="output77" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O elemento &lt;video&gt; incorpora vídeos com controles nativos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 77 -->
+
+  <!-- ==================== CAPÍTULO 78 ==================== -->
+  <div id="capitulo78" class="capitulo">
+    <h2>Capítulo 78: Trabalhando com o Elemento <code>&lt;audio&gt;</code></h2>
+    <p>O elemento <code>&lt;audio&gt;</code> é usado para reproduzir arquivos de áudio.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;audio id="audio78" controls&gt;
+  &lt;source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg"&gt;
+  &lt;source src="https://www.w3schools.com/html/horse.ogg" type="audio/ogg"&gt;
+  Seu navegador não suporta o áudio.
+&lt;/audio&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Play/Pause do Áudio</h3>
+    <div class="exemplo-interativo">
+      <audio id="audio78_inter" controls>
+        <source src="https://www.w3schools.com/html/horse.mp3" type="audio/mpeg">
+        Seu navegador não suporta o áudio.
+      </audio><br>
+      <button onclick="exemplo78()">Play/Pause</button>
+      <div id="output78" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O &lt;audio&gt; reproduz arquivos de áudio com controles nativos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 78 -->
+
+  <!-- ==================== CAPÍTULO 79 ==================== -->
+  <div id="capitulo79" class="capitulo">
+    <h2>Capítulo 79: Tornar um Elemento Arrastável</h2>
+    <p>Utilize o atributo <code>draggable="true"</code> e os eventos <code>ondragstart</code>, <code>ondragover</code> e <code>ondrop</code> para permitir que elementos sejam arrastados e soltos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;div id="div79" ondrop="drop79(event)" ondragover="allowDrop79(event)" style="width:200px; height:100px; border:1px solid black;"&gt;
+  Solte aqui
+&lt;/div&gt;
+
+&lt;img id="drag79" src="https://via.placeholder.com/200x100?text=Drag+Me" draggable="true" ondragstart="drag79(event)" width="200" height="100"&gt;
+
+&lt;script&gt;
+function allowDrop79(ev) {
+  ev.preventDefault();
+}
+function drag79(ev) {
+  ev.dataTransfer.setData("text", ev.target.id);
+}
+function drop79(ev) {
+  ev.preventDefault();
+  var data = ev.dataTransfer.getData("text");
+  ev.target.appendChild(document.getElementById(data));
+}
+&lt;/script&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Arraste e Solte</h3>
+    <div class="exemplo-interativo">
+      <div id="div79_inter" ondrop="drop79(event)" ondragover="allowDrop79(event)" style="width:200px; height:100px; border:1px solid black;">
+        Solte aqui
+      </div>
+      <img id="drag79_inter" src="../Imagens_css/Polaroid.jpg" draggable="true" ondragstart="drag79(event)" width="200" height="100" style="margin-top:10px;">
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Defina <code>draggable="true"</code> para tornar um elemento arrastável.</li>
+      <li>Utilize <code>ondragstart</code>, <code>ondragover</code> e <code>ondrop</code> para gerenciar o processo.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 79 -->
+
+  <!-- ==================== CAPÍTULO 80 ==================== -->
+  <div id="capitulo80" class="capitulo">
+    <h2>Capítulo 80: Trabalhando com a API de Armazenamento Web HTML</h2>
+    <p>A API de Armazenamento Web permite que você armazene dados localmente no navegador usando <code>localStorage</code> e <code>sessionStorage</code>.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+// Exemplo com localStorage
+localStorage.setItem("nome80", "João");
+document.getElementById("resultado80").innerHTML = localStorage.getItem("nome80");
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Salvar Nome</h3>
+    <div class="exemplo-interativo">
+      <label for="nome80">Digite seu nome:</label>
+      <input type="text" id="nome80" placeholder="João"><br>
+      <button onclick="exemplo80()">Salvar e Exibir</button>
+      <div id="output80" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>localStorage</code> armazena dados permanentemente.</li>
+      <li><code>sessionStorage</code> armazena dados apenas durante a sessão.</li>
+    </ul>
+    <div id="resultado80" style="display:none;"></div>
+  </div>
+  <!-- Fim do Capítulo 80 -->
+
+  <!-- ==================== CAPÍTULO 81 ==================== -->
+  <div id="capitulo81" class="capitulo">
+    <h2>Capítulo 81: Contador com sessionStorage</h2>
+    <p>Crie um contador de cliques que é reiniciado a cada sessão usando <code>sessionStorage</code>.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+if (sessionStorage.clicks) {
+  sessionStorage.clicks = Number(sessionStorage.clicks) + 1;
+} else {
+  sessionStorage.clicks = 1;
+}
+document.getElementById("resultado81").innerHTML = "Você clicou " + sessionStorage.clicks + " vez(es).";
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Contador de Cliques</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo81()">Clique Aqui</button>
+      <div id="output81" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>sessionStorage</code> armazena dados temporários durante a sessão.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 81 -->
+
+  <!-- ==================== CAPÍTULO 82 ==================== -->
+  <div id="capitulo82" class="capitulo">
+    <h2>Capítulo 82: Trabalhando com Web Workers em HTML</h2>
+    <p>Web Workers permitem que scripts sejam executados em segundo plano, sem bloquear a interface do usuário.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!-- Exemplo com Web Worker usando Blob --&gt;
+&lt;script&gt;
+  var worker82;
+  function createWorker82() {
+    var blob = new Blob([`
+      var i = 0;
+      function timedCount() {
+        i++;
+        postMessage("Contador: " + i);
+        setTimeout(timedCount, 500);
+      }
+      timedCount();
+    `], { type: "application/javascript" });
+    return new Worker(URL.createObjectURL(blob));
+  }
+  
+  function startWorker82() {
+    if (typeof(Worker) !== "undefined") {
+      if (typeof(worker82) == "undefined") {
+        worker82 = createWorker82();
+      }
+      worker82.onmessage = function(event) {
+        document.getElementById("outputWorker82").innerHTML = "Worker diz: " + event.data;
+      };
+    } else {
+      document.getElementById("outputWorker82").innerHTML = "Web Workers não são suportados.";
+    }
+  }
+  
+  function stopWorker82() {
+    if (worker82) {
+      worker82.terminate();
+      worker82 = undefined;
+      document.getElementById("outputWorker82").innerHTML = "Worker parado.";
+    }
+  }
+&lt;/script&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Web Worker</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo82_start()">Iniciar Worker</button>
+      <button onclick="exemplo82_stop()">Parar Worker</button>
+      <div id="output82" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Web Workers executam scripts em segundo plano, mantendo a página responsiva.</li>
+      <li>A comunicação é feita por meio de mensagens (<code>postMessage</code> e <code>onmessage</code>).</li>
+      <li>O Worker não tem acesso ao DOM.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 82 -->
+
+  <!-- SUMÁRIO (Parte 3) -->
+  <div id="sumario">
+    <h2>Sumário (Parte 4)</h2>
+    <ul>
+      <li><a href="#capitulo61" onclick="irParaCapitulo(61)">Capítulo 61: Restrições de Data</a></li>
+      <li><a href="#capitulo62" onclick="irParaCapitulo(62)">Capítulo 62: Datetime-local</a></li>
+      <li><a href="#capitulo63" onclick="irParaCapitulo(63)">Capítulo 63: E-mail e Imagem</a></li>
+      <li><a href="#capitulo64" onclick="irParaCapitulo(64)">Capítulo 64: Arquivo e Oculto</a></li>
+      <li><a href="#capitulo65" onclick="irParaCapitulo(65)">Capítulo 65: Mês e Número</a></li>
+      <li><a href="#capitulo66" onclick="irParaCapitulo(66)">Capítulo 66: Restrições de Entrada</a></li>
+      <li><a href="#capitulo67" onclick="irParaCapitulo(67)">Capítulo 67: Faixa e Pesquisa</a></li>
+      <li><a href="#capitulo68" onclick="irParaCapitulo(68)">Capítulo 68: Tel, Tempo e URL</a></li>
+      <li><a href="#capitulo69" onclick="irParaCapitulo(69)">Capítulo 69: Semana</a></li>
+      <li><a href="#capitulo70" onclick="irParaCapitulo(70)">Capítulo 70: Atributos do Input</a></li>
+      <li><a href="#capitulo71" onclick="irParaCapitulo(71)">Capítulo 71: min, max, pattern, etc.</a></li>
+      <li><a href="#capitulo72" onclick="irParaCapitulo(72)">Capítulo 72: required, step, autofocus</a></li>
+      <li><a href="#capitulo73" onclick="irParaCapitulo(73)">Capítulo 73: list e autocomplete</a></li>
+      <li><a href="#capitulo74" onclick="irParaCapitulo(74)">Capítulo 74: Canvas</a></li>
+      <li><a href="#capitulo75" onclick="irParaCapitulo(75)">Capítulo 75: Canvas Avançado</a></li>
+      <li><a href="#capitulo76" onclick="irParaCapitulo(76)">Capítulo 76: SVG</a></li>
+      <li><a href="#capitulo77" onclick="irParaCapitulo(77)">Capítulo 77: Video</a></li>
+      <li><a href="#capitulo78" onclick="irParaCapitulo(78)">Capítulo 78: Audio</a></li>
+      <li><a href="#capitulo79" onclick="irParaCapitulo(79)">Capítulo 79: Elemento Arrastável</a></li>
+      <li><a href="#capitulo80" onclick="irParaCapitulo(80)">Capítulo 80: Armazenamento Web</a></li>
+      <li><a href="#capitulo81" onclick="irParaCapitulo(81)">Capítulo 81: Contador com Storage</a></li>
+      <li><a href="#capitulo82" onclick="irParaCapitulo(82)">Capítulo 82: Web Workers</a></li>
+    </ul>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Função para alternar visualização do código
+    function mostrarCodigo(btn) {
+      var codigoDiv = btn.nextElementSibling;
+      if (codigoDiv.style.display === "block") {
+        codigoDiv.style.display = "none";
+        btn.textContent = "Mostrar Código";
+      } else {
+        codigoDiv.style.display = "block";
+        btn.textContent = "Ocultar Código";
+      }
+    }
+    // Navegação entre capítulos
+    let capituloAtual = 61;
+    const maxCapitulos = 82;
+    function mudarCapitulo(direcao) {
+      document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+      capituloAtual += direcao;
+      if (capituloAtual > maxCapitulos) capituloAtual = 61;
+      if (capituloAtual < 61) capituloAtual = maxCapitulos;
+      document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function irParaCapitulo(numero) {
+      document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+      capituloAtual = numero;
+      document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // CAPÍTULO 61
+    function exemplo61() {
+      var data = document.getElementById("testDate61").value;
+      var msg = "";
+      if (!data) {
+        msg = "Nenhuma data selecionada.";
+      } else if (data <= "1979-12-31") {
+        msg = "Data válida: está antes de 1980-01-01.";
+      } else if (data >= "2000-01-02") {
+        msg = "Data válida: está depois de 2000-01-01.";
+      } else {
+        msg = "Data fora dos limites.";
+      }
+      document.getElementById("output61").textContent = msg;
+    }
+
+    // CAPÍTULO 62
+    function exemplo62() {
+      var dt = document.getElementById("datetime62").value;
+      document.getElementById("output62").textContent = dt ? "Você selecionou: " + dt : "Nenhuma data/hora selecionada.";
+    }
+
+    // CAPÍTULO 63
+    function exemplo63() {
+      var email = document.getElementById("emailInput63").value;
+      document.getElementById("output63").textContent = email ? "E-mail: " + email : "Nenhum e-mail informado.";
+    }
+
+    // CAPÍTULO 64
+    function exemplo64() {
+      var fileInput = document.getElementById("file64");
+      var hiddenVal = document.getElementById("hidden64").value;
+      var fileInfo = fileInput.value ? fileInput.value : "Nenhum arquivo selecionado.";
+      document.getElementById("output64").innerHTML = "Arquivo: " + fileInfo + "<br>Valor oculto: " + hiddenVal;
+    }
+
+    // CAPÍTULO 65
+    function exemplo65() {
+      var mes = document.getElementById("month65").value;
+      var num = document.getElementById("number65").value;
+      document.getElementById("output65").textContent = "Mês: " + (mes || "Nenhum") + " | Número: " + num;
+    }
+
+    // CAPÍTULO 66
+    function exemplo66() {
+      var quantidade = document.getElementById("quantity66").value;
+      document.getElementById("output66").textContent = "Quantidade: " + quantidade;
+    }
+
+    // CAPÍTULO 67
+    function exemplo67() {
+      var volume = document.getElementById("range67").value;
+      var pesquisa = document.getElementById("search67").value;
+      document.getElementById("output67").innerHTML = "Volume: " + volume + "<br>Pesquisa: " + pesquisa;
+    }
+
+    // CAPÍTULO 68
+    function exemplo68() {
+      var tel = document.getElementById("phoneInput68").value;
+      var tempo = document.getElementById("timeInput68").value;
+      var url = document.getElementById("urlInput68").value;
+      var msg = "Telefone: " + (tel || "Nenhum") + "<br>Tempo: " + (tempo || "Nenhum") + "<br>URL: " + (url || "Nenhum");
+      document.getElementById("output68").innerHTML = msg;
+    }
+
+    // CAPÍTULO 69
+    function exemplo69() {
+      var week = document.getElementById("weekInput69").value;
+      document.getElementById("output69").textContent = week ? "Semana: " + week : "Nenhuma semana selecionada.";
+    }
+
+    // CAPÍTULO 70
+    function exemplo70() {
+      var val = document.getElementById("input70").value;
+      document.getElementById("output70").textContent = "Valor: " + val;
+    }
+
+    // CAPÍTULO 71
+    function exemplo71() {
+      var code = document.getElementById("code71").value;
+      var pattern = /^[A-Za-z]{3}$/;
+      if (!pattern.test(code)) {
+        document.getElementById("output71").textContent = "Entrada inválida! Deve conter 3 letras.";
+      } else {
+        document.getElementById("output71").textContent = "Código: " + code;
+      }
+    }
+
+    // CAPÍTULO 72
+    function exemplo72() {
+      var pin = document.getElementById("input72").value;
+      document.getElementById("output72").textContent = "PIN: " + pin;
+    }
+
+    // CAPÍTULO 73
+    function exemplo73() {
+      var browser = document.getElementById("input73").value;
+      document.getElementById("output73").textContent = browser ? "Navegador: " + browser : "Nenhum navegador selecionado.";
+    }
+
+    // CAPÍTULO 74
+    function exemplo74() {
+      var cor = document.getElementById("color74").value;
+      var canvas = document.getElementById("canvas74_inter");
+      if (!canvas) return;
+      var ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = cor;
+      ctx.fillRect(20, 20, 150, 100);
+    }
+
+    // CAPÍTULO 75
+    function exemplo75() {
+      var canvas = document.getElementById("canvas75");
+      var ctx = canvas.getContext("2d");
+      var grd = ctx.createLinearGradient(0, 0, canvas.width, 0);
+      grd.addColorStop(0, "red");
+      grd.addColorStop(1, "white");
+      ctx.fillStyle = grd;
+      ctx.fillRect(10, 10, canvas.width - 20, canvas.height - 20);
+    }
+
+    // CAPÍTULO 76
+    function exemplo76() {
+      var cor = document.getElementById("colorSVG76").value;
+      document.getElementById("rect76").setAttribute("fill", cor);
+    }
+
+    // CAPÍTULO 77
+    function exemplo77() {
+      var video = document.getElementById("video77_inter");
+      if (video.paused) {
+        video.play();
+        document.getElementById("output77").textContent = "Vídeo em reprodução...";
+      } else {
+        video.pause();
+        document.getElementById("output77").textContent = "Vídeo pausado.";
+      }
+    }
+
+    // CAPÍTULO 78
+    function exemplo78() {
+      var audio = document.getElementById("audio78_inter");
+      if (audio.paused) {
+        audio.play();
+        document.getElementById("output78").textContent = "Áudio em reprodução...";
+      } else {
+        audio.pause();
+        document.getElementById("output78").textContent = "Áudio pausado.";
+      }
+    }
+
+    // CAPÍTULO 79: Funções para arrastar e soltar
+    function allowDrop79(ev) {
+      ev.preventDefault();
+    }
+    function drag79(ev) {
+      ev.dataTransfer.setData("text", ev.target.id);
+    }
+    function drop79(ev) {
+      ev.preventDefault();
+      var data = ev.dataTransfer.getData("text");
+      ev.target.appendChild(document.getElementById(data));
+    }
+
+    // CAPÍTULO 80
+    function exemplo80() {
+      var nome = document.getElementById("nome80").value.trim();
+      if (!nome) nome = "Nenhum nome informado";
+      localStorage.setItem("nome80", nome);
+      document.getElementById("output80").innerHTML = "Nome salvo: " + localStorage.getItem("nome80");
+    }
+
+    // CAPÍTULO 81
+    function exemplo81() {
+      if (sessionStorage.clicks) {
+        sessionStorage.clicks = Number(sessionStorage.clicks) + 1;
+      } else {
+        sessionStorage.clicks = 1;
+      }
+      document.getElementById("output81").innerHTML = "Você clicou " + sessionStorage.clicks + " vez(es) nesta sessão.";
+    }
+
+    // CAPÍTULO 82: Web Workers
+    // Cria um Web Worker usando Blob
+    function createWorker82() {
+      var blob = new Blob([`
+        var i = 0;
+        function timedCount() {
+          i++;
+          postMessage("Contador: " + i);
+          setTimeout(timedCount, 500);
+        }
+        timedCount();
+      `], { type: "application/javascript" });
+      return new Worker(URL.createObjectURL(blob));
+    }
+    var worker82;
+    function exemplo82_start() {
+      if (typeof(Worker) !== "undefined") {
+        if (typeof(worker82) == "undefined") {
+          worker82 = createWorker82();
+        }
+        worker82.onmessage = function(event) {
+          document.getElementById("output82").innerHTML = "Worker diz: " + event.data;
+        };
+      } else {
+        document.getElementById("output82").innerHTML = "Web Workers não são suportados.";
+      }
+    }
+    function exemplo82_stop() {
+      if (worker82) {
+        worker82.terminate();
+        worker82 = undefined;
+        document.getElementById("output82").innerHTML = "Worker parado.";
+      }
+    }
+  </script>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <p>HTML &amp; CSS - Parte 4 (Capítulos 61 a 82) © Yasminn. Continue explorando e aprendendo!</p>
+  </footer>
+</body>
+</html>

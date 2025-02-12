@@ -1,0 +1,1193 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplos Interativos de HTML e CSS - Parte 3 (Capítulos 40 a 60)</title>
+  <link rel="icon" type="image/x-icon" href="Imagens_html/Icone_html.png">
+
+  <!-- FONTE DO GOOGLE (Ex: Poppins) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- ESTILOS CSS (mesmo padrão das Partes 1 e 2) -->
+  <style>
+    /* RESET BÁSICO */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    /* CORPO GERAL */
+    body {
+      font-family: 'Poppins', sans-serif;
+      line-height: 1.6;
+      background: linear-gradient(to top right, #ece9e6, #ffffff);
+      color: #333;
+      padding: 20px;
+    }
+    /* CABEÇALHO */
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    header h1 {
+      font-weight: 600;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+      color: #2b2b2b;
+    }
+    header p {
+      font-size: 1rem;
+      color: #555;
+    }
+    /* SUMÁRIO */
+    #sumario {
+      background-color: #fff;
+      padding: 1rem 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    #sumario h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.8rem;
+      color: #2b2b2b;
+    }
+    #sumario ul {
+      list-style: none;
+    }
+    #sumario ul li {
+      margin-bottom: 0.5rem;
+    }
+    #sumario ul li a {
+      color: #5c7cfa;
+      text-decoration: none;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    #sumario ul li a:hover {
+      color: #1c5ed6;
+    }
+    /* NAVEGAÇÃO SUPERIOR */
+    .topo-navegacao {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .topo-navegacao a,
+    .topo-navegacao button {
+      padding: 0.7rem 1rem;
+      text-decoration: none;
+      border: none;
+      border-radius: 25px;
+      background-color: #5c7cfa;
+      color: #fff;
+      cursor: pointer;
+      font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .topo-navegacao a:hover,
+    .topo-navegacao button:hover {
+      background-color: #3b5bdb;
+      transform: translateY(-2px);
+    }
+    /* CONTAINER DOS CAPÍTULOS */
+    .capitulo {
+      display: none; /* Apenas o capítulo ativo será exibido */
+      background-color: #fff;
+      padding: 1.5rem;
+      border-radius: 10px;
+      margin-bottom: 2rem;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .capitulo.ativo {
+      display: block;
+    }
+    .capitulo h2 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+      color: #2b2b2b;
+    }
+    .capitulo p {
+      margin-bottom: 1rem;
+      color: #444;
+    }
+    /* EXEMPLO DE CÓDIGO */
+    .mostrar-codigo-btn {
+      margin: 0.5rem 0;
+      padding: 0.4rem 0.8rem;
+      background-color: #3b5bdb;
+      color: #fff;
+      border: none;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .mostrar-codigo-btn:hover {
+      background-color: #274c9e;
+      transform: translateY(-1px);
+    }
+    .codigo-exemplo {
+      display: none; /* Inicialmente oculto */
+      margin-top: 0.5rem;
+    }
+    pre {
+      background-color: #fff;
+      padding: 0.8rem;
+      overflow-x: auto;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      font-size: 0.9rem;
+    }
+    /* RODAPÉ */
+    footer {
+      text-align: center;
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #666;
+    }
+    @media (max-width: 600px) {
+      .topo-navegacao {
+        flex-direction: column;
+        align-items: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- CABEÇALHO -->
+  <header>
+    <h1>Exemplos Interativos de HTML e CSS - Parte 3</h1>
+    <p>Capítulos 40 a 60</p>
+  </header>
+
+  <!-- NAVEGAÇÃO SUPERIOR -->
+  <div class="topo-navegacao">
+    <a href="html2.html">Ir para a Parte 2 (20..40)</a>
+    <a href="html4.html">Ir para a Parte 4 (60..80)</a>
+    <button onclick="mudarCapitulo(-1)">← Capítulo Anterior</button>
+    <button onclick="mudarCapitulo(1)">Próximo Capítulo →</button>
+  </div>
+
+  <!-- ==================== CAPÍTULO 40 ==================== -->
+  <div id="capitulo40" class="capitulo ativo">
+    <h2>Capítulo 40: Caminhos de Arquivo em HTML</h2>
+    <p>Um caminho de arquivo descreve a localização de um arquivo na estrutura de pastas de um site.</p>
+
+    <h3>Exemplos de Caminho de Arquivo</h3>
+    <table border="1">
+      <tr>
+        <th>Caminho</th>
+        <th>Descrição</th>
+      </tr>
+      <tr>
+        <td><code>&lt;img src="imagem.jpg"&gt;</code></td>
+        <td>O arquivo "imagem.jpg" está localizado na mesma pasta da página atual.</td>
+      </tr>
+      <tr>
+        <td><code>&lt;img src="imagens/imagem.jpg"&gt;</code></td>
+        <td>O arquivo "imagem.jpg" está localizado na pasta de imagens na pasta atual.</td>
+      </tr>
+      <tr>
+        <td><code>&lt;img src="/imagens/imagem.jpg"&gt;</code></td>
+        <td>O arquivo "imagem.jpg" está localizado na pasta de imagens na raiz do site atual.</td>
+      </tr>
+      <tr>
+        <td><code>&lt;img src="../imagem.jpg"&gt;</code></td>
+        <td>O arquivo "imagem.jpg" está localizado na pasta um nível acima da pasta atual.</td>
+      </tr>
+    </table>
+
+    <h3>Caminhos de Arquivo em HTML</h3>
+    <p>Caminhos de arquivo são usados ao vincular arquivos externos, como páginas da web, imagens, folhas de estilo e JavaScripts.</p>
+
+    <h3>Caminhos de Arquivo Absolutos</h3>
+    <p>Um caminho de arquivo absoluto é o URL completo de um arquivo:</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;img src="https://www.w3schools.com/images/picture.jpg" alt="Mountain"&gt;</pre>
+    </div>
+    <p>A tag <code>&lt;img&gt;</code> é explicada no capítulo: <a href="#capituloXX">Imagens HTML</a>.</p>
+
+    <h3>Caminhos de Arquivo Relativos</h3>
+    <p>Um caminho de arquivo relativo aponta para um arquivo relativo à página atual. Confira os exemplos:</p>
+    <h4>Exemplo 1: Arquivo na pasta de imagens na raiz do site:</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;img src="/imagens/picture.jpg" alt="Mountain"&gt;</pre>
+    </div>
+    <h4>Exemplo 2: Arquivo na pasta de imagens na pasta atual:</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;img src="imagens/picture.jpg" alt="Mountain"&gt;</pre>
+    </div>
+    <h4>Exemplo 3: Arquivo na pasta de imagens um nível acima:</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;img src="../imagens/picture.jpg" alt="Mountain"&gt;</pre>
+    </div>
+
+    <h3>Melhores Práticas</h3>
+    <p>Recomenda-se usar caminhos de arquivo relativos para tornar os links mais portáteis, permitindo que funcionem tanto no ambiente local (localhost) quanto em domínios públicos futuros.</p>
+  </div>
+  <!-- Fim do Capítulo 40 -->
+
+  <!-- ==================== CAPÍTULO 41 ==================== -->
+  <div id="capitulo41" class="capitulo">
+    <h2>Capítulo 41: O Elemento HTML <code>&lt;head&gt;</code></h2>
+    <p>O elemento <code>&lt;head&gt;</code> é um contêiner para os seguintes elementos: <code>&lt;title&gt;</code>, <code>&lt;style&gt;</code>, <code>&lt;meta&gt;</code>, <code>&lt;link&gt;</code>, <code>&lt;script&gt;</code> e <code>&lt;base&gt;</code>.</p>
+    <h3>O Elemento HTML <code>&lt;head&gt;</code></h3>
+    <p>Colocado entre as tags <code>&lt;html&gt;</code> e <code>&lt;body&gt;</code>, o <code>&lt;head&gt;</code> armazena metadados – informações importantes sobre o documento que não são exibidas na página.</p>
+    <h3>Elementos Comuns Dentro do <code>&lt;head&gt;</code></h3>
+    <ul>
+      <li>O título do documento (<code>&lt;title&gt;</code>)</li>
+      <li>O conjunto de caracteres (<code>&lt;meta&gt;</code>)</li>
+      <li>Estilos internos (<code>&lt;style&gt;</code>)</li>
+      <li>Folhas de estilo externas (<code>&lt;link&gt;</code>)</li>
+      <li>Scripts (<code>&lt;script&gt;</code>)</li>
+    </ul>
+    <h3>O Elemento HTML <code>&lt;title&gt;</code></h3>
+    <p>Define o título da página, exibido na aba do navegador e crucial para SEO.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;title&gt;Título Significativo da Página&lt;/title&gt;</pre>
+    </div>
+    <h3>O Elemento HTML <code>&lt;style&gt;</code></h3>
+    <p>Permite escrever CSS diretamente na página para estilizar os elementos HTML.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;style&gt;
+  body {background-color: powderblue;}
+  h1 {color: red;}
+  p {color: blue;}
+&lt;/style&gt;
+      </pre>
+    </div>
+    <h3>O Elemento HTML <code>&lt;link&gt;</code></h3>
+    <p>Usado para vincular a folhas de estilo externas ou outros recursos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;link rel="stylesheet" href="mystyle.css"&gt;</pre>
+    </div>
+    <h3>Exemplo Completo de Documento HTML com <code>&lt;head&gt;</code></h3>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Uma Página Significativa&lt;/title&gt;
+    &lt;style&gt;
+      body {background-color: powderblue;}
+      h1 {color: red;}
+      p {color: blue;}
+    &lt;/style&gt;
+    &lt;link rel="stylesheet" href="style.css"&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Bem-vindo à Minha Página&lt;/h1&gt;
+    &lt;p&gt;Exemplo de página HTML com &lt;code&gt;&lt;head&gt;&lt;/code&gt;.&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>&lt;head&gt;</code> contém metadados importantes do documento.</li>
+      <li>O <code>&lt;title&gt;</code> define o título exibido na aba do navegador.</li>
+      <li>O <code>&lt;style&gt;</code> e <code>&lt;link&gt;</code> servem para definir estilos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 41 -->
+
+  <!-- ==================== CAPÍTULO 42 ==================== -->
+  <div id="capitulo42" class="capitulo">
+    <h2>Capítulo 42: O Elemento HTML <code>&lt;meta&gt;</code> e <code>&lt;script&gt;</code></h2>
+    <h3>O Elemento HTML <code>&lt;meta&gt;</code></h3>
+    <p>Utilizado para especificar metadados, como o conjunto de caracteres, palavras-chave, descrição e configurações da viewport.</p>
+    <ul>
+      <li>
+        Definir o conjunto de caracteres:
+        <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+        <div class="codigo-exemplo">
+          <pre>&lt;meta charset="UTF-8"&gt;</pre>
+        </div>
+      </li>
+      <li>
+        Palavras-chave:
+        <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+        <div class="codigo-exemplo">
+          <pre>&lt;meta name="keywords" content="HTML, CSS, JavaScript"&gt;</pre>
+        </div>
+      </li>
+      <li>
+        Descrição:
+        <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+        <div class="codigo-exemplo">
+          <pre>&lt;meta name="description" content="Free Web tutorials"&gt;</pre>
+        </div>
+      </li>
+      <li>
+        Autor:
+        <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+        <div class="codigo-exemplo">
+          <pre>&lt;meta name="author" content="John Doe"&gt;</pre>
+        </div>
+      </li>
+      <li>
+        Atualizar a página a cada 30 segundos:
+        <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+        <div class="codigo-exemplo">
+          <pre>&lt;meta http-equiv="refresh" content="30"&gt;</pre>
+        </div>
+      </li>
+      <li>
+        Configurar a viewport:
+        <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+        <div class="codigo-exemplo">
+          <pre>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;</pre>
+        </div>
+      </li>
+    </ul>
+    <h3>O Elemento HTML <code>&lt;script&gt;</code></h3>
+    <p>Utilizado para incorporar ou referenciar scripts JavaScript, que trazem interatividade à página.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;script&gt;
+  function myFunction() {
+    document.getElementById("demo").innerHTML = "Hello JavaScript!";
+  }
+&lt;/script&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>&lt;meta&gt;</code> define metadados essenciais para o documento.</li>
+      <li>A tag <code>&lt;meta name="viewport"&gt;</code> é crucial para design responsivo.</li>
+      <li>O <code>&lt;script&gt;</code> permite a execução de JavaScript para interatividade.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 42 -->
+
+  <!-- ==================== CAPÍTULO 43 ==================== -->
+  <div id="capitulo43" class="capitulo">
+    <h2>Capítulo 43: O Elemento HTML <code>&lt;base&gt;</code></h2>
+    <h3>O Elemento HTML <code>&lt;base&gt;</code></h3>
+    <p>Define a URL base e/ou destino para todas as URLs relativas em uma página, garantindo que links sem URL absoluta sejam resolvidos corretamente.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;head&gt;
+  &lt;base href="https://www.w3schools.com/" target="_blank"&gt;
+&lt;/head&gt;
+
+&lt;body&gt;
+  &lt;img src="images/stickman.gif" width="24" height="39" alt="Stickman"&gt;
+  &lt;a href="tags/tag_base.asp"&gt;HTML base Tag&lt;/a&gt;
+&lt;/body&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O elemento <code>&lt;base&gt;</code> especifica a URL base e/ou destino para links e recursos relativos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 43 -->
+
+  <!-- ==================== CAPÍTULO 44 ==================== -->
+  <div id="capitulo44" class="capitulo">
+    <h2>Capítulo 44: Elementos de Layout HTML</h2>
+    <img src="Imagens_html/Tags.gif" width="200" height="300" alt="Elementos de Layout">
+    <p>Os elementos semânticos de layout ajudam a estruturar a página, tornando o conteúdo mais compreensível tanto para desenvolvedores quanto para navegadores.</p>
+    <h3>Elementos Semânticos de Layout</h3>
+    <p>Confira os principais elementos:</p>
+    <h4><code>&lt;header&gt;</code> - Cabeçalho</h4>
+    <p>Define o cabeçalho do documento ou seção, geralmente contendo o título e a navegação inicial.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;header&gt;
+  &lt;h1&gt;Bem-vindo ao Meu Site&lt;/h1&gt;
+  &lt;nav&gt;
+    &lt;a href="#home"&gt;Home&lt;/a&gt;
+    &lt;a href="#about"&gt;Sobre&lt;/a&gt;
+  &lt;/nav&gt;
+&lt;/header&gt;
+      </pre>
+    </div>
+    <h4><code>&lt;nav&gt;</code> - Navegação</h4>
+    <p>Define links para a navegação entre seções ou páginas.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;nav&gt;
+  &lt;a href="#home"&gt;Home&lt;/a&gt;
+  &lt;a href="#services"&gt;Serviços&lt;/a&gt;
+  &lt;a href="#contact"&gt;Contato&lt;/a&gt;
+&lt;/nav&gt;
+      </pre>
+    </div>
+    <h4><code>&lt;section&gt;</code> - Seção</h4>
+    <p>Delimita uma seção com título e conteúdo relacionado.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;section&gt;
+  &lt;h2&gt;Sobre Mim&lt;/h2&gt;
+  &lt;p&gt;Informações sobre minha experiência profissional e habilidades.&lt;/p&gt;
+&lt;/section&gt;
+      </pre>
+    </div>
+    <h4><code>&lt;article&gt;</code> - Artigo</h4>
+    <p>Indica conteúdo independente, como posts de blog ou notícias.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;article&gt;
+  &lt;h2&gt;Como Aprender HTML&lt;/h2&gt;
+  &lt;p&gt;Este artigo explica como iniciar no HTML.&lt;/p&gt;
+&lt;/article&gt;
+      </pre>
+    </div>
+    <h4><code>&lt;aside&gt;</code> - Conteúdo Lateral</h4>
+    <p>Usado para conteúdo complementar, como barras laterais ou links relacionados.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;aside&gt;
+  &lt;p&gt;Veja também outros recursos sobre HTML e CSS.&lt;/p&gt;
+&lt;/aside&gt;
+      </pre>
+    </div>
+    <h4><code>&lt;footer&gt;</code> - Rodapé</h4>
+    <p>Define o rodapé da página ou seção, com informações como direitos autorais.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;footer&gt;
+  &lt;p&gt;© 2025 Meu Site. Todos os direitos reservados.&lt;/p&gt;
+&lt;/footer&gt;
+      </pre>
+    </div>
+    <h4><code>&lt;details&gt;</code> e <code>&lt;summary&gt;</code></h4>
+    <p>Permitem que o usuário exiba ou oculte informações adicionais.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;details&gt;
+  &lt;summary&gt;Clique para saber mais&lt;/summary&gt;
+  &lt;p&gt;Detalhes adicionais.&lt;/p&gt;
+&lt;/details&gt;
+      </pre>
+    </div>
+    <h3>Exemplo de Uso Combinado</h3>
+    <p>A seguir, um exemplo que combina os elementos de layout:</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;html&gt;
+  &lt;body&gt;
+    &lt;header&gt;
+      &lt;h1&gt;Meu Site&lt;/h1&gt;
+      &lt;nav&gt;
+        &lt;a href="#home"&gt;Home&lt;/a&gt;
+        &lt;a href="#about"&gt;Sobre&lt;/a&gt;
+      &lt;/nav&gt;
+    &lt;/header&gt;
+
+    &lt;section&gt;
+      &lt;h2&gt;Artigos&lt;/h2&gt;
+      &lt;article&gt;
+        &lt;h3&gt;Como Aprender HTML&lt;/h3&gt;
+        &lt;p&gt;Dicas e técnicas para iniciar no HTML.&lt;/p&gt;
+      &lt;/article&gt;
+      &lt;article&gt;
+        &lt;h3&gt;Como Usar CSS&lt;/h3&gt;
+        &lt;p&gt;Exemplos de estilos e layout com CSS.&lt;/p&gt;
+      &lt;/article&gt;
+    &lt;/section&gt;
+
+    &lt;aside&gt;
+      &lt;p&gt;Links e recursos adicionais.&lt;/p&gt;
+    &lt;/aside&gt;
+
+    &lt;footer&gt;
+      &lt;p&gt;© 2025 Meu Site. Todos os direitos reservados.&lt;/p&gt;
+    &lt;/footer&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>&lt;header&gt;</code> define o cabeçalho.</li>
+      <li><code>&lt;nav&gt;</code> cria a navegação.</li>
+      <li><code>&lt;section&gt;</code> delimita seções.</li>
+      <li><code>&lt;article&gt;</code> agrupa conteúdo independente.</li>
+      <li><code>&lt;aside&gt;</code> exibe conteúdo lateral.</li>
+      <li><code>&lt;footer&gt;</code> define o rodapé.</li>
+      <li><code>&lt;details&gt;</code> e <code>&lt;summary&gt;</code> possibilitam exibir/ocultar detalhes.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 44 -->
+
+  <!-- ==================== CAPÍTULO 45 ==================== -->
+  <div id="capitulo45" class="capitulo">
+    <h2>Capítulo 45: Web Design Responsivo</h2>
+    <pre>O design web responsivo consiste em criar páginas que se adaptam a qualquer dispositivo!
+Um web design responsivo ajusta automaticamente a página a diferentes tamanhos de tela e janelas de visualização.</pre>
+    <img src="Imagens_html/Teste.jpg" style="max-width: 100%; height: auto;" alt="Web Design Responsivo">
+    <h1>O que é Web Design Responsivo?</h1>
+    <pre>
+O Web Design Responsivo usa HTML e CSS para redimensionar, ocultar, encolher ou ampliar um site automaticamente,
+garantindo uma boa aparência em desktops, tablets e celulares.
+    </pre>
+  </div>
+  <!-- Fim do Capítulo 45 -->
+
+  <!-- ==================== CAPÍTULO 46 ==================== -->
+  <div id="capitulo46" class="capitulo">
+    <h2>Capítulo 46: Elementos HTML <code>&lt;figure&gt;</code> e <code>&lt;figcaption&gt;</code></h2>
+    <p>Esses elementos são usados para incluir conteúdo visual (imagens, gráficos) com uma legenda explicativa.</p>
+    <h3>Uso dos Elementos</h3>
+    <p>A tag <code>&lt;figure&gt;</code> encapsula o conteúdo visual e o <code>&lt;figcaption&gt;</code> fornece a legenda.</p>
+    <h4>Exemplo de Uso:</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;figure&gt;
+  &lt;img src="pic_trulli.jpg" alt="Trulli"&gt;
+  &lt;figcaption&gt;Fig1. - Trulli, Puglia, Italy.&lt;/figcaption&gt;
+&lt;/figure&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>&lt;figure&gt;</code> define o conteúdo visual independente.</li>
+      <li><code>&lt;figcaption&gt;</code> fornece uma legenda explicativa.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 46 -->
+
+  <!-- ==================== CAPÍTULO 47 ==================== -->
+  <div id="capitulo47" class="capitulo">
+    <h2>Capítulo 47: Elementos HTML Semânticos</h2>
+    <p>Os elementos semânticos melhoram a organização do conteúdo e a acessibilidade da página.</p>
+    <h3><code>&lt;article&gt;</code></h3>
+    <p>Define conteúdo independente, ideal para posts de blog ou artigos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;article&gt;
+  &lt;h2&gt;Título do Artigo&lt;/h2&gt;
+  &lt;p&gt;Conteúdo do artigo.&lt;/p&gt;
+&lt;/article&gt;
+      </pre>
+    </div>
+    <h3><code>&lt;aside&gt;</code></h3>
+    <p>Define conteúdo complementar, como barras laterais.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;aside&gt;
+  &lt;p&gt;Conteúdo lateral complementar.&lt;/p&gt;
+&lt;/aside&gt;
+      </pre>
+    </div>
+    <h3><code>&lt;details&gt;</code> e <code>&lt;summary&gt;</code></h3>
+    <p>Permitem exibir ou ocultar informações adicionais.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;details&gt;
+  &lt;summary&gt;Clique para mais informações&lt;/summary&gt;
+  &lt;p&gt;Detalhes adicionais.&lt;/p&gt;
+&lt;/details&gt;
+      </pre>
+    </div>
+    <h3><code>&lt;time&gt;</code></h3>
+    <p>Define data ou hora.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;time datetime="2025-01-18"&gt;18 de janeiro de 2025&lt;/time&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>&lt;article&gt;</code> para conteúdo independente.</li>
+      <li><code>&lt;aside&gt;</code> para conteúdo complementar.</li>
+      <li><code>&lt;details&gt;</code> e <code>&lt;summary&gt;</code> para informações opcionais.</li>
+      <li><code>&lt;time&gt;</code> para datas e horas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 47 -->
+
+  <!-- ==================== CAPÍTULO 48 ==================== -->
+  <div id="capitulo48" class="capitulo">
+    <h2>Capítulo 48: Formulários HTML</h2>
+    <p>Os formulários são usados para coletar dados do usuário e enviá-los para um servidor.</p>
+    <h3>Exemplo de Formulário</h3>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h2&gt;Formulários HTML&lt;/h2&gt;
+
+&lt;form action="/action_page.php"&gt;
+  &lt;label for="fname"&gt;Primeiro nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname" name="fname" value="João"&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;Último nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="lname" name="lname" value="Silva"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;input type="submit" value="Enviar"&gt;
+&lt;/form&gt; 
+
+&lt;p&gt;Ao clicar em "Enviar", os dados são enviados para "/action_page.php".&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O elemento <code>&lt;form&gt;</code> agrupa os campos de entrada.</li>
+      <li>Os elementos como <code>&lt;input&gt;</code> e <code>&lt;label&gt;</code> auxiliam na coleta e identificação dos dados.</li>
+    </ul>
+    <h2>Formulários HTML – Exemplo Interativo</h2>
+    <form action="/action_page.php">
+      <label for="fname">Primeiro nome:</label><br>
+      <input type="text" id="fname" name="fname" value="João"><br>
+      <label for="lname">Último nome:</label><br>
+      <input type="text" id="lname" name="lname" value="Silva"><br><br>
+      <input type="submit" value="Enviar">
+    </form>
+    <p>Ao enviar, os dados serão processados por "/action_page.php".</p>
+  </div>
+  <!-- Fim do Capítulo 48 -->
+
+  <!-- ==================== CAPÍTULO 49 ==================== -->
+  <div id="capitulo49" class="capitulo">
+    <h2>Capítulo 49: Campos de Texto e Botões de Rádio</h2>
+    <h3>Campos de Texto</h3>
+    <p>O <code>&lt;input type="text"&gt;</code> permite a entrada de uma única linha de texto.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="fname"&gt;Primeiro nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname" name="fname"&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;Último nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="lname" name="lname"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Botões de Rádio</h3>
+    <p>Permitem que o usuário escolha uma opção entre várias.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;p&gt;Escolha sua linguagem favorita para a Web:&lt;/p&gt;
+
+&lt;form&gt;
+  &lt;input type="radio" id="html" name="fav_language" value="HTML"&gt;
+  &lt;label for="html"&gt;HTML&lt;/label&gt;&lt;br&gt;
+  &lt;input type="radio" id="css" name="fav_language" value="CSS"&gt;
+  &lt;label for="css"&gt;CSS&lt;/label&gt;&lt;br&gt;
+  &lt;input type="radio" id="javascript" name="fav_language" value="JavaScript"&gt;
+  &lt;label for="javascript"&gt;JavaScript&lt;/label&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O campo de texto captura uma única linha de entrada.</li>
+      <li>O elemento <code>&lt;label&gt;</code> melhora a acessibilidade associando rótulos aos campos.</li>
+      <li>Os botões de rádio permitem selecionar uma única opção dentre várias.</li>
+    </ul>
+    <p>Exemplo interativo:</p>
+    <form>
+      <input type="radio" id="html" name="fav_language" value="HTML">
+      <label for="html">HTML</label><br>
+      <input type="radio" id="css" name="fav_language" value="CSS">
+      <label for="css">CSS</label><br>
+      <input type="radio" id="javascript" name="fav_language" value="JavaScript">
+      <label for="javascript">JavaScript</label>
+    </form>
+  </div>
+  <!-- Fim do Capítulo 49 -->
+
+  <!-- ==================== CAPÍTULO 50 ==================== -->
+  <div id="capitulo50" class="capitulo">
+    <h2>Capítulo 50: Caixas de Seleção</h2>
+    <p>O <code>&lt;input type="checkbox"&gt;</code> permite que o usuário selecione uma ou mais opções.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form action="/action_page.php"&gt;
+  &lt;input type="checkbox" id="vehicle1" name="vehicle1" value="Bike"&gt;
+  &lt;label for="vehicle1"&gt; Eu tenho uma bicicleta&lt;/label&gt;&lt;br&gt;
+  &lt;input type="checkbox" id="vehicle2" name="vehicle2" value="Car"&gt;
+  &lt;label for="vehicle2"&gt; Eu tenho um carro&lt;/label&gt;&lt;br&gt;
+  &lt;input type="checkbox" id="vehicle3" name="vehicle3" value="Boat"&gt;
+  &lt;label for="vehicle3"&gt; Eu tenho um barco&lt;/label&gt;&lt;br&gt;
+  &lt;input type="submit" value="Enviar"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Caixas de seleção permitem escolher zero ou mais opções dentre um conjunto.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 50 -->
+
+  <!-- ==================== CAPÍTULO 51 ==================== -->
+  <div id="capitulo51" class="capitulo">
+    <h2>Capítulo 51: O Botão Enviar</h2>
+    <p>O <code>&lt;input type="submit"&gt;</code> cria um botão que envia os dados do formulário para o servidor.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form action="/action_page.php"&gt;
+  &lt;label for="fname"&gt;Primeiro nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname" name="fname" value="John"&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;Último nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="lname" name="lname" value="Doe"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;input type="submit" value="Enviar"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O botão de envio é responsável por submeter os dados do formulário ao destino especificado.</li>
+      <li>O atributo <code>action</code> do formulário indica o arquivo que processará os dados.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 51 -->
+
+  <!-- ==================== CAPÍTULO 52 ==================== -->
+  <div id="capitulo52" class="capitulo">
+    <h2>Capítulo 52: O Atributo de Ação e o Atributo de Destino</h2>
+    <h3>O Atributo de Ação</h3>
+    <p>Define para onde os dados do formulário serão enviados quando submetidos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form action="/action_page.php"&gt;
+  &lt;label for="fname"&gt;Primeiro nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname" name="fname" value="João"&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;Último nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="lname" name="lname" value="Silva"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;input type="submit" value="Enviar"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>O Atributo de Destino</h3>
+    <p>Define onde a resposta do formulário será exibida (ex.: <code>_blank</code> para nova aba).</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form action="/action_page.php" target="_blank"&gt;
+  &lt;label for="fname"&gt;Primeiro nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="fname" name="fname" value="João"&gt;&lt;br&gt;
+  &lt;label for="lname"&gt;Último nome:&lt;/label&gt;&lt;br&gt;
+  &lt;input type="text" id="lname" name="lname" value="Silva"&gt;&lt;br&gt;&lt;br&gt;
+  &lt;input type="submit" value="Enviar"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O atributo <code>action</code> define o destino dos dados.</li>
+      <li>O atributo <code>target</code> especifica onde a resposta será exibida.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 52 -->
+
+  <!-- ==================== CAPÍTULO 53 ==================== -->
+  <div id="capitulo53" class="capitulo">
+    <h2>Capítulo 53: O Atributo Método</h2>
+    <h3>O Atributo Método</h3>
+    <p>Especifica o método HTTP (<code>GET</code> ou <code>POST</code>) utilizado para enviar os dados do formulário.</p>
+    <p>O método padrão é <code>GET</code>, que anexa os dados na URL.</p>
+    <h3>O Método <code>GET</code></h3>
+    <ul>
+      <li>Os dados ficam visíveis na URL.</li>
+      <li>Não é adequado para dados confidenciais.</li>
+      <li>Útil para formulários de pesquisa.</li>
+    </ul>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código (GET)</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;form action="/action_page.php" method="get"&gt;</pre>
+    </div>
+    <h3>O Método <code>POST</code></h3>
+    <ul>
+      <li>Envia os dados no corpo da requisição.</li>
+      <li>Mais seguro para informações confidenciais.</li>
+      <li>Permite enviar grandes volumes de dados.</li>
+    </ul>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código (POST)</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;form action="/action_page.php" method="post"&gt;</pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O atributo <code>method</code> determina como os dados são enviados (<code>GET</code> ou <code>POST</code>).</li>
+      <li><code>GET</code> é adequado para dados não confidenciais; <code>POST</code> para dados sensíveis ou volumosos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 53 -->
+
+  <!-- ==================== CAPÍTULO 54 ==================== -->
+  <div id="capitulo54" class="capitulo">
+    <h2>Capítulo 54: O Atributo Autocomplete e O Atributo Novalidate</h2>
+    <h3>O Atributo <code>autocomplete</code></h3>
+    <p>Define se o preenchimento automático deve ser ativado ou desativado para o formulário, facilitando a entrada de dados.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código (autocomplete)</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;form action="/action_page.php" autocomplete="on"&gt;</pre>
+    </div>
+    <h3>O Atributo <code>novalidate</code></h3>
+    <p>Quando presente, desativa a validação automática dos campos pelo navegador, permitindo uma validação personalizada.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código (novalidate)</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;form action="/action_page.php" novalidate&gt;</pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>autocomplete</code> ativa/desativa o preenchimento automático.</li>
+      <li><code>novalidate</code> desativa a validação automática do navegador.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 54 -->
+
+  <!-- ==================== CAPÍTULO 55 ==================== -->
+  <div id="capitulo55" class="capitulo">
+    <h2>Capítulo 55: Os Elementos HTML <code>&lt;form&gt;</code></h2>
+    <p>Um formulário HTML pode conter diversos elementos para coleta de dados, tais como:</p>
+    <ul>
+      <li><code>&lt;input&gt;</code></li>
+      <li><code>&lt;label&gt;</code></li>
+      <li><code>&lt;select&gt;</code></li>
+      <li><code>&lt;textarea&gt;</code></li>
+      <li><code>&lt;button&gt;</code></li>
+      <li><code>&lt;fieldset&gt;</code></li>
+      <li><code>&lt;legend&gt;</code></li>
+      <li><code>&lt;datalist&gt;</code></li>
+      <li><code>&lt;output&gt;</code></li>
+      <li><code>&lt;option&gt;</code> e <code>&lt;optgroup&gt;</code></li>
+    </ul>
+    <h3>O Elemento <code>&lt;input&gt;</code></h3>
+    <p>É o elemento mais versátil, configurável através do atributo <code>type</code>.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;label for="fname"&gt;First name:&lt;/label&gt;
+&lt;input type="text" id="fname" name="fname"&gt;</pre>
+    </div>
+    <h3>O Elemento <code>&lt;select&gt;</code> e <code>&lt;option&gt;</code></h3>
+    <p>Criam listas suspensas para seleção de opções.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;label for="cars"&gt;Choose a car:&lt;/label&gt;
+&lt;select id="cars" name="cars"&gt;
+  &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+  &lt;option value="saab"&gt;Saab&lt;/option&gt;
+  &lt;option value="fiat"&gt;Fiat&lt;/option&gt;
+  &lt;option value="audi"&gt;Audi&lt;/option&gt;
+&lt;/select&gt;</pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>&lt;form&gt;</code> agrupa os elementos de entrada.</li>
+      <li>Elementos como <code>&lt;input&gt;</code>, <code>&lt;label&gt;</code> e <code>&lt;select&gt;</code> são fundamentais para formulários.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 55 -->
+
+  <!-- ==================== CAPÍTULO 56 ==================== -->
+  <div id="capitulo56" class="capitulo">
+    <h2>Capítulo 56: Permitir Múltiplas Seleções e Outros Elementos de Formulário</h2>
+    <h3>Permitir Múltiplas Seleções</h3>
+    <p>Ao adicionar o atributo <code>multiple</code> a um elemento <code>&lt;select&gt;</code>, permite-se que o usuário selecione mais de uma opção.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;label for="cars"&gt;Choose a car:&lt;/label&gt;
+&lt;select id="cars" name="cars" size="4" multiple&gt;
+  &lt;option value="volvo"&gt;Volvo&lt;/option&gt;
+  &lt;option value="saab"&gt;Saab&lt;/option&gt;
+  &lt;option value="fiat"&gt;Fiat&lt;/option&gt;
+  &lt;option value="audi"&gt;Audi&lt;/option&gt;
+&lt;/select&gt;</pre>
+    </div>
+    <h3>O Elemento <code>&lt;textarea&gt;</code></h3>
+    <p>Cria uma área de texto multilinha para entrada de texto mais extensa.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;textarea name="message" rows="10" cols="30"&gt;
+The cat was playing in the garden.
+&lt;/textarea&gt;</pre>
+    </div>
+    <h3>O Elemento <code>&lt;button&gt;</code></h3>
+    <p>Cria um botão clicável que pode executar ações, como acionar um script.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>&lt;button type="button" onclick="alert('Hello World!')"&gt;Click Me!&lt;/button&gt;</pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O atributo <code>multiple</code> permite selecionar várias opções em um <code>&lt;select&gt;</code>.</li>
+      <li>O <code>&lt;textarea&gt;</code> fornece uma área de texto multilinha.</li>
+      <li>O <code>&lt;button&gt;</code> cria botões interativos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 56 -->
+
+  <!-- ==================== CAPÍTULO 57 ==================== -->
+  <div id="capitulo57" class="capitulo">
+    <h2>Capítulo 57: Os Elementos <code>&lt;fieldset&gt;</code> e <code>&lt;legend&gt;</code></h2>
+    <h3>O Elemento <code>&lt;fieldset&gt;</code></h3>
+    <p>Utilizado para agrupar visualmente campos relacionados dentro de um formulário.</p>
+    <h3>O Elemento <code>&lt;legend&gt;</code></h3>
+    <p>Fornece uma legenda ou título para o grupo de campos contido no <code>&lt;fieldset&gt;</code>.</p>
+    <h4>Exemplo</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form action="/action_page.php"&gt;
+  &lt;fieldset&gt;
+    &lt;legend&gt;Personalia:&lt;/legend&gt;
+    &lt;label for="fname"&gt;First name:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="text" id="fname" name="fname" value="John"&gt;&lt;br&gt;
+    &lt;label for="lname"&gt;Last name:&lt;/label&gt;&lt;br&gt;
+    &lt;input type="text" id="lname" name="lname" value="Doe"&gt;&lt;br&gt;&lt;br&gt;
+    &lt;input type="submit" value="Submit"&gt;
+  &lt;/fieldset&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>&lt;fieldset&gt;</code> agrupa campos relacionados.</li>
+      <li><code>&lt;legend&gt;</code> descreve o grupo.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 57 -->
+
+  <!-- ==================== CAPÍTULO 58 ==================== -->
+  <div id="capitulo58" class="capitulo">
+    <h2>Capítulo 58: O Elemento <code>&lt;datalist&gt;</code> e <code>&lt;output&gt;</code></h2>
+    <h3>O Elemento <code>&lt;datalist&gt;</code></h3>
+    <p>Fornece uma lista de opções predefinidas para um campo de entrada. Conforme o usuário digita, sugestões são exibidas.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form action="/action_page.php"&gt;
+  &lt;input list="browsers"&gt;
+  &lt;datalist id="browsers"&gt;
+    &lt;option value="Edge"&gt;
+    &lt;option value="Firefox"&gt;
+    &lt;option value="Chrome"&gt;
+    &lt;option value="Opera"&gt;
+    &lt;option value="Safari"&gt;
+  &lt;/datalist&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>O Elemento <code>&lt;output&gt;</code></h3>
+    <p>Exibe o resultado de cálculos ou operações, podendo ser atualizado dinamicamente via JavaScript.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form action="/action_page.php" oninput="x.value=parseInt(a.value)+parseInt(b.value)"&gt;
+  0
+  &lt;input type="range" id="a" name="a" value="50"&gt;
+  100 +
+  &lt;input type="number" id="b" name="b" value="50"&gt;
+  =
+  &lt;output name="x" for="a b"&gt;&lt;/output&gt;
+  &lt;br&gt;&lt;br&gt;
+  &lt;input type="submit"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li><code>&lt;datalist&gt;</code> oferece opções sugeridas para um campo de entrada.</li>
+      <li><code>&lt;output&gt;</code> mostra resultados de cálculos ou scripts.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 58 -->
+
+  <!-- ==================== CAPÍTULO 59 ==================== -->
+  <div id="capitulo59" class="capitulo">
+    <h2>Capítulo 59: Tipo de Entrada Cor</h2>
+    <h3>O Elemento <code>&lt;input type="color"&gt;</code></h3>
+    <p>Permite que o usuário escolha uma cor através de um seletor de cores nativo do navegador.</p>
+    <h4>Exemplo 1: Campo de entrada de cor simples</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="favcolor"&gt;Select your favorite color:&lt;/label&gt;
+  &lt;input type="color" id="favcolor" name="favcolor"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h4>Exemplo 2: Com valor pré-definido</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h2&gt;Show a Color Picker&lt;/h2&gt;
+
+&lt;p&gt;O campo <strong>input type="color"</strong> é usado para selecionar uma cor.&lt;/p&gt;
+
+&lt;form action="/action_page.php"&gt;
+  &lt;label for="favcolor"&gt;Select your favorite color:&lt;/label&gt;
+  &lt;input type="color" id="favcolor" name="favcolor" value="#ff0000"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;b&gt;Note:&lt;/b&gt; input type="color" não é suportado no Internet Explorer 11.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>input type="color"</code> permite selecionar uma cor com um seletor nativo.</li>
+      <li>É possível definir um valor inicial com o atributo <code>value</code>.</li>
+      <li>Não é suportado no Internet Explorer 11.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 59 -->
+
+  <!-- ==================== CAPÍTULO 60 ==================== -->
+  <div id="capitulo60" class="capitulo">
+    <h2>Capítulo 60: Tipo de Entrada Data</h2>
+    <h3>O Elemento <code>&lt;input type="date"&gt;</code></h3>
+    <p>Permite que o usuário selecione uma data através de um seletor de datas (quando suportado pelo navegador).</p>
+    <h4>Exemplo 1: Campo de entrada de data simples</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form&gt;
+  &lt;label for="birthday"&gt;Birthday:&lt;/label&gt;
+  &lt;input type="date" id="birthday" name="birthday"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h4>Exemplo 2: Formulário com campo de data</h4>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;body&gt;
+
+&lt;h2&gt;Date Field&lt;/h2&gt;
+
+&lt;p&gt;O <strong>input type="date"</strong> é usado para inserir uma data.&lt;/p&gt;
+
+&lt;form action="/action_page.php"&gt;
+  &lt;label for="birthday"&gt;Birthday:&lt;/label&gt;
+  &lt;input type="date" id="birthday" name="birthday"&gt;
+  &lt;input type="submit" value="Submit"&gt;
+&lt;/form&gt;
+
+&lt;p&gt;&lt;strong&gt;Note:&lt;/strong&gt; input type="date" não é suportado no Internet Explorer 11.&lt;/p&gt;
+
+&lt;/body&gt;
+&lt;/html&gt;
+      </pre>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O <code>input type="date"</code> possibilita a seleção de uma data com um seletor nativo.</li>
+      <li>É útil para coletar informações de data de forma estruturada.</li>
+      <li>Não é suportado no Internet Explorer 11.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 60 -->
+
+  <!-- SUMÁRIO (Parte 3) -->
+  <div id="sumario">
+    <h2>Sumário (Parte 3)</h2>
+    <ul>
+      <li><a href="#capitulo40" onclick="irParaCapitulo(40)">Capítulo 40: Caminhos de Arquivo</a></li>
+      <li><a href="#capitulo41" onclick="irParaCapitulo(41)">Capítulo 41: Elemento &lt;head&gt;</a></li>
+      <li><a href="#capitulo42" onclick="irParaCapitulo(42)">Capítulo 42: &lt;meta&gt; e &lt;script&gt;</a></li>
+      <li><a href="#capitulo43" onclick="irParaCapitulo(43)">Capítulo 43: Elemento &lt;base&gt;</a></li>
+      <li><a href="#capitulo44" onclick="irParaCapitulo(44)">Capítulo 44: Elementos de Layout</a></li>
+      <li><a href="#capitulo45" onclick="irParaCapitulo(45)">Capítulo 45: Web Design Responsivo</a></li>
+      <li><a href="#capitulo46" onclick="irParaCapitulo(46)">Capítulo 46: &lt;figure&gt; e &lt;figcaption&gt;</a></li>
+      <li><a href="#capitulo47" onclick="irParaCapitulo(47)">Capítulo 47: Elementos Semânticos</a></li>
+      <li><a href="#capitulo48" onclick="irParaCapitulo(48)">Capítulo 48: Formulários HTML</a></li>
+      <li><a href="#capitulo49" onclick="irParaCapitulo(49)">Capítulo 49: Campos de Texto e Rádio</a></li>
+      <li><a href="#capitulo50" onclick="irParaCapitulo(50)">Capítulo 50: Caixas de Seleção</a></li>
+      <li><a href="#capitulo51" onclick="irParaCapitulo(51)">Capítulo 51: Botão Enviar</a></li>
+      <li><a href="#capitulo52" onclick="irParaCapitulo(52)">Capítulo 52: Ação e Destino</a></li>
+      <li><a href="#capitulo53" onclick="irParaCapitulo(53)">Capítulo 53: Método</a></li>
+      <li><a href="#capitulo54" onclick="irParaCapitulo(54)">Capítulo 54: Autocomplete e Novalidate</a></li>
+      <li><a href="#capitulo55" onclick="irParaCapitulo(55)">Capítulo 55: Elementos do Formulário</a></li>
+      <li><a href="#capitulo56" onclick="irParaCapitulo(56)">Capítulo 56: Múltiplas Seleções e Outros</a></li>
+      <li><a href="#capitulo57" onclick="irParaCapitulo(57)">Capítulo 57: Fieldset e Legend</a></li>
+      <li><a href="#capitulo58" onclick="irParaCapitulo(58)">Capítulo 58: Datalist e Output</a></li>
+      <li><a href="#capitulo59" onclick="irParaCapitulo(59)">Capítulo 59: Input Cor</a></li>
+      <li><a href="#capitulo60" onclick="irParaCapitulo(60)">Capítulo 60: Input Data</a></li>
+    </ul>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Função para alternar visualização do código
+    function mostrarCodigo(btn) {
+      var codigoDiv = btn.nextElementSibling;
+      if (codigoDiv.style.display === "block") {
+        codigoDiv.style.display = "none";
+        btn.textContent = "Mostrar Código";
+      } else {
+        codigoDiv.style.display = "block";
+        btn.textContent = "Ocultar Código";
+      }
+    }
+    // Navegação entre capítulos
+    let capituloAtual = 40;
+    const maxCapitulos = 60;
+    function mudarCapitulo(direcao) {
+      document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+      capituloAtual += direcao;
+      if (capituloAtual > maxCapitulos) capituloAtual = 40;
+      if (capituloAtual < 40) capituloAtual = maxCapitulos;
+      document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function irParaCapitulo(numero) {
+      document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+      capituloAtual = numero;
+      document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+  </script>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <p>HTML &amp; CSS - Parte 3 (Capítulos 40 a 60) © yasmin. Continue explorando e aprendendo!</p>
+  </footer>
+</body>
+</html>

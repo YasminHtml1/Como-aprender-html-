@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HTML com Python e PHP - Capítulos 100 a 130</title>
+  <link rel="icon" type="image/x-icon" href="https://via.placeholder.com/16">
+
+  <!-- Fonte Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos CSS (baseado nos exemplos anteriores) -->
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to top right, #ece9e6, #ffffff);
+      color: #333;
+      padding: 20px;
+    }
+    header { text-align: center; margin-bottom: 1.5rem; }
+    header h1 { font-weight: 600; font-size: 2rem; margin-bottom: 0.5rem; color: #2b2b2b; }
+    header p { font-size: 1rem; color: #555; }
+    .topo-navegacao {
+      display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+    }
+    .topo-navegacao a, .topo-navegacao button {
+      padding: 0.7rem 1rem; text-decoration: none; border: none; border-radius: 25px;
+      background-color: #5c7cfa; color: #fff; cursor: pointer; font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .topo-navegacao a:hover, .topo-navegacao button:hover {
+      background-color: #3b5bdb; transform: translateY(-2px);
+    }
+    .capitulo {
+      display: none; background-color: #fff; padding: 1.5rem; border-radius: 10px;
+      margin-bottom: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .capitulo.ativo { display: block; }
+    .capitulo h2 { font-size: 1.6rem; margin-bottom: 1rem; color: #2b2b2b; }
+    .capitulo p { margin-bottom: 1rem; color: #444; }
+    .mostrar-codigo-btn {
+      margin: 0.5rem 0; padding: 0.4rem 0.8rem; background-color: #3b5bdb; color: #fff;
+      border: none; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .mostrar-codigo-btn:hover { background-color: #274c9e; transform: translateY(-1px); }
+    .codigo-exemplo { display: none; margin-top: 0.5rem; }
+    pre {
+      background-color: #fff; padding: 0.8rem; overflow-x: auto; border: 1px solid #ddd;
+      border-radius: 5px; font-size: 0.9rem;
+    }
+    .exemplo-interativo {
+      background-color: #e7ffe6; border-left: 4px solid #51cf66; padding: 1rem; margin-top: 1rem;
+      border-radius: 5px;
+    }
+    .exemplo-interativo label { margin-right: 0.5rem; font-weight: 500; }
+    .exemplo-interativo input, .exemplo-interativo select, .exemplo-interativo textarea {
+      margin: 0.5rem 0; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;
+    }
+    .exemplo-interativo button {
+      margin-top: 0.5rem; padding: 0.5rem 1rem; background-color: #2f9e44; color: #fff;
+      border: none; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .exemplo-interativo button:hover { background-color: #1b6d2f; transform: translateY(-1px); }
+    .exemplo-interativo-output {
+      margin-top: 0.5rem; padding: 0.8rem; background-color: #fff; border: 1px solid #c8f5cf;
+      border-radius: 5px; min-height: 40px;
+    }
+    #sumario {
+      background-color: #fff; padding: 1rem 1.5rem; border-radius: 10px;
+      margin-top: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    #sumario h2 { font-size: 1.4rem; margin-bottom: 0.8rem; color: #2b2b2b; }
+    #sumario ul { list-style: none; }
+    #sumario ul li { margin-bottom: 0.5rem; }
+    #sumario ul li a { color: #5c7cfa; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    #sumario ul li a:hover { color: #1c5ed6; }
+    footer { text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #666; }
+  </style>
+</head>
+<body>
+  <!-- CABEÇALHO -->
+  <header>
+    <h1>Integração de HTML com Python e PHP</h1>
+    <p>Capítulos 100 a 130</p>
+  </header>
+
+  <!-- NAVEGAÇÃO SUPERIOR -->
+  <div class="topo-navegacao">
+    <a href="html5.html">Parte 5</a>
+    <button onclick="mudarCapitulo(-1)">← Capítulo Anterior</button>
+    <button onclick="mudarCapitulo(1)">Próximo Capítulo →</button>
+  </div>
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 100: Introdução ao Backend com Python -->
+  <!-- ====================================================== -->
+  <div id="capitulo100" class="capitulo ativo">
+    <h2>Capítulo 100: Introdução ao Backend com Python</h2>
+    <p>Python é uma linguagem poderosa para o desenvolvimento backend. Frameworks como <strong>Flask</strong> e <strong>Django</strong> permitem criar aplicações web robustas que renderizam HTML, manipulam formulários e interagem com bancos de dados.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+# Exemplo simples com Flask (app.py)
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+
+if __name__ == "__main__":
+    app.run(debug=True)
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Resposta do Flask</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo100()">Mostrar Simulação</button>
+      <div id="output100" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Flask é um framework minimalista para Python.</li>
+      <li>Permite renderizar templates HTML e criar APIs.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 100 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 101: Instalando e Configurando Flask -->
+  <!-- ====================================================== -->
+  <div id="capitulo101" class="capitulo">
+    <h2>Capítulo 101: Instalando e Configurando Flask</h2>
+    <p>Para iniciar com Flask, instale-o via pip e crie um arquivo básico.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+# Instalação
+pip install flask
+
+# app.py
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Olá, Flask!"
+
+if __name__ == "__main__":
+    app.run()
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Configuração do Flask</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo101()">Simular Configuração</button>
+      <div id="output101" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Instale Flask via pip.</li>
+      <li>Crie um arquivo simples que retorne uma mensagem.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 101 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 102: Estrutura Básica de um Projeto Flask -->
+  <!-- ====================================================== -->
+  <div id="capitulo102" class="capitulo">
+    <h2>Capítulo 102: Estrutura Básica de um Projeto Flask</h2>
+    <p>Um projeto Flask geralmente possui arquivos para a aplicação, templates HTML e estáticos (CSS, JS, imagens).</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Estrutura de pastas:
+project/
+│
+├── app.py
+├── templates/
+│   └── index.html
+└── static/
+    ├── css/
+    ├── js/
+    └── images/
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Estrutura</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo102()">Mostrar Estrutura do Projeto</button>
+      <div id="output102" class="exemplo-interativo-output">
+        Estrutura simulada:<br>
+        app.py<br>
+        templates/index.html<br>
+        static/css/ ... etc.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Organize seu projeto Flask em pastas para templates e arquivos estáticos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 102 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 103: Roteamento em Flask -->
+  <!-- ====================================================== -->
+  <div id="capitulo103" class="capitulo">
+    <h2>Capítulo 103: Roteamento em Flask</h2>
+    <p>Os roteadores definem as URLs que o aplicativo responde. Cada rota é associada a uma função que retorna conteúdo HTML.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/about")
+def about():
+    return "Sobre Nós"
+
+if __name__ == "__main__":
+    app.run()
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Roteamento</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo103()">Simular Rota /about</button>
+      <div id="output103" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Cada rota em Flask é definida com o decorator <code>@app.route()</code>.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 103 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 104: Renderizando Templates HTML com Flask -->
+  <!-- ====================================================== -->
+  <div id="capitulo104" class="capitulo">
+    <h2>Capítulo 104: Renderizando Templates HTML com Flask</h2>
+    <p>O Flask utiliza o mecanismo de templates Jinja2 para separar a lógica do backend da apresentação HTML.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return render_template("index.html")
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Renderização</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo104()">Simular Renderização</button>
+      <div id="output104" class="exemplo-interativo-output">
+        Simulação: O template "index.html" foi renderizado.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Use <code>render_template()</code> para renderizar arquivos HTML.</li>
+      <li>Jinja2 permite inserir variáveis e lógica simples nos templates.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 104 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 105: Passando Dados para Templates em Flask -->
+  <!-- ====================================================== -->
+  <div id="capitulo105" class="capitulo">
+    <h2>Capítulo 105: Passando Dados para Templates em Flask</h2>
+    <p>Você pode passar variáveis do backend para os templates HTML, permitindo conteúdo dinâmico.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+from flask import Flask, render_template
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    nome = "João"
+    return render_template("index.html", nome=nome)
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Variável no Template</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo105()">Simular Passagem de Variável</button>
+      <div id="output105" class="exemplo-interativo-output">
+        Simulação: "Olá, João!" foi exibido no template.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Dados podem ser passados para os templates usando argumentos em <code>render_template()</code>.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 105 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 106: Manipulação de Formulários com Flask -->
+  <!-- ====================================================== -->
+  <div id="capitulo106" class="capitulo">
+    <h2>Capítulo 106: Manipulação de Formulários com Flask</h2>
+    <p>Flask facilita o processamento de formulários HTML, permitindo a manipulação dos dados enviados pelo usuário.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+from flask import Flask, request
+app = Flask(__name__)
+
+@app.route("/submit", methods=["GET", "POST"])
+def submit():
+    if request.method == "POST":
+        nome = request.form["nome"]
+        return "Olá, " + nome + "!"
+    return '''
+    &lt;form method="post"&gt;
+      &lt;label&gt;Nome:&lt;/label&gt;
+      &lt;input type="text" name="nome"&gt;
+      &lt;input type="submit" value="Enviar"&gt;
+    &lt;/form&gt;
+    '''
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Formulário Flask</h3>
+    <div class="exemplo-interativo">
+      <label for="nomeForm106">Nome:</label>
+      <input type="text" id="nomeForm106" placeholder="Digite seu nome"><br>
+      <button onclick="exemplo106()">Enviar Formulário</button>
+      <div id="output106" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Use <code>request.form</code> para acessar os dados enviados via formulário.</li>
+      <li>Flask facilita a criação de formulários e o tratamento dos dados enviados.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 106 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 107: Integração com Banco de Dados em Flask -->
+  <!-- ====================================================== -->
+  <div id="capitulo107" class="capitulo">
+    <h2>Capítulo 107: Integração com Banco de Dados em Flask</h2>
+    <p>Flask pode se integrar facilmente com bancos de dados como SQLite, MySQL, PostgreSQL, etc.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+import sqlite3
+from flask import Flask, render_template
+
+app = Flask(__name__)
+
+def get_db_connection():
+    conn = sqlite3.connect("database.db")
+    conn.row_factory = sqlite3.Row
+    return conn
+
+@app.route("/")
+def home():
+    conn = get_db_connection()
+    posts = conn.execute("SELECT * FROM posts").fetchall()
+    conn.close()
+    return render_template("index.html", posts=posts)
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Consulta</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo107()">Simular Consulta ao Banco</button>
+      <div id="output107" class="exemplo-interativo-output">
+        Simulação: Consulta retornou 5 registros.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Integre Flask com bancos de dados para armazenamento persistente.</li>
+      <li>Utilize conexões e execute queries para obter dados.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 107 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 108: Criando uma API REST com Flask -->
+  <!-- ====================================================== -->
+  <div id="capitulo108" class="capitulo">
+    <h2>Capítulo 108: Criando uma API REST com Flask</h2>
+    <p>Flask pode ser usado para criar APIs REST que retornam dados em formato JSON.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+from flask import Flask, jsonify
+app = Flask(__name__)
+
+@app.route("/api/data")
+def get_data():
+    data = {"nome": "João", "idade": 30}
+    return jsonify(data)
+
+if __name__ == "__main__":
+    app.run()
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de API</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo108()">Buscar Dados da API</button>
+      <div id="output108" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Crie endpoints que retornam JSON usando <code>jsonify()</code>.</li>
+      <li>APIs REST permitem comunicação entre aplicações.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 108 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 109: Introdução ao Django para Backend -->
+  <!-- ====================================================== -->
+  <div id="capitulo109" class="capitulo">
+    <h2>Capítulo 109: Introdução ao Django para Backend</h2>
+    <p>Django é um framework completo para desenvolvimento web em Python, oferecendo recursos avançados como ORM, autenticação e administração.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+# Comando para criar um novo projeto Django:
+django-admin startproject meu_projeto
+
+# Estrutura básica do projeto:
+meu_projeto/
+├── manage.py
+└── meu_projeto/
+    ├── settings.py
+    ├── urls.py
+    └── wsgi.py
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Projeto Django</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo109()">Mostrar Estrutura do Projeto Django</button>
+      <div id="output109" class="exemplo-interativo-output">
+        Estrutura simulada: manage.py, settings.py, urls.py, wsgi.py, etc.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Django é um framework robusto para aplicações web.</li>
+      <li>Possui uma estrutura de pastas bem definida e diversas funcionalidades integradas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 109 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 110: Renderizando Templates com Django -->
+  <!-- ====================================================== -->
+  <div id="capitulo110" class="capitulo">
+    <h2>Capítulo 110: Renderizando Templates com Django</h2>
+    <p>No Django, os templates são renderizados usando o motor de templates, que permite a inserção de variáveis e lógica simples.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+# Exemplo de view no Django:
+from django.shortcuts import render
+
+def home(request):
+    return render(request, "index.html", {"nome": "João"})
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Template Django</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo110()">Simular Renderização de Template</button>
+      <div id="output110" class="exemplo-interativo-output">
+        Simulação: O template foi renderizado com "Olá, João!".
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Templates em Django utilizam variáveis passadas pelas views.</li>
+      <li>O motor de templates permite lógica simples e herança de templates.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 110 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 111: Introdução ao PHP e Arquivos PHP Básicos -->
+  <!-- ====================================================== -->
+  <div id="capitulo111" class="capitulo">
+    <h2>Capítulo 111: Introdução ao PHP e Arquivos PHP Básicos</h2>
+    <p>PHP é uma linguagem de script do lado do servidor para gerar conteúdo dinâmico. Os arquivos PHP podem conter HTML misturado com código PHP.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;?php
+echo "&lt;h1&gt;Olá, PHP!&lt;/h1&gt;";
+?&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de PHP Embutido</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo111()">Simular Saída PHP</button>
+      <div id="output111" class="exemplo-interativo-output">
+        Simulação: &lt;h1&gt;Olá, PHP!&lt;/h1&gt;
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>PHP é executado no servidor e gera HTML dinâmico.</li>
+      <li>Arquivos PHP podem ser misturados com HTML.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 111 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 112: Integrando PHP com HTML -->
+  <!-- ====================================================== -->
+  <div id="capitulo112" class="capitulo">
+    <h2>Capítulo 112: Integrando PHP com HTML</h2>
+    <p>Você pode inserir código PHP em arquivos HTML para criar páginas dinâmicas. Basta renomear o arquivo para .php e inserir blocos de código PHP.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+  &lt;head&gt;
+    &lt;title&gt;Página Dinâmica&lt;/title&gt;
+  &lt;/head&gt;
+  &lt;body&gt;
+    &lt;h1&gt;Bem-vindo&lt;/h1&gt;
+    &lt;p&gt;Hoje é: &lt;?php echo date("d/m/Y"); ?&gt;&lt;/p&gt;
+  &lt;/body&gt;
+&lt;/html&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Data com PHP</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo112()">Mostrar Data (Simulada)</button>
+      <div id="output112" class="exemplo-interativo-output">
+        Simulação: Hoje é 01/01/2025.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>PHP pode ser embutido em HTML para gerar conteúdo dinâmico.</li>
+      <li>Utilize <?php echo "..."; ?> para inserir código PHP.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 112 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 113: Trabalhando com Formulários em PHP -->
+  <!-- ====================================================== -->
+  <div id="capitulo113" class="capitulo">
+    <h2>Capítulo 113: Trabalhando com Formulários em PHP</h2>
+    <p>PHP facilita a captura e processamento de dados enviados por formulários HTML.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!-- form.html --&gt;
+&lt;form action="processa.php" method="post"&gt;
+  &lt;label for="nome"&gt;Nome:&lt;/label&gt;
+  &lt;input type="text" id="nome" name="nome"&gt;
+  &lt;input type="submit" value="Enviar"&gt;
+&lt;/form&gt;
+
+&lt;!-- processa.php --&gt;
+&lt;?php
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+  $nome = $_POST["nome"];
+  echo "Olá, " . htmlspecialchars($nome) . "!";
+}
+?&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Processamento PHP</h3>
+    <div class="exemplo-interativo">
+      <label for="nomeInput113">Nome:</label>
+      <input type="text" id="nomeInput113" placeholder="Digite seu nome"><br>
+      <button onclick="exemplo113()">Enviar Formulário</button>
+      <div id="output113" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Use o método POST para enviar dados de formulários.</li>
+      <li>PHP processa os dados e deve sanitizá-los com funções como <code>htmlspecialchars()</code>.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 113 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 114: Conectando PHP a um Banco de Dados (MySQL) -->
+  <!-- ====================================================== -->
+  <div id="capitulo114" class="capitulo">
+    <h2>Capítulo 114: Conectando PHP a um Banco de Dados (MySQL)</h2>
+    <p>PHP pode se conectar a bancos de dados MySQL para armazenar e recuperar dados dinamicamente.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;?php
+$servername = "localhost";
+$username = "usuario";
+$password = "senha";
+$dbname = "meubanco";
+
+// Cria a conexão
+$conn = new mysqli($servername, $username, $password, $dbname);
+
+// Verifica a conexão
+if ($conn->connect_error) {
+  die("Conexão falhou: " . $conn->connect_error);
+}
+
+$sql = "SELECT id, nome FROM usuarios";
+$result = $conn->query($sql);
+
+if ($result->num_rows > 0) {
+  while($row = $result->fetch_assoc()) {
+    echo "id: " . $row["id"]. " - Nome: " . $row["nome"]. "&lt;br&gt;";
+  }
+} else {
+  echo "0 resultados";
+}
+$conn->close();
+?&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Consulta MySQL</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo114()">Simular Consulta</button>
+      <div id="output114" class="exemplo-interativo-output">
+        Simulação: 3 registros retornados.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>PHP pode conectar-se a MySQL utilizando a extensão mysqli ou PDO.</li>
+      <li>É importante verificar a conexão e tratar erros.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 114 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 115: Sessões e Cookies em PHP -->
+  <!-- ====================================================== -->
+  <div id="capitulo115" class="capitulo">
+    <h2>Capítulo 115: Sessões e Cookies em PHP</h2>
+    <p>Utilize sessões para armazenar dados temporários entre páginas e cookies para dados persistentes no navegador.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;?php
+// Inicia a sessão
+session_start();
+$_SESSION["usuario"] = "João";
+
+// Definir um cookie
+setcookie("cor_favorita", "azul", time() + (86400 * 30)); // expira em 30 dias
+?&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Sessão e Cookie</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo115()">Simular Sessão e Cookie</button>
+      <div id="output115" class="exemplo-interativo-output">
+        Simulação: Sessão iniciada e cookie definido.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Utilize <code>session_start()</code> para iniciar uma sessão PHP.</li>
+      <li>Cookies são definidos com <code>setcookie()</code> e podem armazenar dados por um período determinado.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 115 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 116: Uso de Frameworks PHP: Laravel (Introdução) -->
+  <!-- ====================================================== -->
+  <div id="capitulo116" class="capitulo">
+    <h2>Capítulo 116: Uso de Frameworks PHP: Introdução ao Laravel</h2>
+    <p>Laravel é um framework PHP moderno que facilita o desenvolvimento de aplicações web robustas com uma sintaxe elegante.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+# Comando para criar um novo projeto Laravel (via Composer):
+composer create-project --prefer-dist laravel/laravel meuProjeto
+
+// Exemplo de rota no Laravel (routes/web.php):
+Route::get('/', function () {
+    return view('welcome');
+});
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Rota Laravel</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo116()">Simular Rota Laravel</button>
+      <div id="output116" class="exemplo-interativo-output">
+        Simulação: Rota "/" renderizando a view "welcome".
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Laravel fornece uma estrutura MVC robusta para aplicações PHP.</li>
+      <li>Utilize o Composer para instalar e configurar Laravel.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 116 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 117: Renderizando Templates no PHP com Blade (Laravel) -->
+  <!-- ====================================================== -->
+  <div id="capitulo117" class="capitulo">
+    <h2>Capítulo 117: Renderizando Templates com Blade (Laravel)</h2>
+    <p>O Blade é o motor de templates do Laravel, permitindo criar layouts reutilizáveis e dinâmicos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+{{-- resources/views/welcome.blade.php --}}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Bem-vindo</title>
+  </head>
+  <body>
+    <h1>Olá, {{ $nome }}!</h1>
+  </body>
+</html>
+
+// Rota (routes/web.php):
+Route::get('/', function () {
+    return view('welcome', ['nome' => 'João']);
+});
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Template Blade</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo117()">Simular Renderização Blade</button>
+      <div id="output117" class="exemplo-interativo-output">
+        Simulação: Template renderizado com "Olá, João!".
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O Blade facilita a criação de layouts dinâmicos em Laravel.</li>
+      <li>Utilize as diretivas Blade para inserir variáveis e controlar fluxos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 117 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 118: PHP e APIs REST -->
+  <!-- ====================================================== -->
+  <div id="capitulo118" class="capitulo">
+    <h2>Capítulo 118: Criando uma API REST com PHP</h2>
+    <p>PHP pode ser utilizado para criar APIs REST que retornam dados em formato JSON.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;?php
+header("Content-Type: application/json");
+$data = ["nome" => "João", "idade" => 30];
+echo json_encode($data);
+?&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de API PHP</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo118()">Buscar Dados da API PHP</button>
+      <div id="output118" class="exemplo-interativo-output">
+        Simulação: {"nome": "João", "idade": 30}
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Crie APIs REST em PHP definindo o header para JSON.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 118 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 119: Integrando PHP com JavaScript e AJAX -->
+  <!-- ====================================================== -->
+  <div id="capitulo119" class="capitulo">
+    <h2>Capítulo 119: Integrando PHP com JavaScript e AJAX</h2>
+    <p>Utilize AJAX para buscar dados de scripts PHP sem recarregar a página.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* JavaScript (usando fetch) */
+fetch("api.php")
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; console.error("Erro:", error));
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: AJAX com PHP (Simulação)</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo119()">Buscar Dados via AJAX</button>
+      <div id="output119" class="exemplo-interativo-output">
+        Simulação: Dados recebidos via AJAX.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>AJAX permite atualizar a página sem recarregar.</li>
+      <li>Combine JavaScript com PHP para criar aplicações dinâmicas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 119 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 120: Segurança em PHP: Validação e Sanitização -->
+  <!-- ====================================================== -->
+  <div id="capitulo120" class="capitulo">
+    <h2>Capítulo 120: Segurança em PHP: Validação e Sanitização</h2>
+    <p>É fundamental validar e sanitizar os dados recebidos pelo PHP para evitar ataques (como SQL Injection e XSS).</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;?php
+$nome = filter_input(INPUT_POST, 'nome', FILTER_SANITIZE_STRING);
+if (!$nome) {
+  die("Nome inválido!");
+}
+echo "Olá, " . htmlspecialchars($nome) . "!";
+?&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Sanitização</h3>
+    <div class="exemplo-interativo">
+      <label for="nomeInput120">Nome:</label>
+      <input type="text" id="nomeInput120" placeholder="Digite seu nome"><br>
+      <button onclick="exemplo120()">Processar</button>
+      <div id="output120" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Utilize funções como <code>filter_input</code> e <code>htmlspecialchars</code> para sanitizar dados.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 120 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 121: PHP e Gerenciamento de Arquivos -->
+  <!-- ====================================================== -->
+  <div id="capitulo121" class="capitulo">
+    <h2>Capítulo 121: PHP e Gerenciamento de Arquivos</h2>
+    <p>PHP permite fazer upload, leitura e escrita de arquivos no servidor.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form action="upload.php" method="post" enctype="multipart/form-data"&gt;
+  &lt;label for="fileToUpload"&gt;Selecione um arquivo:&lt;/label&gt;
+  &lt;input type="file" name="fileToUpload" id="fileToUpload"&gt;
+  &lt;input type="submit" value="Upload" name="submit"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Upload</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo121()">Simular Upload</button>
+      <div id="output121" class="exemplo-interativo-output">
+        Simulação: Arquivo enviado com sucesso!
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Utilize <code>enctype="multipart/form-data"</code> para upload de arquivos.</li>
+      <li>PHP fornece funções para gerenciar arquivos no servidor.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 121 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 122: Integração Conjunta: HTML com Python e PHP -->
+  <!-- ====================================================== -->
+  <div id="capitulo122" class="capitulo">
+    <h2>Capítulo 122: Integração Conjunta: HTML com Python e PHP</h2>
+    <p>É possível integrar HTML com backends em Python e PHP. Por exemplo, uma página HTML pode consumir APIs desenvolvidas em Flask e também ser processada por scripts PHP, seja via AJAX ou por renderização de templates.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!-- Exemplo de HTML consumindo API Flask e também PHP --&gt;
+&lt;!-- A página pode ter AJAX para chamar uma API Flask e, simultaneamente, formularios enviados para um script PHP --&gt;
+&lt;form action="processa.php" method="post"&gt;
+  &lt;label&gt;Seu nome:&lt;/label&gt;
+  &lt;input type="text" name="nome"&gt;
+  &lt;input type="submit" value="Enviar para PHP"&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+fetch("https://exemplo-flask-api.com/api/dados")
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log("Dados do Flask:", data));
+&lt;/script&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Integração Simulada</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo122()">Simular Integração</button>
+      <div id="output122" class="exemplo-interativo-output">
+        Simulação: Dados recebidos do Flask e formulário enviado para PHP.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Uma mesma página HTML pode interagir com diferentes backends via AJAX e formulários.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 122 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 123: Comparativo: Python vs. PHP no Backend -->
+  <!-- ====================================================== -->
+  <div id="capitulo123" class="capitulo">
+    <h2>Capítulo 123: Comparativo: Python vs. PHP no Backend</h2>
+    <p>Ambas as linguagens são populares para desenvolvimento backend. Python (com Flask/Django) oferece uma sintaxe moderna e uma vasta gama de bibliotecas, enquanto PHP é amplamente suportado por hospedagens e tem uma longa história no desenvolvimento web.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Exemplo ilustrativo: */
+Python:
+  - Frameworks: Flask, Django
+  - Sintaxe moderna, fácil de ler
+
+PHP:
+  - Integração nativa com HTML
+  - Ampla disponibilidade em servidores
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Comparativo Simples</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo123()">Mostrar Comparativo</button>
+      <div id="output123" class="exemplo-interativo-output">
+        Python é ótimo para aplicações modernas e escaláveis; PHP é ideal para hospedagens tradicionais.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Python e PHP têm vantagens e desafios distintos.</li>
+      <li>A escolha depende do projeto e do ambiente de hospedagem.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 123 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 124: Otimização de Desempenho em Backends -->
+  <!-- ====================================================== -->
+  <div id="capitulo124" class="capitulo">
+    <h2>Capítulo 124: Otimização de Desempenho em Backends</h2>
+    <p>Melhore o desempenho de suas aplicações backend com cache, otimização de consultas e boas práticas de programação.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+// Exemplo (simulado) de cache com Flask:
+@app.route("/dados")
+def dados():
+    cache = get_from_cache("dados")
+    if cache:
+        return cache
+    data = complex_query()
+    set_in_cache("dados", data)
+    return data
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Cache</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo124()">Simular Cache</button>
+      <div id="output124" class="exemplo-interativo-output">
+        Simulação: Dados em cache retornados.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Otimização envolve cache, consultas eficientes e boas práticas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 124 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 125: Debugging e Ferramentas de Desenvolvimento -->
+  <!-- ====================================================== -->
+  <div id="capitulo125" class="capitulo">
+    <h2>Capítulo 125: Debugging e Ferramentas de Desenvolvimento</h2>
+    <p>Aprenda a depurar suas aplicações em Python e PHP utilizando ferramentas como loggers, depuradores e consoles.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+// Exemplo de log em Flask:
+import logging
+logging.basicConfig(level=logging.DEBUG)
+app.logger.debug("Mensagem de debug")
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Debug</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo125()">Simular Debug</button>
+      <div id="output125" class="exemplo-interativo-output">
+        Simulação: Mensagem de debug exibida no console.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Utilize ferramentas de logging e depuração para identificar problemas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 125 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 126: Integração Completa: HTML, Python e PHP -->
+  <!-- ====================================================== -->
+  <div id="capitulo126" class="capitulo">
+    <h2>Capítulo 126: Integração Completa: HTML, Python e PHP</h2>
+    <p>Este capítulo mostra como uma única aplicação HTML pode interagir com backends Python e PHP simultaneamente, usando formulários e AJAX.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!-- HTML integrado: --&gt;
+&lt;form action="processa.php" method="post"&gt;
+  &lt;label&gt;Nome:&lt;/label&gt;
+  &lt;input type="text" name="nome"&gt;
+  &lt;input type="submit" value="Enviar para PHP"&gt;
+&lt;/form&gt;
+
+&lt;script&gt;
+fetch("https://exemplo-flask-api.com/api/dados")
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log("Dados do Flask:", data));
+&lt;/script&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Integração Simulada</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo126()">Simular Integração</button>
+      <div id="output126" class="exemplo-interativo-output">
+        Simulação: Formulário enviado para PHP e dados recebidos de API Flask.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Uma página HTML pode interagir com múltiplos backends.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 126 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 127: Comparativo: Python vs. PHP -->
+  <!-- ====================================================== -->
+  <div id="capitulo127" class="capitulo">
+    <h2>Capítulo 127: Comparativo: Python vs. PHP no Backend</h2>
+    <p>Este capítulo compara as vantagens e desvantagens de usar Python (Flask/Django) e PHP para desenvolvimento backend.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Python:
+   - Sintaxe clara e moderna.
+   - Grande ecossistema de bibliotecas.
+   
+   PHP:
+   - Amplamente suportado em hospedagens.
+   - Extensa comunidade e recursos. */
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Comparativo Simples</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo127()">Mostrar Comparativo</button>
+      <div id="output127" class="exemplo-interativo-output">
+        Python é ideal para aplicações escaláveis e modernas; PHP é amplamente disponível e maduro.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Python e PHP oferecem abordagens diferentes para o desenvolvimento backend.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 127 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 128: Otimização e Escalabilidade em Backends -->
+  <!-- ====================================================== -->
+  <div id="capitulo128" class="capitulo">
+    <h2>Capítulo 128: Otimização e Escalabilidade em Backends</h2>
+    <p>Este capítulo aborda estratégias para melhorar a performance e escalabilidade de aplicações backend, seja em Python ou PHP.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Estratégias comuns:
+   - Cache (Redis, Memcached)
+   - Balanceamento de carga
+   - Otimização de queries */
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Otimização</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo128()">Simular Otimização</button>
+      <div id="output128" class="exemplo-interativo-output">
+        Simulação: Técnicas de cache aplicadas.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Otimização envolve cache, balanceamento de carga e otimização de banco de dados.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 128 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 129: Debugging e Ferramentas de Desenvolvimento para Backends -->
+  <!-- ====================================================== -->
+  <div id="capitulo129" class="capitulo">
+    <h2>Capítulo 129: Debugging e Ferramentas de Desenvolvimento para Backends</h2>
+    <p>Aprenda a utilizar ferramentas de debugging e logging para solucionar problemas em aplicações Python e PHP.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+// Exemplo de logging em PHP:
+&lt;?php
+error_reporting(E_ALL);
+ini_set('display_errors', 1);
+?&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Debug</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo129()">Simular Debug</button>
+      <div id="output129" class="exemplo-interativo-output">
+        Simulação: Logs de erros exibidos.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Ferramentas de debugging são essenciais para encontrar e corrigir erros.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 129 -->
+
+  <!-- ====================================================== -->
+  <!-- CAPÍTULO 130: Conclusão e Próximos Passos para Backends com Python e PHP -->
+  <!-- ====================================================== -->
+  <div id="capitulo130" class="capitulo">
+    <h2>Capítulo 130: Conclusão e Próximos Passos para Backends com Python e PHP</h2>
+    <p>Revise os conceitos abordados e planeje os próximos passos para aprofundar seus conhecimentos em desenvolvimento backend utilizando Python e PHP.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!-- Mensagem de Conclusão --&gt;
+&lt;h2&gt;Parabéns!&lt;/h2&gt;
+&lt;p&gt;Você concluiu os conceitos básicos de integração de HTML com backends em Python e PHP. Continue explorando frameworks, APIs e técnicas avançadas.&lt;/p&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Mensagem Final</h3>
+    <div class="exemplo-interativo">
+      <label for="msgFinal130">Digite sua mensagem final:</label>
+      <input type="text" id="msgFinal130" placeholder="Obrigado pelo curso!"><br>
+      <button onclick="exemplo130()">Aplicar</button>
+      <div id="output130" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Revise os principais conceitos de backend com Python e PHP.</li>
+      <li>Planeje seus próximos passos para se aprofundar em tecnologias avançadas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 130 -->
+
+  <!-- SUMÁRIO (Parte 3 - Capítulos 100 a 130) -->
+  <div id="sumario">
+    <h2>Sumário (Capítulos 100 a 130)</h2>
+    <ul>
+      <li><a href="#capitulo100" onclick="irParaCapitulo(100)">Capítulo 100: Introdução ao Backend com Python</a></li>
+      <li><a href="#capitulo101" onclick="irParaCapitulo(101)">Capítulo 101: Instalando e Configurando Flask</a></li>
+      <li><a href="#capitulo102" onclick="irParaCapitulo(102)">Capítulo 102: Estrutura de Projeto Flask</a></li>
+      <li><a href="#capitulo103" onclick="irParaCapitulo(103)">Capítulo 103: Roteamento em Flask</a></li>
+      <li><a href="#capitulo104" onclick="irParaCapitulo(104)">Capítulo 104: Renderizando Templates com Flask</a></li>
+      <li><a href="#capitulo105" onclick="irParaCapitulo(105)">Capítulo 105: Passando Dados para Templates</a></li>
+      <li><a href="#capitulo106" onclick="irParaCapitulo(106)">Capítulo 106: Manipulação de Formulários com Flask</a></li>
+      <li><a href="#capitulo107" onclick="irParaCapitulo(107)">Capítulo 107: Integração com Banco de Dados (Flask)</a></li>
+      <li><a href="#capitulo108" onclick="irParaCapitulo(108)">Capítulo 108: API REST com Flask</a></li>
+      <li><a href="#capitulo109" onclick="irParaCapitulo(109)">Capítulo 109: Introdução ao Django</a></li>
+      <li><a href="#capitulo110" onclick="irParaCapitulo(110)">Capítulo 110: Renderizando Templates com Django</a></li>
+      <li><a href="#capitulo111" onclick="irParaCapitulo(111)">Capítulo 111: Introdução ao PHP</a></li>
+      <li><a href="#capitulo112" onclick="irParaCapitulo(112)">Capítulo 112: Integrando PHP com HTML</a></li>
+      <li><a href="#capitulo113" onclick="irParaCapitulo(113)">Capítulo 113: Formulários em PHP</a></li>
+      <li><a href="#capitulo114" onclick="irParaCapitulo(114)">Capítulo 114: Conexão com MySQL em PHP</a></li>
+      <li><a href="#capitulo115" onclick="irParaCapitulo(115)">Capítulo 115: Sessões e Cookies em PHP</a></li>
+      <li><a href="#capitulo116" onclick="irParaCapitulo(116)">Capítulo 116: Introdução ao Laravel</a></li>
+      <li><a href="#capitulo117" onclick="irParaCapitulo(117)">Capítulo 117: Templates com Blade</a></li>
+      <li><a href="#capitulo118" onclick="irParaCapitulo(118)">Capítulo 118: APIs REST em PHP</a></li>
+      <li><a href="#capitulo119" onclick="irParaCapitulo(119)">Capítulo 119: PHP com AJAX</a></li>
+      <li><a href="#capitulo120" onclick="irParaCapitulo(120)">Capítulo 120: Segurança em PHP</a></li>
+      <li><a href="#capitulo121" onclick="irParaCapitulo(121)">Capítulo 121: Gerenciamento de Arquivos em PHP</a></li>
+      <li><a href="#capitulo122" onclick="irParaCapitulo(122)">Capítulo 122: Integração Conjunta (Python &amp; PHP)</a></li>
+      <li><a href="#capitulo123" onclick="irParaCapitulo(123)">Capítulo 123: Comparativo: Python vs. PHP</a></li>
+      <li><a href="#capitulo124" onclick="irParaCapitulo(124)">Capítulo 124: Otimização e Escalabilidade</a></li>
+      <li><a href="#capitulo125" onclick="irParaCapitulo(125)">Capítulo 125: Debugging em Backends</a></li>
+      <li><a href="#capitulo126" onclick="irParaCapitulo(126)">Capítulo 126: Integração Completa</a></li>
+      <li><a href="#capitulo127" onclick="irParaCapitulo(127)">Capítulo 127: Comparativo: Python vs. PHP</a></li>
+      <li><a href="#capitulo128" onclick="irParaCapitulo(128)">Capítulo 128: Otimização e Escalabilidade</a></li>
+      <li><a href="#capitulo129" onclick="irParaCapitulo(129)">Capítulo 129: Debugging e Ferramentas</a></li>
+      <li><a href="#capitulo130" onclick="irParaCapitulo(130)">Capítulo 130: Conclusão e Próximos Passos</a></li>
+    </ul>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Função para alternar visualização do código
+    function mostrarCodigo(btn) {
+      var codigoDiv = btn.nextElementSibling;
+      if (codigoDiv.style.display === "block") {
+        codigoDiv.style.display = "none";
+        btn.textContent = "Mostrar Código";
+      } else {
+        codigoDiv.style.display = "block";
+        btn.textContent = "Ocultar Código";
+      }
+    }
+
+    // Navegação entre capítulos
+    let capituloAtual = 100;
+    const maxCapitulos = 130;
+    function mudarCapitulo(direcao) {
+      document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+      capituloAtual += direcao;
+      if (capituloAtual > maxCapitulos) capituloAtual = 100;
+      if (capituloAtual < 100) capituloAtual = maxCapitulos;
+      document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function irParaCapitulo(numero) {
+      document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+      capituloAtual = numero;
+      document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // --- Funções Interativas ---
+
+    // Capítulo 100: Simulação de resposta Flask
+    function exemplo100() {
+      document.getElementById("output100").innerHTML = "<strong>Simulação Flask:</strong> Template 'index.html' renderizado com sucesso.";
+    }
+
+    // Capítulo 101: Simulação de configuração Flask
+    function exemplo101() {
+      document.getElementById("output101").textContent = "Flask instalado e app.py criado com sucesso.";
+    }
+
+    // Capítulo 102: Simulação de Estrutura de Projeto Flask
+    function exemplo102() {
+      document.getElementById("output102").innerHTML = "Estrutura: app.py, templates/index.html, static/css/, static/js/...";
+    }
+
+    // Capítulo 103: Simulação de Roteamento Flask
+    function exemplo103() {
+      document.getElementById("output103").textContent = "Rota '/about' retornou: 'Sobre Nós'.";
+    }
+
+    // Capítulo 104: Simulação de Renderização de Template
+    function exemplo104() {
+      document.getElementById("output104").textContent = "Template 'index.html' renderizado.";
+    }
+
+    // Capítulo 105: Simulação de Passagem de Variável
+    function exemplo105() {
+      document.getElementById("output105").textContent = "Template renderizado com a variável nome = 'João'.";
+    }
+
+    // Capítulo 106: Simulação de Formulário Flask
+    function exemplo106() {
+      var nome = document.getElementById("nomeForm106").value;
+      document.getElementById("output106").textContent = nome ? "Olá, " + nome + "!" : "Nenhum nome inserido.";
+    }
+
+    // Capítulo 107: Simulação de Consulta no Banco (Flask)
+    function exemplo107() {
+      document.getElementById("output107").textContent = "Consulta simulada: 5 registros retornados.";
+    }
+
+    // Capítulo 108: Simulação de API REST com Flask
+    function exemplo108() {
+      // Simula uma chamada fetch
+      document.getElementById("output108").textContent = '{"nome": "João", "idade": 30}';
+    }
+
+    // Capítulo 109: Simulação de Projeto Django
+    function exemplo109() {
+      document.getElementById("output109").textContent = "Projeto Django criado: manage.py, settings.py, urls.py, wsgi.py.";
+    }
+
+    // Capítulo 110: Simulação de Renderização Django
+    function exemplo110() {
+      document.getElementById("output110").textContent = "Template Django renderizado: 'Olá, João!'";
+    }
+
+    // Capítulo 111: Simulação de PHP Embutido
+    function exemplo111() {
+      document.getElementById("output111").innerHTML = "&lt;h1&gt;Olá, PHP!&lt;/h1&gt;";
+    }
+
+    // Capítulo 112: Simulação de Data com PHP
+    function exemplo112() {
+      document.getElementById("output112").innerHTML = "&lt;p&gt;Hoje é " + new Date().toLocaleDateString() + ".&lt;/p&gt;";
+    }
+
+    // Capítulo 113: Simulação de Processamento de Formulário em PHP
+    function exemplo113() {
+      var nome = document.getElementById("nomeInput113").value;
+      document.getElementById("output113").textContent = nome ? "Olá, " + nome + "!" : "Nenhum nome informado.";
+    }
+
+    // Capítulo 114: Simulação de Consulta MySQL com PHP
+    function exemplo114() {
+      document.getElementById("output114").textContent = "Simulação: 3 registros retornados do MySQL.";
+    }
+
+    // Capítulo 115: Simulação de Sessões e Cookies em PHP
+    function exemplo115() {
+      document.getElementById("output115").textContent = "Sessão iniciada e cookie definido (simulado).";
+    }
+
+    // Capítulo 116: Simulação de Rota Laravel
+    function exemplo116() {
+      document.getElementById("output116").textContent = "Simulação: Rota '/' retornou a view 'welcome'.";
+    }
+
+    // Capítulo 117: Simulação de Template Blade
+    function exemplo117() {
+      document.getElementById("output117").textContent = "Simulação: Template Blade renderizado com 'Olá, João!'";
+    }
+
+    // Capítulo 118: Simulação de API REST em PHP
+    function exemplo118() {
+      document.getElementById("output118").textContent = '{"nome": "João", "idade": 30}';
+    }
+
+    // Capítulo 119: Simulação de AJAX com PHP
+    function exemplo119() {
+      document.getElementById("output119").textContent = "Simulação: Dados recebidos via AJAX.";
+    }
+
+    // Capítulo 120: Simulação de Sanitização em PHP
+    function exemplo120() {
+      var nome = document.getElementById("nomeInput120").value;
+      var safe = nome.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+      document.getElementById("output120").innerHTML = "Nome seguro: " + safe;
+    }
+
+    // Capítulo 121: Simulação de Upload de Arquivo
+    function exemplo121() {
+      document.getElementById("output121").textContent = "Simulação: Arquivo enviado com sucesso!";
+    }
+
+    // Capítulo 122: Simulação de Integração Conjunta
+    function exemplo122() {
+      document.getElementById("output122").innerHTML = "Simulação: Formulário enviado para PHP e dados recebidos de API Flask.";
+    }
+
+    // Capítulo 123: Simulação de Comparativo Python vs. PHP
+    function exemplo123() {
+      document.getElementById("output123").innerHTML = "Python: Moderno e escalável. PHP: Amplamente suportado e maduro.";
+    }
+
+    // Capítulo 124: Simulação de Otimização
+    function exemplo124() {
+      document.getElementById("output124").textContent = "Simulação: Técnicas de cache aplicadas com sucesso.";
+    }
+
+    // Capítulo 125: Simulação de Debugging
+    function exemplo125() {
+      document.getElementById("output125").textContent = "Simulação: Mensagens de debug exibidas no console.";
+    }
+
+    // Capítulo 126: Simulação de Integração Completa
+    function exemplo126() {
+      document.getElementById("output126").innerHTML = "Simulação: Integração HTML com backends Python e PHP realizada.";
+    }
+
+    // Capítulo 127: Simulação de Comparativo Python vs. PHP
+    function exemplo127() {
+      document.getElementById("output127").textContent = "Python: Flexível e moderno; PHP: Fácil de implementar em hospedagens tradicionais.";
+    }
+
+    // Capítulo 128: Simulação de Otimização e Escalabilidade
+    function exemplo128() {
+      document.getElementById("output128").textContent = "Simulação: Estratégias de cache e balanceamento de carga aplicadas.";
+    }
+
+    // Capítulo 129: Simulação de Debugging em Backends
+    function exemplo129() {
+      document.getElementById("output129").textContent = "Simulação: Logs e mensagens de erro exibidos.";
+    }
+
+    // Capítulo 130: Conclusão e Próximos Passos
+    function exemplo130() {
+      var msgFinal = document.getElementById("msgFinal130").value;
+      if (!msgFinal) msgFinal = "Obrigado por completar o curso!";
+      document.getElementById("output130").innerHTML = "<h2>" + msgFinal + "</h2><p>Continue explorando tecnologias avançadas em Python e PHP.</p>";
+    }
+  </script>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <p>HTML com Python e PHP - Capítulos 100 a 130 © Yasmin. Continue explorando e aprendendo!</p>
+  </footer>
+</body>
+</html>

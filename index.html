@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8"> 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Exemplos Interativos de HTML e CSS - 20 Capítulos</title>
+    <link rel="icon" type="image/x-icon" href="Imagens_html/Icone_html.png">
+
+    <!-- FONTE DO GOOGLE (Ex: Poppins) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link 
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" 
+        rel="stylesheet">
+
+    <!-- ESTILOS CSS -->
+    <style>
+        /* RESET BÁSICO */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* CORPO GERAL */
+        body {
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(to top right, #ece9e6, #ffffff);
+            color: #333;
+            padding: 20px;
+        }
+
+        /* CABEÇALHO */
+        header {
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+        header h1 {
+            font-weight: 600;
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+            color: #2b2b2b;
+        }
+        header p {
+            font-size: 1rem;
+            color: #555;
+        }
+
+        /* SUMÁRIO (AGORA NO TOPO) */
+        #sumario {
+            background-color: #fff;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 1.5rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        #sumario h2 {
+            font-size: 1.4rem;
+            margin-bottom: 0.8rem;
+            color: #2b2b2b;
+        }
+        #sumario ul {
+            list-style: none;
+        }
+        #sumario ul li {
+            margin-bottom: 0.5rem;
+        }
+        #sumario ul li a {
+            color: #5c7cfa;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        #sumario ul li a:hover {
+            color: #1c5ed6;
+        }
+
+        /* NAVEGAÇÃO SUPERIOR */
+        .topo-navegacao {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        .topo-navegacao a,
+        .topo-navegacao button {
+            padding: 0.7rem 1rem;
+            text-decoration: none;
+            border: none;
+            border-radius: 25px;
+            background-color: #5c7cfa;
+            color: #fff;
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .topo-navegacao a:hover,
+        .topo-navegacao button:hover {
+            background-color: #3b5bdb;
+            transform: translateY(-2px);
+        }
+
+        /* CONTAINER DOS CAPÍTULOS */
+        .capitulo {
+            display: none; /* Todos iniciam escondidos; só o “ativo” aparece */
+            background-color: #fff;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .capitulo.ativo {
+            display: block;
+        }
+        .capitulo h2 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            color: #2b2b2b;
+        }
+        .capitulo p {
+            margin-bottom: 1rem;
+            color: #444;
+        }
+
+        /* EXEMPLO DE CÓDIGO (mostra/esconde) */
+        .tag-exemplo {
+            background-color: #f0f4ff;
+            padding: 1rem 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #5c7cfa;
+            border-radius: 5px;
+            position: relative;
+        }
+        .tag-exemplo h3 {
+            margin-bottom: 0.5rem;
+            color: #1e1e1e;
+        }
+        .tag-exemplo p {
+            margin-bottom: 0.5rem;
+        }
+        pre {
+            background-color: #fff;
+            padding: 0.8rem;
+            overflow-x: auto;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 0.9rem;
+        }
+
+        /* BOTÃO DE MOSTRAR/ESCONDER CÓDIGO */
+        .mostrar-codigo-btn {
+            margin: 0.5rem 0;
+            padding: 0.5rem 0.8rem;
+            background-color: #3b5bdb;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .mostrar-codigo-btn:hover {
+            background-color: #274c9e;
+            transform: translateY(-1px);
+        }
+        .codigo-exemplo {
+            display: none; /* Inicia oculto */
+            margin-top: 1rem;
+        }
+
+        /* EXEMPLO INTERATIVO */
+        .exemplo-interativo {
+            background-color: #e7ffe6;
+            padding: 1rem 1rem;
+            margin-top: 1rem;
+            border-left: 4px solid #51cf66;
+            border-radius: 5px;
+            position: relative;
+            box-shadow: inset 0 1px 3px rgba(0,0,0,0.05);
+        }
+        .exemplo-interativo h3 {
+            margin-bottom: 0.5rem;
+            color: #1e1e1e;
+        }
+        .exemplo-interativo label {
+            display: inline-block;
+            margin-right: 0.5rem;
+            font-weight: 500;
+        }
+        .exemplo-interativo input[type="text"],
+        .exemplo-interativo input[type="color"],
+        .exemplo-interativo input[type="number"],
+        .exemplo-interativo select,
+        .exemplo-interativo textarea {
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            padding: 0.3rem 0.5rem;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 0.9rem;
+        }
+        .exemplo-interativo button {
+            margin-top: 0.5rem;
+            padding: 0.5rem 0.8rem;
+            background-color: #2f9e44;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+        .exemplo-interativo button:hover {
+            background-color: #1b6d2f;
+            transform: translateY(-1px);
+        }
+        .exemplo-interativo-output {
+            margin-top: 1rem;
+            background-color: #fff;
+            border: 1px solid #c8f5cf;
+            padding: 0.5rem;
+            border-radius: 5px;
+            min-height: 40px;
+        }
+
+        /* AJUSTE PARA TAGS LADO A LADO */
+        .tags-lado {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin: 0.5rem 0;
+        }
+        .tags-lado code {
+            background-color: #ddd;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+        }
+
+        /* RODAPÉ */
+        footer {
+            text-align: center;
+            margin-top: 2rem;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        #parte1:hover{
+           background-color: rgba(255, 228, 225, 0.753);
+           color:  #000;
+           
+        }
+        #parte1{
+            background-color: mistyrose;
+            color: #000;
+        }
+        #parte2:hover{
+           background-color: rgba(255, 228, 225, 0.753);
+           color:  #000;
+           
+        }
+        #parte2{
+            background-color: mistyrose;
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- CABEÇALHO -->
+    <header>
+        <h1>Exemplos Interativos de HTML e CSS</h1>
+        <p>Aprenda passo a passo com exemplos, códigos ocultáveis e interatividade!</p>
+    </header>
+      <!-- NAVEGAÇÃO SUPERIOR -->
+      <div class="topo-navegacao">
+        <a href="../index.php" id="parte1">Clique aqui para voltar ao Lobby</a>
+        <a href="CssLindo.html" id="parte2">Aprender CSS Primeiro</a>
+        <a href="html/html2.html" id="parte2">Ir para a Parte 2 (20..39/40)</a>
+        <button onclick="mudarCapitulo(-1)">← Capítulo Anterior</button>
+        <button onclick="mudarCapitulo(1)">Próximo Capítulo →</button>
+    </div>
+
+  
+
+    <!-- CAPÍTULOS (1 A 20) -->
+    <!-- Somente o capítulo 1 inicia "ativo" -->
+    
+    <!-- CAPÍTULO 1 -->
+    <div id="capitulo1" class="capitulo ativo">
+        <h2>Capítulo 1: O que é HTML?</h2>
+        <p><ins>HTML</ins> é uma linguagem de marcação para estruturar conteúdo em páginas web.  
+        Lançada em 1991 por <cite>Tim Berners-Lee</cite>, é base para outras tecnologias como JavaScript, PHP, etc.</p>
+
+        <!-- Exemplo de código -->
+        <div class="tag-exemplo">
+            <h3>Exemplo de Estrutura Básica</h3>
+            <p>Arquivos HTML costumam ter essa organização mínima:</p>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Minha página&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Olá Mundo!&lt;/h1&gt;
+    &lt;p&gt;Este é um parágrafo.&lt;/p&gt;
+&lt;/body&gt;
+&lt;/html&gt;
+</pre>
+            </div>
+        </div>
+
+        <!-- Exemplo Interativo -->
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie um título e um parágrafo</h3>
+            <label for="titulo1">Título:</label>
+            <input type="text" id="titulo1" placeholder="Digite o título aqui">
+            <br>
+            <label for="paragrafo1">Parágrafo:</label>
+            <input type="text" id="paragrafo1" placeholder="Digite o parágrafo aqui">
+            <br>
+            <button onclick="exemplo1()">Aplicar</button>
+            
+            <div id="output1" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 2 -->
+    <div id="capitulo2" class="capitulo">
+        <h2>Capítulo 2: Tag <code>&lt;hr&gt;</code></h2>
+        <p><code>&lt;hr&gt;</code> insere uma linha horizontal para separar conteúdos, sendo uma tag vazia (sem fechamento).</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;hr&gt;  &lt;!-- Insere uma linha horizontal --&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Personalize sua &lt;hr&gt;</h3>
+            <label for="hrColor">Cor:</label>
+            <input type="color" id="hrColor" value="#000000">
+            <label for="hrThickness">Espessura (px):</label>
+            <input type="number" id="hrThickness" value="2" min="1" max="20" style="width:60px;">
+            <button onclick="exemplo2()">Aplicar</button>
+            <div class="exemplo-interativo-output" id="output2">
+                <hr id="hrExemplo" style="border:none; height:2px; background-color:#000;">
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 3 -->
+    <div id="capitulo3" class="capitulo">
+        <h2>Capítulo 3: Tag <code>&lt;br&gt;</code></h2>
+        <p>Quebra de linha: <code>&lt;br&gt;</code> adiciona uma nova linha no meio do texto. Também é tag vazia.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;p&gt;Linha 1&lt;br&gt;Linha 2&lt;/p&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Adicione <code>&lt;br&gt;</code> em seu texto</h3>
+            <textarea id="textoBr" rows="3" cols="30" placeholder="Digite linhas separadas por ENTER"></textarea>
+            <br>
+            <button onclick="exemplo3()">Mostrar Quebras</button>
+            <div id="output3" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 4 -->
+    <div id="capitulo4" class="capitulo">
+        <h2>Capítulo 4: Tag <code>&lt;pre&gt;</code></h2>
+        <p><code>&lt;pre&gt;</code> preserva todos os espaços e quebras de linha do conteúdo interno.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;pre&gt;
+   Texto exato
+   com quebras
+   preservadas
+&lt;/pre&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Digite um texto formatado</h3>
+            <textarea id="textoPre" rows="3" cols="30" placeholder="Digite algo com espaços e quebras"></textarea>
+            <br>
+            <button onclick="exemplo4()">Mostrar em &lt;pre&gt;</button>
+            <div id="output4" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 5 -->
+    <div id="capitulo5" class="capitulo">
+        <h2>Capítulo 5: CSS Inline</h2>
+        <p>CSS Inline é inserido diretamente na tag HTML através do atributo <code>style</code>.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;p style="color:red;"&gt;Exemplo&lt;/p&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Mude a cor do texto inline</h3>
+            <label for="corInline">Cor:</label>
+            <input type="color" id="corInline" value="#ff0000">
+            <label for="txtInline">Texto:</label>
+            <input type="text" id="txtInline" placeholder="Digite algo">
+            <button onclick="exemplo5()">Aplicar</button>
+            <div id="output5" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 6 -->
+    <div id="capitulo6" class="capitulo">
+        <h2>Capítulo 6: Formatação de Texto</h2>
+        <p>Tags como <code>&lt;del&gt;</code>, <code>&lt;ins&gt;</code>, <code>&lt;b&gt;</code>, <code>&lt;em&gt;</code>, etc., formatam partes do texto.</p>
+
+        <div class="tag-exemplo">
+            <h3>Alguns Exemplos</h3>
+            <p>Minha cor favorita é <del>azul</del> <ins>vermelho</ins>.</p>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;del&gt;Texto&lt;/del&gt; &lt;ins&gt;Texto&lt;/ins&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Selecione um estilo de formatação</h3>
+            <label for="textoFormat">Texto:</label>
+            <input type="text" id="textoFormat" placeholder="Digite algo">
+            <br>
+            <label for="tipoFormat">Formato:</label>
+            <select id="tipoFormat">
+                <option value="b">Negrito (&lt;b&gt;)</option>
+                <option value="em">Ênfase (&lt;em&gt;)</option>
+                <option value="i">Itálico (&lt;i&gt;)</option>
+                <option value="mark">Destacado (&lt;mark&gt;)</option>
+                <option value="del">Excluído (&lt;del&gt;)</option>
+                <option value="ins">Inserido (&lt;ins&gt;)</option>
+            </select>
+            <button onclick="exemplo6()">Aplicar</button>
+            <div id="output6" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 7 -->
+    <div id="capitulo7" class="capitulo">
+        <h2>Capítulo 7: Tag <code>&lt;q&gt;</code></h2>
+        <p><code>&lt;q&gt;</code> define uma citação curta, adicionando aspas automaticamente.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;q&gt;Texto da citação&lt;/q&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Digite sua citação</h3>
+            <input type="text" id="textoQ" placeholder="Sua citação curta">
+            <button onclick="exemplo7()">Citar</button>
+            <div id="output7" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 8 -->
+    <div id="capitulo8" class="capitulo">
+        <h2>Capítulo 8: Tag <code>&lt;blockquote&gt;</code></h2>
+        <p><code>&lt;blockquote&gt;</code> define uma citação longa em bloco, geralmente com recuo.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;blockquote&gt;Texto longo&lt;/blockquote&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie sua citação longa</h3>
+            <textarea id="textoBlock" rows="3" cols="30" placeholder="Digite o texto longo"></textarea>
+            <button onclick="exemplo8()">Exibir</button>
+            <div id="output8" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 9 -->
+    <div id="capitulo9" class="capitulo">
+        <h2>Capítulo 9: Tag <code>&lt;abbr&gt;</code></h2>
+        <p><code>&lt;abbr&gt;</code> define uma abreviação com um "tooltip" ao passar o mouse.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;abbr title="Organização Mundial da Saúde"&gt;OMS&lt;/abbr&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Defina uma abreviação</h3>
+            <label for="abbrShort">Abreviação:</label>
+            <input type="text" id="abbrShort" placeholder="Ex: OMS">
+            <label for="abbrTitle">Título (tooltip):</label>
+            <input type="text" id="abbrTitle" placeholder="Ex: Organização Mundial da Saúde">
+            <button onclick="exemplo9()">Aplicar</button>
+            <div id="output9" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 10 -->
+    <div id="capitulo10" class="capitulo">
+        <h2>Capítulo 10: Tag <code>&lt;cite&gt;</code></h2>
+        <p><code>&lt;cite&gt;</code> define o título de uma obra (geralmente renderizada em itálico).</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;cite&gt;The Scream&lt;/cite&gt; by Edvard Munch
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Cite uma obra</h3>
+            <label for="textoCite">Obra (título):</label>
+            <input type="text" id="textoCite" placeholder="Ex: The Scream">
+            <button onclick="exemplo10()">Citar</button>
+            <div id="output10" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 11 -->
+    <div id="capitulo11" class="capitulo">
+        <h2>Capítulo 11: Tag <code>&lt;bdo&gt;</code></h2>
+        <p><code>&lt;bdo&gt;</code> força a direção de leitura do texto (ltr ou rtl), ignorando a padrão.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;bdo dir="rtl"&gt;Texto da direita para a esquerda&lt;/bdo&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Direção de Texto</h3>
+            <label for="bdoText">Texto:</label>
+            <input type="text" id="bdoText" placeholder="Digite algo">
+            <label for="bdoDir">Direção:</label>
+            <select id="bdoDir">
+                <option value="ltr">Esquerda para Direita</option>
+                <option value="rtl">Direita para Esquerda</option>
+            </select>
+            <button onclick="exemplo11()">Aplicar</button>
+            <div id="output11" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 12 -->
+    <div id="capitulo12" class="capitulo">
+        <h2>Capítulo 12: Comentários em HTML</h2>
+        <p>Comentários (<code>&lt;!-- --&gt;</code>) são ignorados pelo navegador e podem ocultar trechos de código.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;!-- Este código não é exibido --&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Gerar Comentário</h3>
+            <input type="text" id="comentarioHtml" placeholder="Digite algo para comentar">
+            <button onclick="exemplo12()">Comentar</button>
+            <div id="output12" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 13 -->
+    <div id="capitulo13" class="capitulo">
+        <h2>Capítulo 13: Cores no HTML</h2>
+        <p>Defina cores no HTML via <code>style="color:..."</code>, <code>bgcolor</code> (mais antigo) ou via CSS.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código (Inline)</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;p style="color: Tomato;"&gt;Texto em Tomate&lt;/p&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Escolha uma cor para o texto</h3>
+            <label for="txtColor">Texto:</label>
+            <input type="text" id="txtColor" placeholder="Escreva algo">
+            <label for="colorPicker13">Cor:</label>
+            <input type="color" id="colorPicker13" value="#ff6347">
+            <button onclick="exemplo13()">Aplicar</button>
+            <div id="output13" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 14 -->
+    <div id="capitulo14" class="capitulo">
+        <h2>Capítulo 14: Bordas com Cores</h2>
+        <p>Defina bordas coloridas, espessura e estilo usando CSS (<code>border</code>).</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código (Inline)</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;p style="border:2px solid blue;"&gt;Texto com borda&lt;/p&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Customize a borda</h3>
+            <label for="borderColor14">Cor:</label>
+            <input type="color" id="borderColor14" value="#0000ff">
+            <label for="borderWidth14">Espessura:</label>
+            <input type="number" id="borderWidth14" value="2" min="1" max="10" style="width:60px;">
+            <button onclick="exemplo14()">Aplicar</button>
+            <div id="output14" class="exemplo-interativo-output">
+                <p id="borderExemplo14" style="border:2px solid #0000ff; padding:5px;">Texto com borda</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 15 -->
+    <div id="capitulo15" class="capitulo">
+        <h2>Capítulo 15: Valores de Cor (RGB, HEX, HSL, etc.)</h2>
+        <p>Podemos usar <code>rgb()</code>, <code>#hex</code>, <code>hsl()</code>, <code>rgba()</code>, <code>hsla()</code>, etc.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>/* Exemplo */
+background-color: rgb(255, 99, 71);
+background-color: #ff6347;
+background-color: hsl(9, 100%, 64%);
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Escolha um formato e cor</h3>
+            <select id="format15">
+                <option value="rgb(255, 0, 0)">RGB (vermelho)</option>
+                <option value="#00ff00">HEX (verde)</option>
+                <option value="hsl(240, 100%, 50%)">HSL (azul)</option>
+                <option value="rgba(255, 99, 71, 0.5)">RGBA (tomato semitransparente)</option>
+            </select>
+            <button onclick="exemplo15()">Aplicar</button>
+            <div id="output15" class="exemplo-interativo-output" style="min-height:60px;"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 16 -->
+    <div id="capitulo16" class="capitulo">
+        <h2>Capítulo 16: Links Externos (&lt;a&gt;)</h2>
+        <p><code>&lt;a href="URL"&gt;</code> cria um link. Com <code>target="_blank"</code> abre em nova aba.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;a href="https://www.exemplo.com" target="_blank"&gt;Clique aqui&lt;/a&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Crie seu link</h3>
+            <label for="linkURL16">URL:</label>
+            <input type="text" id="linkURL16" placeholder="https://">
+            <label for="linkText16">Texto do Link:</label>
+            <input type="text" id="linkText16" placeholder="Clique aqui">
+            <button onclick="exemplo16()">Gerar Link</button>
+            <div id="output16" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 17 -->
+    <div id="capitulo17" class="capitulo">
+        <h2>Capítulo 17: Atributo <code>src</code> em &lt;img&gt;</h2>
+        <p><code>&lt;img src="..."&gt;</code> define o caminho da imagem.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;img src="imagem.jpg" alt="Descrição"&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Exiba uma imagem</h3>
+            <label for="imgSrc17">URL da Imagem:</label>
+            <input type="text" id="imgSrc17" placeholder="https://exemplo.com/imagem.jpg">
+            <button onclick="exemplo17()">Mostrar</button>
+            <div id="output17" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 18 -->
+    <div id="capitulo18" class="capitulo">
+        <h2>Capítulo 18: width, height e alt em &lt;img&gt;</h2>
+        <p>Para controlar dimensões e texto alternativo em imagens.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>&lt;img src="foto.jpg" width="300" height="200" alt="Descrição"&gt;
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Ajuste dimensões</h3>
+            <label for="imgSrc18">URL:</label>
+            <input type="text" id="imgSrc18" placeholder="Link da imagem">
+            <label for="imgW18">Largura (px):</label>
+            <input type="number" id="imgW18" value="300" style="width:60px;">
+            <label for="imgH18">Altura (px):</label>
+            <input type="number" id="imgH18" value="200" style="width:60px;">
+            <label for="imgAlt18">Alt text:</label>
+            <input type="text" id="imgAlt18" placeholder="Ex: Foto de algo">
+            <button onclick="exemplo18()">Mostrar</button>
+            <div id="output18" class="exemplo-interativo-output"></div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 19 -->
+    <div id="capitulo19" class="capitulo">
+        <h2>Capítulo 19: O que é CSS?</h2>
+        <p><strong>CSS</strong> (Cascading Style Sheets) estiliza páginas web, definindo cores, fontes, layout, etc. “Cascading” indica que estilos do pai passam aos filhos se não forem sobrescritos.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Código (CSS Básico)</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>body {
+    background-color: lightblue;
+}
+h1 {
+    color: navy;
+    text-align: center;
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Escolha cor de fundo e cor do título</h3>
+            <label for="bgColor19">Cor do fundo:</label>
+            <input type="color" id="bgColor19" value="#add8e6">
+            <label for="h1Color19">Cor do h1:</label>
+            <input type="color" id="h1Color19" value="#000080">
+            <button onclick="exemplo19()">Aplicar</button>
+            <div id="output19" class="exemplo-interativo-output">
+                <h1 id="exemplo19h1">Título de Exemplo</h1>
+                <p>Observe como o CSS afeta a cor de fundo e a do título.</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CAPÍTULO 20 -->
+    <div id="capitulo20" class="capitulo">
+        <h2>Capítulo 20: Como o CSS Funciona?</h2>
+        <p>O CSS funciona em <em>cascata</em>. Regras gerais (ex: no <code>body</code>) se aplicam a todos os elementos, a menos que haja uma regra mais específica.</p>
+
+        <div class="tag-exemplo">
+            <h3>Exemplo de Cascata</h3>
+            <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código</button>
+            <div class="codigo-exemplo">
+<pre>body {
+    color: blue;   /* Tudo azul */
+}
+h1 {
+    color: red;    /* h1 fica vermelho, sobrescreve azul */
+}
+</pre>
+            </div>
+        </div>
+
+        <div class="exemplo-interativo">
+            <h3>Exemplo Interativo: Cor do Body e do H1</h3>
+            <label for="bodyColor20">Cor global (body):</label>
+            <input type="color" id="bodyColor20" value="#0000ff">
+            <label for="h1Color20">Cor do h1:</label>
+            <input type="color" id="h1Color20" value="#ff0000">
+            <button onclick="exemplo20()">Aplicar</button>
+            <div id="output20" class="exemplo-interativo-output">
+                <h1 id="ex20h1">Título de Exemplo</h1>
+                <p>Texto de parágrafo. Observe a herança de cor.</p>
+            </div>
+        </div>
+    </div>
+    
+    <!-- SUMÁRIO (Agora no baixo) -->
+    <div id="sumario">
+        <h2>Sumário</h2>
+        <ul>
+            <li><a href="#capitulo1"  onclick="irParaCapitulo(1)">Capítulo 1: O que é HTML</a></li>
+            <li><a href="#capitulo2"  onclick="irParaCapitulo(2)">Capítulo 2: Tag &lt;hr&gt;</a></li>
+            <li><a href="#capitulo3"  onclick="irParaCapitulo(3)">Capítulo 3: Tag &lt;br&gt;</a></li>
+            <li><a href="#capitulo4"  onclick="irParaCapitulo(4)">Capítulo 4: Tag &lt;pre&gt;</a></li>
+            <li><a href="#capitulo5"  onclick="irParaCapitulo(5)">Capítulo 5: CSS Inline</a></li>
+            <li><a href="#capitulo6"  onclick="irParaCapitulo(6)">Capítulo 6: Formatação de Texto</a></li>
+            <li><a href="#capitulo7"  onclick="irParaCapitulo(7)">Capítulo 7: Tag &lt;q&gt;</a></li>
+            <li><a href="#capitulo8"  onclick="irParaCapitulo(8)">Capítulo 8: Tag &lt;blockquote&gt;</a></li>
+            <li><a href="#capitulo9"  onclick="irParaCapitulo(9)">Capítulo 9: Tag &lt;abbr&gt;</a></li>
+            <li><a href="#capitulo10" onclick="irParaCapitulo(10)">Capítulo 10: Tag &lt;cite&gt;</a></li>
+            <li><a href="#capitulo11" onclick="irParaCapitulo(11)">Capítulo 11: Tag &lt;bdo&gt;</a></li>
+            <li><a href="#capitulo12" onclick="irParaCapitulo(12)">Capítulo 12: Comentários em HTML</a></li>
+            <li><a href="#capitulo13" onclick="irParaCapitulo(13)">Capítulo 13: Cores no HTML</a></li>
+            <li><a href="#capitulo14" onclick="irParaCapitulo(14)">Capítulo 14: Bordas com Cores</a></li>
+            <li><a href="#capitulo15" onclick="irParaCapitulo(15)">Capítulo 15: Valores de Cor</a></li>
+            <li><a href="#capitulo16" onclick="irParaCapitulo(16)">Capítulo 16: Links Externos (&lt;a&gt;)</a></li>
+            <li><a href="#capitulo17" onclick="irParaCapitulo(17)">Capítulo 17: Atributo src em &lt;img&gt;</a></li>
+            <li><a href="#capitulo18" onclick="irParaCapitulo(18)">Capítulo 18: width, height e alt</a></li>
+            <li><a href="#capitulo19" onclick="irParaCapitulo(19)">Capítulo 19: O que é CSS?</a></li>
+            <li><a href="#capitulo20" onclick="irParaCapitulo(20)">Capítulo 20: Como o CSS Funciona?</a></li>
+        </ul>
+    </div>
+
+
+
+    <!-- SCRIPTS JS -->
+    <script>
+        // Controle do capítulo atual
+        let capituloAtual = 1;
+        const maxCapitulos = 20;
+
+        function mudarCapitulo(direcao) {
+            document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+            capituloAtual += direcao;
+            if (capituloAtual > maxCapitulos) capituloAtual = 1;
+            if (capituloAtual < 1) capituloAtual = maxCapitulos;
+            document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function irParaCapitulo(numero) {
+            document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+            capituloAtual = numero;
+            document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function mostrarCodigo(btn) {
+            const codigoDiv = btn.nextElementSibling;
+            if (codigoDiv.style.display === "block") {
+                codigoDiv.style.display = "none";
+                btn.textContent = "Mostrar Código";
+            } else {
+                codigoDiv.style.display = "block";
+                btn.textContent = "Esconder Código";
+            }
+        }
+
+        // EXEMPLOS INTERATIVOS (um para cada capítulo)
+
+        // CAPÍTULO 1
+        function exemplo1() {
+            const titulo = document.getElementById('titulo1').value;
+            const paragrafo = document.getElementById('paragrafo1').value;
+            const out = document.getElementById('output1');
+            out.innerHTML = `<h1>${titulo}</h1><p>${paragrafo}</p>`;
+        }
+
+        // CAPÍTULO 2
+        function exemplo2() {
+            const color = document.getElementById('hrColor').value;
+            const thick = document.getElementById('hrThickness').value;
+            const hr = document.getElementById('hrExemplo');
+            hr.style.height = thick + 'px';
+            hr.style.backgroundColor = color;
+        }
+
+        // CAPÍTULO 3
+        function exemplo3() {
+            let texto = document.getElementById('textoBr').value;
+            // Substituir quebras de linha (\n) por <br>
+            texto = texto.replace(/\n/g, "<br>");
+            document.getElementById('output3').innerHTML = texto;
+        }
+
+        // CAPÍTULO 4
+        function exemplo4() {
+            const texto = document.getElementById('textoPre').value;
+            document.getElementById('output4').innerHTML = `<pre>${texto}</pre>`;
+        }
+
+        // CAPÍTULO 5
+        function exemplo5() {
+            const cor = document.getElementById('corInline').value;
+            const txt = document.getElementById('txtInline').value;
+            document.getElementById('output5').innerHTML = `<p style="color:${cor};">${txt}</p>`;
+        }
+
+        // CAPÍTULO 6
+        function exemplo6() {
+            const texto = document.getElementById('textoFormat').value;
+            const formato = document.getElementById('tipoFormat').value;
+            document.getElementById('output6').innerHTML = `<${formato}>${texto}</${formato}>`;
+        }
+
+        // CAPÍTULO 7
+        function exemplo7() {
+            const c = document.getElementById('textoQ').value;
+            document.getElementById('output7').innerHTML = `<q>${c}</q>`;
+        }
+
+        // CAPÍTULO 8
+        function exemplo8() {
+            const txt = document.getElementById('textoBlock').value;
+            document.getElementById('output8').innerHTML = `<blockquote>${txt}</blockquote>`;
+        }
+
+        // CAPÍTULO 9
+        function exemplo9() {
+            const short = document.getElementById('abbrShort').value;
+            const title = document.getElementById('abbrTitle').value;
+            document.getElementById('output9').innerHTML = `<abbr title="${title}">${short}</abbr>`;
+        }
+
+        // CAPÍTULO 10
+        function exemplo10() {
+            const obra = document.getElementById('textoCite').value;
+            document.getElementById('output10').innerHTML = `<cite>${obra}</cite>`;
+        }
+
+        // CAPÍTULO 11
+        function exemplo11() {
+            const text = document.getElementById('bdoText').value;
+            const dir = document.getElementById('bdoDir').value;
+            document.getElementById('output11').innerHTML = `<bdo dir="${dir}">${text}</bdo>`;
+        }
+
+        // CAPÍTULO 12
+        function exemplo12() {
+            const c = document.getElementById('comentarioHtml').value;
+            // Mostramos como seria o comentário
+            document.getElementById('output12').textContent = `<!-- ${c} --> (não aparece no HTML renderizado)`;
+        }
+
+        // CAPÍTULO 13
+        function exemplo13() {
+            const texto = document.getElementById('txtColor').value;
+            const cor = document.getElementById('colorPicker13').value;
+            document.getElementById('output13').innerHTML = `<p style="color:${cor};">${texto}</p>`;
+        }
+
+        // CAPÍTULO 14
+        function exemplo14() {
+            const c = document.getElementById('borderColor14').value;
+            const w = document.getElementById('borderWidth14').value;
+            const el = document.getElementById('borderExemplo14');
+            el.style.border = w + 'px solid ' + c;
+        }
+
+        // CAPÍTULO 15
+        function exemplo15() {
+            const val = document.getElementById('format15').value;
+            const out = document.getElementById('output15');
+            out.style.backgroundColor = val;
+            out.textContent = "Cor aplicada: " + val;
+        }
+
+        // CAPÍTULO 16
+        function exemplo16() {
+            const url = document.getElementById('linkURL16').value;
+            const txt = document.getElementById('linkText16').value;
+            document.getElementById('output16').innerHTML = `<a href="${url}" target="_blank">${txt}</a>`;
+        }
+
+        // CAPÍTULO 17
+        function exemplo17() {
+            const url = document.getElementById('imgSrc17').value;
+            document.getElementById('output17').innerHTML = `<img src="${url}" alt="Imagem">`;
+        }
+
+        // CAPÍTULO 18
+        function exemplo18() {
+            const url = document.getElementById('imgSrc18').value;
+            const w = document.getElementById('imgW18').value;
+            const h = document.getElementById('imgH18').value;
+            const alt = document.getElementById('imgAlt18').value;
+            const htmlImg = `<img src="${url}" width="${w}" height="${h}" alt="${alt}">`;
+            document.getElementById('output18').innerHTML = htmlImg;
+        }
+
+        // CAPÍTULO 19
+        function exemplo19() {
+            const bg = document.getElementById('bgColor19').value;
+            const c = document.getElementById('h1Color19').value;
+            // Aplicamos no container do exemplo
+            const out = document.getElementById('output19');
+            out.style.backgroundColor = bg;
+            document.getElementById('exemplo19h1').style.color = c;
+        }
+
+        // CAPÍTULO 20
+        function exemplo20() {
+            const bodyC = document.getElementById('bodyColor20').value;
+            const h1C = document.getElementById('h1Color20').value;
+            // simulando a cascata no container
+            const out = document.getElementById('output20');
+            out.style.color = bodyC; // cor global
+            document.getElementById('ex20h1').style.color = h1C; // sobrescreve
+        }
+    </script>
+
+    <!-- RODAPÉ -->
+      <footer>
+        <p>HTML &amp; CSS - 40 Capítulos Interativos © Yasmin!.  
+        Continue explorando e aprendendo cada vez mais!</p>
+    </footer>
+
+</body>
+</html>

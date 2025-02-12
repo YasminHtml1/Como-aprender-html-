@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Exemplos Interativos de HTML e CSS - Parte 3 (Capítulos 83 a 100)</title>
+  <link rel="icon" type="image/x-icon" href="https://via.placeholder.com/16">
+
+  <!-- Fonte Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <!-- Estilos CSS (Mesma estrutura das partes anteriores) -->
+  <style>
+    /* RESET */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(to top right, #ece9e6, #ffffff);
+      color: #333;
+      padding: 20px;
+    }
+    header { text-align: center; margin-bottom: 1.5rem; }
+    header h1 { font-weight: 600; font-size: 2rem; margin-bottom: 0.5rem; color: #2b2b2b; }
+    header p { font-size: 1rem; color: #555; }
+    #sumario {
+      background: #fff; padding: 1rem 1.5rem; border-radius: 10px;
+      margin-bottom: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    #sumario h2 { font-size: 1.4rem; margin-bottom: 0.8rem; color: #2b2b2b; }
+    #sumario ul { list-style: none; }
+    #sumario ul li { margin-bottom: 0.5rem; }
+    #sumario ul li a { color: #5c7cfa; text-decoration: none; font-weight: 500; transition: color 0.3s; }
+    #sumario ul li a:hover { color: #1c5ed6; }
+    .topo-navegacao {
+      display: flex; justify-content: center; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;
+    }
+    .topo-navegacao a, .topo-navegacao button {
+      padding: 0.7rem 1rem; text-decoration: none; border: none; border-radius: 25px;
+      background-color: #5c7cfa; color: #fff; cursor: pointer; font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .topo-navegacao a:hover, .topo-navegacao button:hover {
+      background-color: #3b5bdb; transform: translateY(-2px);
+    }
+    .capitulo {
+      display: none; background: #fff; padding: 1.5rem; border-radius: 10px;
+      margin-bottom: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .capitulo.ativo { display: block; }
+    .capitulo h2 { font-size: 1.6rem; margin-bottom: 1rem; color: #2b2b2b; }
+    .capitulo p { margin-bottom: 1rem; color: #444; }
+    .mostrar-codigo-btn {
+      margin: 0.5rem 0; padding: 0.4rem 0.8rem; background: #3b5bdb; color: #fff;
+      border: none; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+      transition: background-color 0.3s, transform 0.2s;
+    }
+    .mostrar-codigo-btn:hover { background: #274c9e; transform: translateY(-1px); }
+    .codigo-exemplo { display: none; margin-top: 0.5rem; }
+    pre {
+      background: #fff; padding: 0.8rem; overflow-x: auto; border: 1px solid #ddd;
+      border-radius: 5px; font-size: 0.9rem;
+    }
+    .exemplo-interativo {
+      background: #e7ffe6; border-left: 4px solid #51cf66; padding: 1rem; margin-top: 1rem;
+      border-radius: 5px;
+    }
+    .exemplo-interativo label { margin-right: 0.5rem; font-weight: 500; }
+    .exemplo-interativo input, .exemplo-interativo select, .exemplo-interativo textarea {
+      margin: 0.5rem 0; padding: 0.4rem; border: 1px solid #ccc; border-radius: 4px;
+    }
+    .exemplo-interativo button {
+      margin-top: 0.5rem; padding: 0.5rem 1rem; background: #2f9e44; color: #fff;
+      border: none; border-radius: 20px; cursor: pointer; font-size: 0.9rem; font-weight: 600;
+      transition: background 0.3s, transform 0.2s;
+    }
+    .exemplo-interativo button:hover { background: #1b6d2f; transform: translateY(-1px); }
+    .exemplo-interativo-output {
+      margin-top: 0.5rem; padding: 0.8rem; background: #fff; border: 1px solid #c8f5cf;
+      border-radius: 5px; min-height: 40px;
+    }
+    footer {
+      text-align: center; margin-top: 2rem; font-size: 0.9rem; color: #666;
+    }
+    @media (max-width: 600px) {
+      .topo-navegacao { flex-direction: column; align-items: center; }
+    }
+  </style>
+</head>
+<body>
+  <!-- CABEÇALHO -->
+  <header>
+    <h1>Exemplos Interativos de HTML e CSS - Parte 5</h1>
+    <p>Capítulos 83 a 100</p>
+  </header>
+
+  <!-- NAVEGAÇÃO SUPERIOR -->
+  <div class="topo-navegacao">
+   
+    <a href="html4.html">Parte 4 (60–80)</a>
+    <a href="html6.html">Parte 6 (100-130)</a>
+    <button onclick="mudarCapitulo(-1)">← Capítulo Anterior</button>
+    <button onclick="mudarCapitulo(1)">Próximo Capítulo →</button>
+  </div>
+
+  <!-- ==================== CAPÍTULO 83: Validação de Formulários com JavaScript ==================== -->
+  <div id="capitulo83" class="capitulo ativo">
+    <h2>Capítulo 83: Validação de Formulários com JavaScript</h2>
+    <p>Aprenda a utilizar a Constraint Validation API e validações personalizadas para garantir que os dados do formulário estejam corretos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;form id="form83"&gt;
+  &lt;label for="username83"&gt;Username (3 a 10 letras):&lt;/label&gt;
+  &lt;input type="text" id="username83" name="username" pattern="[A-Za-z]{3,10}" required&gt;
+  &lt;input type="submit" value="Enviar"&gt;
+&lt;/form&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Validação Personalizada</h3>
+    <div class="exemplo-interativo">
+      <label for="username83">Username:</label>
+      <input type="text" id="username83_inter" placeholder="Somente letras (3 a 10)">
+      <button onclick="exemplo83()">Validar</button>
+      <div id="output83" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>A Constraint Validation API permite validar formulários sem JavaScript adicional.</li>
+      <li>O atributo <code>pattern</code> e o atributo <code>required</code> ajudam a controlar a entrada.</li>
+      <li>É possível implementar validação personalizada com JavaScript.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 83 -->
+
+  <!-- ==================== CAPÍTULO 84: Imagens Responsivas ==================== -->
+  <div id="capitulo84" class="capitulo">
+    <h2>Capítulo 84: Imagens Responsivas: <code>&lt;picture&gt;</code>, <code>srcset</code> e <code>sizes</code></h2>
+    <p>Os elementos e atributos <code>&lt;picture&gt;</code>, <code>srcset</code> e <code>sizes</code> permitem exibir imagens apropriadas para diferentes tamanhos de tela e resoluções.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;picture&gt;
+  &lt;source media="(min-width: 650px)" srcset="https://via.placeholder.com/800x600"&gt;
+  &lt;source media="(min-width: 465px)" srcset="https://via.placeholder.com/600x450"&gt;
+  &lt;img src="https://via.placeholder.com/400x300" alt="Imagem Responsiva"&gt;
+&lt;/picture&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Alterar Tamanho da Tela</h3>
+    <div class="exemplo-interativo">
+      <p>Selecione uma "largura de tela" para simular:</p>
+      <select id="screenWidth84">
+        <option value="800">800px</option>
+        <option value="600">600px</option>
+        <option value="400">400px</option>
+      </select><br>
+      <button onclick="exemplo84()">Aplicar</button>
+      <div id="output84" class="exemplo-interativo-output">
+        &lt;picture&gt;
+          &lt;source media="(min-width: 650px)" srcset="https://via.placeholder.com/800x600"&gt;
+          &lt;source media="(min-width: 465px)" srcset="https://via.placeholder.com/600x450"&gt;
+          &lt;img src="https://via.placeholder.com/400x300" alt="Imagem Responsiva"&gt;
+        &lt;/picture&gt;
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>O elemento <code>&lt;picture&gt;</code> permite definir múltiplas fontes de imagem.</li>
+      <li>Os atributos <code>srcset</code> e <code>sizes</code> ajudam a escolher a imagem correta para o dispositivo.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 84 -->
+
+  <!-- ==================== CAPÍTULO 85: Acessibilidade com ARIA ==================== -->
+  <div id="capitulo85" class="capitulo">
+    <h2>Capítulo 85: Acessibilidade com ARIA</h2>
+    <p>As especificações ARIA (Accessible Rich Internet Applications) melhoram a acessibilidade dos elementos HTML, definindo papéis e propriedades para usuários com necessidades especiais.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;div role="navigation" aria-label="Menu Principal"&gt;
+  &lt;a href="#home"&gt;Home&lt;/a&gt;
+  &lt;a href="#about"&gt;Sobre&lt;/a&gt;
+&lt;/div&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulador ARIA</h3>
+    <div class="exemplo-interativo">
+      <label for="ariaRole85">Selecione um papel ARIA:</label>
+      <select id="ariaRole85">
+        <option value="navigation">navigation</option>
+        <option value="banner">banner</option>
+        <option value="complementary">complementary</option>
+        <option value="main">main</option>
+      </select><br>
+      <button onclick="exemplo85()">Aplicar</button>
+      <div id="output85" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>ARIA fornece atributos para melhorar a acessibilidade.</li>
+      <li>Usar roles e propriedades ARIA ajuda leitores de tela a interpretar a página.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 85 -->
+
+  <!-- ==================== CAPÍTULO 86: CSS Grid Layout ==================== -->
+  <div id="capitulo86" class="capitulo">
+    <h2>Capítulo 86: CSS Grid Layout</h2>
+    <p>O CSS Grid Layout permite criar layouts complexos em duas dimensões (linhas e colunas) de forma simples.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+.container {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+}
+.item {
+  background-color: #b0e0e6;
+  padding: 20px;
+  text-align: center;
+}
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Gerador de Grid</h3>
+    <div class="exemplo-interativo">
+      <label for="cols86">Número de colunas:</label>
+      <input type="number" id="cols86" value="3" min="1" max="6"><br>
+      <button onclick="exemplo86()">Gerar Grid</button>
+      <div id="output86" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>CSS Grid facilita a criação de layouts bidimensionais.</li>
+      <li>É poderoso para criar designs responsivos e complexos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 86 -->
+
+  <!-- ==================== CAPÍTULO 87: CSS Flexbox ==================== -->
+  <div id="capitulo87" class="capitulo">
+    <h2>Capítulo 87: CSS Flexbox</h2>
+    <p>O Flexbox organiza itens em uma única dimensão (linha ou coluna), facilitando a criação de layouts responsivos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+.item {
+  background-color: #ffe4b5;
+  padding: 10px;
+  margin: 5px;
+}
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Layout Flexbox</h3>
+    <div class="exemplo-interativo">
+      <label for="flexDirection87">Direção do Flex:</label>
+      <select id="flexDirection87">
+        <option value="row">row</option>
+        <option value="column">column</option>
+      </select><br>
+      <button onclick="exemplo87()">Aplicar Flexbox</button>
+      <div id="output87" class="exemplo-interativo-output" style="display: flex; border: 1px solid #ccc; padding: 10px;">
+        <div class="item">Item 1</div>
+        <div class="item">Item 2</div>
+        <div class="item">Item 3</div>
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Flexbox organiza itens em uma única linha ou coluna.</li>
+      <li>Facilita a distribuição de espaço e o alinhamento dos itens.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 87 -->
+
+  <!-- ==================== CAPÍTULO 88: CSS Animations e Transitions ==================== -->
+  <div id="capitulo88" class="capitulo">
+    <h2>Capítulo 88: CSS Animations e Transitions</h2>
+    <p>As transições e animações permitem alterar propriedades CSS de forma suave, criando efeitos visuais dinâmicos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+.box {
+  width: 100px;
+  height: 100px;
+  background: blue;
+  transition: background 0.5s;
+}
+.box:hover {
+  background: red;
+}
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Animação de Cor</h3>
+    <div class="exemplo-interativo">
+      <div class="box" id="box88" style="margin-bottom:10px;"></div>
+      <p>Passe o mouse sobre a caixa para ver a transição de cor.</p>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Transições suavizam a mudança de propriedades CSS.</li>
+      <li>Animações permitem criar efeitos complexos usando keyframes.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 88 -->
+
+  <!-- ==================== CAPÍTULO 89: CSS Variables (Custom Properties) ==================== -->
+  <div id="capitulo89" class="capitulo">
+    <h2>Capítulo 89: CSS Variables (Custom Properties)</h2>
+    <p>As variáveis CSS permitem armazenar valores reutilizáveis, facilitando a manutenção e a personalização do estilo.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+:root {
+  --main-color: blue;
+}
+.box {
+  width: 100px;
+  height: 100px;
+  background: var(--main-color);
+}
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Alterar Variável CSS</h3>
+    <div class="exemplo-interativo">
+      <label for="colorVar89">Cor principal:</label>
+      <input type="color" id="colorVar89" value="#0000FF"><br>
+      <button onclick="exemplo89()">Aplicar</button>
+      <div id="output89" class="exemplo-interativo-output">
+        <style id="styleVar89">
+          :root { --main-color: #0000FF; }
+          .box89 { width: 100px; height: 100px; background: var(--main-color); }
+        </style>
+        &lt;div class="box89"&gt;&lt;/div&gt;
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>CSS Variables facilitam a reutilização de valores de estilo.</li>
+      <li>São definidas em :root e usadas com a função <code>var()</code>.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 89 -->
+
+  <!-- ==================== CAPÍTULO 90: Media Queries e Design Responsivo ==================== -->
+  <div id="capitulo90" class="capitulo">
+    <h2>Capítulo 90: Media Queries e Design Responsivo</h2>
+    <p>Media queries permitem alterar estilos CSS com base em características do dispositivo, como largura da tela.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+@media (max-width: 600px) {
+  body { background-color: lightgray; }
+}
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Media Query</h3>
+    <div class="exemplo-interativo">
+      <label for="screenWidth90">Simule uma largura (px):</label>
+      <input type="number" id="screenWidth90" value="800"><br>
+      <button onclick="exemplo90()">Aplicar</button>
+      <div id="output90" class="exemplo-interativo-output" style="padding:10px;">
+        Este é o layout padrão.
+      </div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Media queries adaptam o estilo conforme as características do dispositivo.</li>
+      <li>São essenciais para design responsivo.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 90 -->
+
+  <!-- ==================== CAPÍTULO 91: CSS Specificity e Ordem de Cascata ==================== -->
+  <div id="capitulo91" class="capitulo">
+    <h2>Capítulo 91: CSS Specificity e Ordem de Cascata</h2>
+    <p>A especificidade determina qual regra CSS será aplicada quando há conflitos. Ela é baseada na contagem de seletores de ID, classes e elementos.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Exemplo: */
+#header { color: red; }       /* Específico */
+.nav { color: blue; }         /* Menos específico */
+p { color: green; }           /* Pouco específico */
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Calculadora de Specificity</h3>
+    <div class="exemplo-interativo">
+      <label for="selector91">Digite um seletor CSS:</label>
+      <input type="text" id="selector91" placeholder="ex: #header .nav p"><br>
+      <button onclick="exemplo91()">Calcular Specificity</button>
+      <div id="output91" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>CSS Specificity determina qual regra tem prioridade.</li>
+      <li>Regra de cascata: regras mais específicas sobrescrevem as menos específicas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 91 -->
+
+  <!-- ==================== CAPÍTULO 92: Metodologias CSS: BEM ==================== -->
+  <div id="capitulo92" class="capitulo">
+    <h2>Capítulo 92: Metodologias CSS: BEM</h2>
+    <p>BEM (Block Element Modifier) é uma convenção de nomenclatura que torna o CSS mais modular e reutilizável.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Exemplo BEM */
+.block { }
+.block__element { }
+.block--modifier { }
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Gerador de Classes BEM</h3>
+    <div class="exemplo-interativo">
+      <label for="blockName92">Nome do Bloco:</label>
+      <input type="text" id="blockName92" placeholder="ex: menu"><br>
+      <label for="elementName92">Nome do Elemento:</label>
+      <input type="text" id="elementName92" placeholder="ex: item"><br>
+      <label for="modifier92">Nome do Modificador (opcional):</label>
+      <input type="text" id="modifier92" placeholder="ex: ativo"><br>
+      <button onclick="exemplo92()">Gerar Classe BEM</button>
+      <div id="output92" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>BEM facilita a manutenção do CSS através de uma nomenclatura consistente.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 92 -->
+
+  <!-- ==================== CAPÍTULO 93: CSS Reset e Normalize ==================== -->
+  <div id="capitulo93" class="capitulo">
+    <h2>Capítulo 93: CSS Reset e Normalize</h2>
+    <p>Reset e Normalize ajudam a criar uma base consistente de estilos em diferentes navegadores.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Exemplo de CSS Reset simples */
+* { margin: 0; padding: 0; box-sizing: border-box; }
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Alternar Reset</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo93()">Mostrar Reset (simulado)</button>
+      <div id="output93" class="exemplo-interativo-output">Os estilos foram resetados.</div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>CSS Reset e Normalize padronizam estilos entre navegadores.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 93 -->
+
+  <!-- ==================== CAPÍTULO 94: Otimização de Performance Web ==================== -->
+  <div id="capitulo94" class="capitulo">
+    <h2>Capítulo 94: Otimização de Performance Web: Minificação e Critical CSS</h2>
+    <p>A otimização de performance envolve reduzir o tamanho de arquivos CSS/JS e carregar o CSS crítico primeiro.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Exemplo (simulado): Antes e depois da minificação */
+body {
+    background-color: #ffffff;
+    color: #333333;
+}
+/* Versão minificada: */
+body{background:#fff;color:#333}
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Minificar CSS (Simulação)</h3>
+    <div class="exemplo-interativo">
+      <label for="cssInput94">Digite CSS:</label>
+      <textarea id="cssInput94" rows="3" cols="40" placeholder="ex: body { background-color: white; color: #333; }"></textarea><br>
+      <button onclick="exemplo94()">Minificar</button>
+      <div id="output94" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Minificar CSS/JS reduz o tamanho dos arquivos e melhora o carregamento da página.</li>
+      <li>Critical CSS carrega primeiro os estilos essenciais para exibição.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 94 -->
+
+  <!-- ==================== CAPÍTULO 95: Service Workers e PWAs ==================== -->
+  <div id="capitulo95" class="capitulo">
+    <h2>Capítulo 95: Introdução a Service Workers e PWAs</h2>
+    <p>Service Workers são scripts que rodam em segundo plano e permitem funcionalidades como cache offline, notificações e atualização de conteúdo, essenciais para Progressive Web Apps (PWAs).</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!-- Exemplo simulado de registro de Service Worker --&gt;
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/sw.js')
+  .then(function(registration) {
+    console.log('Service Worker registrado com sucesso.');
+  })
+  .catch(function(error) {
+    console.log('Registro falhou: ', error);
+  });
+}
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de Registro de Service Worker</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo95()">Registrar Service Worker (Simulado)</button>
+      <div id="output95" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Service Workers permitem funcionalidades offline e melhoram a performance.</li>
+      <li>São essenciais para a criação de Progressive Web Apps.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 95 -->
+
+  <!-- ==================== CAPÍTULO 96: Fetch API e AJAX ==================== -->
+  <div id="capitulo96" class="capitulo">
+    <h2>Capítulo 96: Fetch API e AJAX</h2>
+    <p>A Fetch API permite fazer requisições HTTP assíncronas para buscar dados e atualizar a página sem recarregar.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+fetch("https://jsonplaceholder.typicode.com/posts/1")
+  .then(response =&gt; response.json())
+  .then(data =&gt; console.log(data))
+  .catch(error =&gt; console.error("Erro:", error));
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Buscar Dados com Fetch</h3>
+    <div class="exemplo-interativo">
+      <label for="url96">URL da API:</label>
+      <input type="text" id="url96" value="https://jsonplaceholder.typicode.com/posts/1"><br>
+      <button onclick="exemplo96()">Buscar Dados</button>
+      <div id="output96" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>A Fetch API substitui o XMLHttpRequest para requisições AJAX.</li>
+      <li>Permite obter dados de forma assíncrona e atualizar a página sem recarregar.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 96 -->
+
+  <!-- ==================== CAPÍTULO 97: Introdução aos WebSockets ==================== -->
+  <div id="capitulo97" class="capitulo">
+    <h2>Capítulo 97: Introdução aos WebSockets</h2>
+    <p>WebSockets permitem comunicação bidirecional em tempo real entre o cliente e o servidor.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+// Exemplo de criação de conexão WebSocket (simulado)
+var ws = new WebSocket("wss://echo.websocket.org");
+ws.onopen = function() {
+  ws.send("Olá, WebSocket!");
+};
+ws.onmessage = function(event) {
+  console.log("Mensagem recebida: " + event.data);
+};
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Simulação de WebSocket</h3>
+    <div class="exemplo-interativo">
+      <button onclick="exemplo97()">Conectar (Simulado)</button>
+      <div id="output97" class="exemplo-interativo-output">Conexão simulada: Mensagem de exemplo.</div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>WebSockets permitem comunicação em tempo real entre cliente e servidor.</li>
+      <li>Útil para aplicações como chats e jogos online.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 97 -->
+
+  <!-- ==================== CAPÍTULO 98: Recursos do JavaScript ES6+ ==================== -->
+  <div id="capitulo98" class="capitulo">
+    <h2>Capítulo 98: Recursos do JavaScript ES6+</h2>
+    <p>O ES6 introduziu recursos como <code>let</code>, <code>const</code>, funções arrow, template literals, e mais, que facilitam a escrita e manutenção do código.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+// Exemplo de template literals e arrow functions
+const nome = "Maria";
+const saudacao = () => `Olá, ${nome}!`;
+console.log(saudacao());
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Teste de ES6</h3>
+    <div class="exemplo-interativo">
+      <label for="nome98">Digite seu nome:</label>
+      <input type="text" id="nome98" placeholder="Maria"><br>
+      <button onclick="exemplo98()">Saudar</button>
+      <div id="output98" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Recursos do ES6+ melhoram a legibilidade e eficiência do código JavaScript.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 98 -->
+
+  <!-- ==================== CAPÍTULO 99: Progressive Enhancement e Graceful Degradation ==================== -->
+  <div id="capitulo99" class="capitulo">
+    <h2>Capítulo 99: Progressive Enhancement e Graceful Degradation</h2>
+    <p>Esses conceitos garantem que a página funcione bem em diferentes navegadores, adicionando melhorias onde possível ou degradando de forma adequada.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+/* Exemplo: CSS básico com melhoria progressiva */
+body { font-size: 16px; }
+@media (min-width: 600px) {
+  body { font-size: 18px; }
+}
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Seleção de Modo de Exibição</h3>
+    <div class="exemplo-interativo">
+      <label for="mode99">Escolha o modo:</label>
+      <select id="mode99">
+        <option value="enhanced">Enhanced</option>
+        <option value="basic">Basic</option>
+      </select><br>
+      <button onclick="exemplo99()">Aplicar</button>
+      <div id="output99" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Progressive Enhancement adiciona melhorias para navegadores modernos.</li>
+      <li>Graceful Degradation garante que a funcionalidade básica seja mantida em navegadores antigos.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 99 -->
+
+  <!-- ==================== CAPÍTULO 100: Conclusão e Próximos Passos ==================== -->
+  <div id="capitulo100" class="capitulo">
+    <h2>Capítulo 100: Conclusão e Próximos Passos</h2>
+    <p>Parabéns por concluir estes 100 capítulos! Agora é hora de aplicar seus conhecimentos e continuar aprendendo sobre desenvolvimento web avançado.</p>
+    <button class="mostrar-codigo-btn" onclick="mostrarCodigo(this)">Mostrar Código Exemplo</button>
+    <div class="codigo-exemplo">
+      <pre>
+&lt;!-- Exemplo de mensagem de conclusão --&gt;
+&lt;h2&gt;Obrigado por aprender HTML, CSS e JavaScript!&lt;/h2&gt;
+&lt;p&gt;Continue praticando e explore novas tecnologias como frameworks e PWAs.&lt;/p&gt;
+      </pre>
+    </div>
+    <h3>Exemplo Interativo: Mensagem Final</h3>
+    <div class="exemplo-interativo">
+      <label for="msgFinal100">Digite sua mensagem final:</label>
+      <input type="text" id="msgFinal100" placeholder="Obrigado pelo curso!"><br>
+      <button onclick="exemplo100()">Aplicar</button>
+      <div id="output100" class="exemplo-interativo-output"></div>
+    </div>
+    <h3>Resumo do Capítulo</h3>
+    <ul>
+      <li>Revise os conceitos aprendidos.</li>
+      <li>Planeje seus próximos passos no aprendizado do desenvolvimento web.</li>
+      <li>Continue praticando e se aprofundando em tecnologias avançadas.</li>
+    </ul>
+  </div>
+  <!-- Fim do Capítulo 100 -->
+
+  <!-- SUMÁRIO (Parte 3 - Capítulos 83 a 100) -->
+  <div id="sumario">
+    <h2>Sumário (Parte 5)</h2>
+    <ul>
+      <li><a href="#capitulo83" onclick="irParaCapitulo(83)">Capítulo 83: Validação de Formulários</a></li>
+      <li><a href="#capitulo84" onclick="irParaCapitulo(84)">Capítulo 84: Imagens Responsivas</a></li>
+      <li><a href="#capitulo85" onclick="irParaCapitulo(85)">Capítulo 85: Acessibilidade com ARIA</a></li>
+      <li><a href="#capitulo86" onclick="irParaCapitulo(86)">Capítulo 86: CSS Grid Layout</a></li>
+      <li><a href="#capitulo87" onclick="irParaCapitulo(87)">Capítulo 87: CSS Flexbox</a></li>
+      <li><a href="#capitulo88" onclick="irParaCapitulo(88)">Capítulo 88: CSS Animations e Transitions</a></li>
+      <li><a href="#capitulo89" onclick="irParaCapitulo(89)">Capítulo 89: CSS Variables</a></li>
+      <li><a href="#capitulo90" onclick="irParaCapitulo(90)">Capítulo 90: Media Queries</a></li>
+      <li><a href="#capitulo91" onclick="irParaCapitulo(91)">Capítulo 91: CSS Specificity</a></li>
+      <li><a href="#capitulo92" onclick="irParaCapitulo(92)">Capítulo 92: Metodologias CSS (BEM)</a></li>
+      <li><a href="#capitulo93" onclick="irParaCapitulo(93)">Capítulo 93: CSS Reset e Normalize</a></li>
+      <li><a href="#capitulo94" onclick="irParaCapitulo(94)">Capítulo 94: Otimização de Performance</a></li>
+      <li><a href="#capitulo95" onclick="irParaCapitulo(95)">Capítulo 95: Service Workers e PWAs</a></li>
+      <li><a href="#capitulo96" onclick="irParaCapitulo(96)">Capítulo 96: Fetch API e AJAX</a></li>
+      <li><a href="#capitulo97" onclick="irParaCapitulo(97)">Capítulo 97: WebSockets</a></li>
+      <li><a href="#capitulo98" onclick="irParaCapitulo(98)">Capítulo 98: Recursos do ES6+</a></li>
+      <li><a href="#capitulo99" onclick="irParaCapitulo(99)">Capítulo 99: Progressive Enhancement</a></li>
+      <li><a href="#capitulo100" onclick="irParaCapitulo(100)">Capítulo 100: Conclusão e Próximos Passos</a></li>
+    </ul>
+  </div>
+
+  <!-- SCRIPTS -->
+  <script>
+    // Função para alternar visualização do código
+    function mostrarCodigo(btn) {
+      var codigoDiv = btn.nextElementSibling;
+      if (codigoDiv.style.display === "block") {
+        codigoDiv.style.display = "none";
+        btn.textContent = "Mostrar Código";
+      } else {
+        codigoDiv.style.display = "block";
+        btn.textContent = "Ocultar Código";
+      }
+    }
+    // Navegação entre capítulos
+    let capituloAtual = 83;
+    const maxCapitulos = 100;
+    function mudarCapitulo(direcao) {
+      document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+      capituloAtual += direcao;
+      if (capituloAtual > maxCapitulos) capituloAtual = 83;
+      if (capituloAtual < 83) capituloAtual = maxCapitulos;
+      document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+    function irParaCapitulo(numero) {
+      document.getElementById('capitulo' + capituloAtual).classList.remove('ativo');
+      capituloAtual = numero;
+      document.getElementById('capitulo' + capituloAtual).classList.add('ativo');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    // Capítulo 83: Validação de Formulários
+    function exemplo83() {
+      var input = document.getElementById("username83_inter").value;
+      var pattern = /^[A-Za-z]{3,10}$/;
+      if (!pattern.test(input)) {
+        document.getElementById("output83").textContent = "Entrada inválida! Digite de 3 a 10 letras.";
+      } else {
+        document.getElementById("output83").textContent = "Username válido: " + input;
+      }
+    }
+
+    // Capítulo 84: Imagens Responsivas
+    function exemplo84() {
+      // Simulação: Alterar uma mensagem de acordo com a "largura de tela" selecionada.
+      var width = document.getElementById("screenWidth84").value;
+      var msg = "";
+      if (width >= 650) {
+        msg = "Exibindo imagem de alta resolução (800x600).";
+      } else if (width >= 465) {
+        msg = "Exibindo imagem de resolução média (600x450).";
+      } else {
+        msg = "Exibindo imagem de baixa resolução (400x300).";
+      }
+      document.getElementById("output84").innerHTML = msg;
+    }
+
+    // Capítulo 85: ARIA
+    function exemplo85() {
+      var role = document.getElementById("ariaRole85").value;
+      var descricao = "";
+      switch(role) {
+        case "navigation":
+          descricao = "Define uma área de navegação.";
+          break;
+        case "banner":
+          descricao = "Define uma área de cabeçalho.";
+          break;
+        case "complementary":
+          descricao = "Define conteúdo complementar.";
+          break;
+        case "main":
+          descricao = "Define o conteúdo principal da página.";
+          break;
+        default:
+          descricao = "Papel não definido.";
+      }
+      document.getElementById("output85").textContent = "Role ARIA: " + role + " – " + descricao;
+    }
+
+    // Capítulo 86: CSS Grid Layout
+    function exemplo86() {
+      var cols = document.getElementById("cols86").value;
+      var container = document.createElement("div");
+      container.className = "grid-container";
+      container.style.display = "grid";
+      container.style.gridTemplateColumns = "repeat(" + cols + ", 1fr)";
+      container.style.gap = "10px";
+      // Criar 6 itens
+      container.innerHTML = "";
+      for (var i = 1; i <= 6; i++) {
+        var item = document.createElement("div");
+        item.className = "grid-item";
+        item.style.background = "#b0e0e6";
+        item.style.padding = "20px";
+        item.style.textAlign = "center";
+        item.textContent = "Item " + i;
+        container.appendChild(item);
+      }
+      document.getElementById("output86").innerHTML = "";
+      document.getElementById("output86").appendChild(container);
+    }
+
+    // Capítulo 87: CSS Flexbox
+    function exemplo87() {
+      var direction = document.getElementById("flexDirection87").value;
+      var container = document.getElementById("output87");
+      container.style.display = "flex";
+      container.style.flexDirection = direction;
+      container.style.justifyContent = "space-around";
+      container.style.alignItems = "center";
+    }
+
+    // Capítulo 88: CSS Animations e Transitions
+    // O exemplo interativo utiliza :hover definido em CSS, sem função JS específica.
+    // Basta observar o efeito ao passar o mouse sobre a caixa (classe .box).
+
+    // Capítulo 89: CSS Variables
+    function exemplo89() {
+      var cor = document.getElementById("colorVar89").value;
+      document.getElementById("styleVar89").textContent = ":root { --main-color: " + cor + "; }";
+      document.getElementById("output89").innerHTML = document.getElementById("output89").innerHTML; // Atualiza o estilo
+    }
+
+    // Capítulo 90: Media Queries
+    function exemplo90() {
+      var width = document.getElementById("screenWidth90").value;
+      var output = document.getElementById("output90");
+      if (width < 600) {
+        output.textContent = "Simulação: Tela pequena. Fundo alterado para lightgray.";
+        output.style.backgroundColor = "lightgray";
+      } else {
+        output.textContent = "Simulação: Tela grande. Layout padrão.";
+        output.style.backgroundColor = "";
+      }
+    }
+
+    // Capítulo 91: CSS Specificity
+    function exemplo91() {
+      var selector = document.getElementById("selector91").value;
+      // Cálculo simples: número de IDs, classes e elementos
+      var idCount = (selector.match(/#[A-Za-z0-9_-]+/g) || []).length;
+      var classCount = (selector.match(/\.[A-Za-z0-9_-]+/g) || []).length;
+      var elementCount = (selector.replace(/[#.]/g, "").match(/[A-Za-z0-9]+/g) || []).length;
+      var specificity = (idCount * 100) + (classCount * 10) + elementCount;
+      document.getElementById("output91").textContent = "Specificity: " + specificity;
+    }
+
+    // Capítulo 92: BEM Generator
+    function exemplo92() {
+      var block = document.getElementById("blockName92").value.trim();
+      var element = document.getElementById("elementName92").value.trim();
+      var modifier = document.getElementById("modifier92").value.trim();
+      if (!block) block = "block";
+      var bem = block;
+      if (element) bem += "__" + element;
+      if (modifier) bem += "--" + modifier;
+      document.getElementById("output92").textContent = "Classe BEM gerada: " + bem;
+    }
+
+    // Capítulo 93: CSS Reset (Simulação)
+    function exemplo93() {
+      alert("Simulação: O CSS Reset foi aplicado (veja a mensagem).");
+      document.getElementById("output93").textContent = "Estilos reset aplicados (simulado).";
+    }
+
+    // Capítulo 94: CSS Minification (Simulação)
+    function exemplo94() {
+      var css = document.getElementById("cssInput94").value;
+      var minified = css.replace(/\s+/g, " ").trim();
+      document.getElementById("output94").textContent = "CSS Minificado: " + minified;
+    }
+
+    // Capítulo 95: Service Workers (Simulação)
+    function exemplo95() {
+      // Simulação: Como se registrasse um SW
+      document.getElementById("output95").innerHTML = "Service Worker registrado com sucesso (simulado).";
+    }
+
+    // Capítulo 96: Fetch API e AJAX
+    function exemplo96() {
+      var url = document.getElementById("url96").value;
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById("output96").textContent = JSON.stringify(data, null, 2);
+        })
+        .catch(error => {
+          document.getElementById("output96").textContent = "Erro: " + error;
+        });
+    }
+
+    // Capítulo 97: WebSockets (Simulação)
+    function exemplo97() {
+      // Como não podemos abrir uma conexão real sem servidor, simulamos uma mensagem.
+      document.getElementById("output97").textContent = "Simulação: Conexão WebSocket estabelecida. Mensagem: Olá do servidor!";
+    }
+
+    // Capítulo 98: Recursos do ES6+
+    function exemplo98() {
+      var nome = document.getElementById("nome98").value;
+      if (!nome) nome = "Visitante";
+      // Utilizando template literals e arrow function
+      const saudacao = () => `Olá, ${nome}! Bem-vindo ao ES6+!`;
+      document.getElementById("output98").textContent = saudacao();
+    }
+
+    // Capítulo 99: Progressive Enhancement
+    function exemplo99() {
+      var mode = document.getElementById("mode99").value;
+      var msg = mode === "enhanced" ? "Conteúdo aprimorado com recursos avançados." : "Conteúdo básico para navegadores antigos.";
+      document.getElementById("output99").textContent = msg;
+    }
+
+    // Capítulo 100: Conclusão e Próximos Passos
+    function exemplo100() {
+      var msgFinal = document.getElementById("msgFinal100").value;
+      if (!msgFinal) msgFinal = "Obrigado por completar o curso!";
+      document.getElementById("output100").innerHTML = "<h2>" + msgFinal + "</h2><p>Agora é hora de aplicar seus conhecimentos e explorar tecnologias avançadas.</p>";
+    }
+  </script>
+
+  <!-- RODAPÉ -->
+  <footer>
+    <p>HTML &amp; CSS - Parte 5 (Capítulos 83 a 100) © yasmin. Continue explorando e aprendendo!</p>
+  </footer>
+</body>
+</html>
