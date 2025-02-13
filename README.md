@@ -39,7 +39,7 @@ Se você deseja dar vida às suas páginas e torná-las visualmente incríveis, 
 ## Próximos Passos
 
 Em breve, adicionaremos mais tópicos e linguagens para expandir seu conhecimento, como:
-- Java
+- Java ☕
 - C#
 - E outras linguagens
 
